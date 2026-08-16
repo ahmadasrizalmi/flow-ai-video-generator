@@ -41,14 +41,15 @@ const PRESETS = [
   {
     id: 'pov',
     label: 'POV / Mukbang',
-    focus: 'Sudut pandang orang pertama: subjek tak terlihat / hanya mulut + tangan, fokus produk + suara ASMR.',
+    focus: 'Sudut pandang orang pertama: subjek tampil parsial (bagian bawah wajah, tangan, hijab di frame bawah), fokus produk + suara ASMR.',
     rules: [
-      'POV orang pertama: kamera = mata subjek, subjek TIDAK terlihat penuh.',
-      'Yang terlihat: tangan memegang produk, mulut saat makan (untuk mukbang), produk di depan kamera.',
+      'POV orang pertama dengan subjek PARSIAL: bagian bawah wajah (mulut, dagu, pipi), tangan, dan hijab boleh tampil di frame bawah.',
+      'Subjek TIDAK tampil penuh: dahi ke dagu penuh tanpa hijab tidak ditampilkan; tatapan mata langsung ke lensa dihindari.',
+      'Yang terlihat: tangan memegang produk, mulut saat makan (untuk mukbang), hijab/aksesori (mis. stiker pipi) di tepi bawah frame, produk di depan kamera.',
       'Fokus utama: produk dan reaksi suara (ASMR: suara makan nikmat, kemasan dibuka, tekstur).',
       'Close-up ekstrem pada detail produk: tekstur, potongan, guratan.',
-      'Tidak ada wajah penuh subjek kecuali disepakati.',
-      'Konsisten dengan deskripsi produk yang diberikan.'
+      'Wajah penuh subjek hanya bila disepakati.',
+      'Konsisten dengan deskripsi subjek yang diberikan (hijab, warna pakaian, aksesori disebut saat relevan).'
     ],
     defaults: { shots: 8, duration: 10, style: 'first-person POV close-up', audio: 'ASMR jelas + mikrofon dekat (sensasi mukbang)' }
   },
