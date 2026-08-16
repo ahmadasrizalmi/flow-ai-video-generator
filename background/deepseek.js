@@ -71,7 +71,9 @@ export async function chatCompletion(opts) {
 
 /**
  * Parse output DeepSeek (teks) menjadi array shot.
- * Tahan terhadap pembungkus ```json ... ``` atau teks sampah di tepi.
+ * 1) Coba JSON (tahan terhadap ```json fence atau teks sampah di tepi).
+ * 2) Fallback: baris daftar bernomor dgn timestamp, mis.
+ *    "1. 0:00-0:10 — teks prompt" → jadikan shot sederhana.
  */
 export function parseShots(text) {
   let t = String(text || '').trim();
@@ -79,14 +81,23 @@ export function parseShots(text) {
   if (fence) t = fence[1].trim();
   const start = t.indexOf('[');
   const end = t.lastIndexOf(']');
-  if (start === -1 || end === -1 || end <= start) {
-    return { ok: false, error: 'output bukan JSON array' };
+  if (start !== -1 && end > start) {
+    try {
+      const arr = JSON.parse(t.slice(start, end + 1));
+      if (Array.isArray(arr)) return { ok: true, shots: arr };
+    } catch (e) { /* lanjut ke fallback */ }
   }
-  try {
-    const arr = JSON.parse(t.slice(start, end + 1));
-    if (!Array.isArray(arr)) return { ok: false, error: 'output bukan array' };
-    return { ok: true, shots: arr };
-  } catch (e) {
-    return { ok: false, error: 'parse JSON gagal: ' + e.message };
+  // Fallback: baris bernomor, mis. "1. 0:00-0:10 — Halo semuanya! ..."
+  const shots = [];
+  const lines = t.split(/\r?\n/);
+  for (const line of lines) {
+    const m = line.trim().match(/^\s*\d+[.)]\s*(?:([0-9]+:[0-9]+(?:-[0-9:]+)?)\s*[\-–—]\s*)?(.+)$/);
+    if (!m) continue;
+    const ts = m[1] || '';
+    const body = (m[2] || '').trim();
+    if (!body) continue;
+    shots.push({ n: shots.length + 1, ts, narasi: '', visual: '', kamera: '', speed: '', effect: '', prompt_flow: body });
   }
+  if (shots.length) return { ok: true, shots };
+  return { ok: false, error: 'output bukan JSON array / daftar shot dikenali' };
 }

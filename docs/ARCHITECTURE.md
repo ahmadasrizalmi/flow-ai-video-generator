@@ -130,6 +130,16 @@ Alur per shot (diwarisi dari extension lama, diperbarui):
 6. [x] `background/inject.js` Path A→B→C
 7. [x] `background/deepseek.js` (client + builder)
 8. [x] `panel/*` UI + Generate + preview shot + **Mulai Batch (runOneShot lengkap)**
-9. [ ] **Uji end-to-end di Flow (1 shot dulu → lalu batch penuh)** ← di sini
-   - Load unpacked → isi API key → Generate → Mulai Batch
-   - Periksa: inject image (Path A clipboard paste), prompt terkirim, video jadi, download.
+9. [x] **Uji e2e pertama** — 3 issue ditemukan & diperbaiki:
+    - **Image tak terinject** → Path A diubah: clipboard write via CDP `Runtime.evaluate`
+      (main world) + `Browser.grantPermissions` + fokus tab dulu, lalu Ctrl+V trusted;
+      plus verifikasi blob-image bertambah (thumbnail).
+    - **Rasio** → dropdown 16:9/9:16 + `applyVideoRatio` (Setelan agen Flow via CDP,
+      pola extension lama) di-port ke content/panel.
+    - **DeepSeek tak berkesinambungan** → prompt engine diperbarui: format
+      `Video_Prompt_Final.txt` (NARASI utuh + SHOT n + kesinambungan wajib),
+      field `narration` di panel (narasi dibagi per shot), tombol "Salin Script (.txt)",
+      parser fallback utk output daftar bernomor.
+10. [ ] **Uji e2e ulang di Flow** (1 shot dulu → lalu batch penuh) ← di sini
+    - Load unpacked → isi API key → tempel narasi → Generate → Mulai Batch
+    - Periksa: inject image (Path A CDP), rasio ter-set, prompt berkesinambungan, download.

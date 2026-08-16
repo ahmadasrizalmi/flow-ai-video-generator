@@ -360,11 +360,18 @@ async function onBatch() {
   (st0.videoTiles || []).forEach((t) => S.knownVideoUuids.add(t.uuid));
   await closeDetailIfOpen();
 
+  // 3b. terapkan rasio di Setelan agen (bila diaktifkan)
+  if ($('optApplyRatio').checked) {
+    await applyVideoRatio($('optRatio').value);
+  }
+
   // 4. inject image reference (sekali di awal batch)
   if (S.image) {
     log('Inject image reference…');
     const inj = await sendToBg({ type: 'INJ_IMAGE', img: S.image });
-    log(inj.ok ? '  ✓ Image terpasang (' + inj.path + ')' : '  ! Image gagal: ' + inj.error, inj.ok ? 'ok' : 'err');
+    log(inj.ok
+      ? '  ✓ Image terpasang (' + inj.path + (inj.verified ? ', thumbnail muncul' : ', verifikasi manual disarankan') + ')'
+      : '  ! Image gagal: ' + inj.error, inj.ok ? 'ok' : 'err');
     await sleep(1500);
   }
 

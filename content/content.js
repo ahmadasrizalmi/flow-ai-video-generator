@@ -155,6 +155,57 @@
     return null;
   }
 
+  // ---------- Setelan agen Flow: rasio video (16:9 / 9:16) ----------
+  function getSettingsButton() {
+    const txt = 'Setelan';
+    let b = $$('button').find((x) => (x.innerText || '').includes(txt) && (x.className || '').toString().includes('sc-c4e423a0'));
+    if (!b || !isVisible(b)) {
+      b = $$('button').find((x) => (x.innerText || '').trim() === txt && isVisible(x));
+    }
+    return (b && isVisible(b)) ? b : null;
+  }
+
+  function findVideoSection() {
+    let header = null;
+    for (const el of $$('*')) {
+      if (el.children.length === 0 && (el.innerText || '').trim() === 'Default pembuatan video') header = el;
+    }
+    if (!header) return null;
+    let root = header.parentElement;
+    for (let i = 0; i < 8 && root; i++) {
+      if ((root.innerText || '').includes('Omni Flash')) break;
+      root = root.parentElement;
+    }
+    return root;
+  }
+
+  function getVideoRatioButtons() {
+    const sec = findVideoSection();
+    if (!sec) return [];
+    return $$('button', sec).filter((b) => {
+      const txt = (b.innerText || '').trim().replace(/\s+/g, ' ');
+      return /crop_(landscape|portrait|square)\b/i.test(txt) ||
+             /(?:^|\s)(16\s*:\s*9|9\s*:\s*16|1\s*:\s*1)(?:\s|$)/i.test(txt) ||
+             /(16\s*:\s*9|9\s*:\s*16).{0,20}(landscape|portrait)/i.test(txt);
+    });
+  }
+
+  function getActiveVideoRatio() {
+    const btns = getVideoRatioButtons();
+    const active = btns.find((b) =>
+      b.getAttribute('data-state') === 'active' ||
+      b.getAttribute('aria-pressed') === 'true' ||
+      b.getAttribute('aria-selected') === 'true'
+    );
+    return active ? (active.innerText || '').trim().split('\n').join(' ').replace(/^crop_\S+\s*/, '') : null;
+  }
+
+  function openSettingsPanel() {
+    const b = getSettingsButton();
+    if (b) { syntheticClick(b); return true; }
+    return false;
+  }
+
   // ---------- operasi sintetik aman ----------
   function syntheticClick(el) {
     if (!el) return false;
@@ -275,6 +326,50 @@
             if (b && isVisible(b)) syntheticClick(b);
             return sendResponse({ ok: true });
           }
+        case 'FLOW_COUNT_IMAGES':
+          // jumlah img blob:/data: (untuk verifikasi paste thumbnail)
+          return sendResponse({ ok: true, blobImgs: $$('img').filter((i) => /^(blob:|data:)/.test(i.src || '')).length });
+        case 'FLOW_OPEN_SETTINGS':
+          return sendResponse({ ok: openSettingsPanel() });
+        case 'FLOW_SETTINGS_OPEN':
+          return sendResponse({ ok: !!findVideoSection() });
+        case 'FLOW_GET_SETTINGS_COORDS':
+          {
+            const b = getSettingsButton();
+            if (!b) return sendResponse({ ok: false, reason: 'tombol Setelan tidak ditemukan' });
+            const r = b.getBoundingClientRect();
+            return sendResponse({ ok: true, coords: { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2) } });
+          }
+        case 'FLOW_GET_ACTIVE_RATIO':
+          return sendResponse({ ok: true, ratio: getActiveVideoRatio() });
+        case 'FLOW_GET_RATIO_COORDS': {
+          const want = String(msg.ratio || '');
+          const b = getVideoRatioButtons().find((x) =>
+            (x.innerText || '').includes(want) && x.getAttribute('data-state') !== 'active'
+          );
+          if (!b || !isVisible(b)) return sendResponse({ ok: false, reason: 'rasio tidak ditemukan / sudah aktif' });
+          try { b.scrollIntoView({ block: 'center', inline: 'center' }); } catch (e) {}
+          await sleep(400);
+          const r = b.getBoundingClientRect();
+          return sendResponse({ ok: true, coords: { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2) }, dataState: b.getAttribute('data-state') });
+        }
+        case 'FLOW_GET_SAVE_COORDS':
+          {
+            const b = btnByText('Simpan');
+            if (!b || !isVisible(b)) return sendResponse({ ok: false, reason: 'tombol Simpan tidak terlihat' });
+            const r = b.getBoundingClientRect();
+            return sendResponse({ ok: true, coords: { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2) } });
+          }
+        case 'FLOW_CLOSE_SETTINGS': {
+          const btns = $$('button').filter(isVisible);
+          const back = btns.find((b) => (b.innerText || '').includes('Kembali') && (b.className || '').includes('sc-b9a'));
+          const close = btns.find((b) => (b.innerText || '').includes('Tutup'));
+          if (findVideoSection() && (back || close)) {
+            syntheticClick(back || close);
+            return sendResponse({ ok: true, closed: true });
+          }
+          return sendResponse({ ok: true, closed: false });
+        }
         case 'FLOW_DISMISS_MODALS':
           return sendResponse(await dismissModals());
         case 'FLOW_COPY_IMAGE':
