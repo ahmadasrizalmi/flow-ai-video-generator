@@ -282,6 +282,16 @@
   }
 
   // ---------- diagnostics ----------
+  function abToB64(buf) {
+    const bytes = new Uint8Array(buf);
+    let bin = '';
+    const CHUNK = 0x8000;
+    for (let i = 0; i < bytes.length; i += CHUNK) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+    }
+    return btoa(bin);
+  }
+
   function scanPage() {
     const out = { state: getState(), findings: {} };
     const box = getPromptBox();
@@ -329,6 +339,27 @@
         case 'FLOW_COUNT_IMAGES':
           // jumlah img blob:/data: (untuk verifikasi paste thumbnail)
           return sendResponse({ ok: true, blobImgs: $$('img').filter((i) => /^(blob:|data:)/.test(i.src || '')).length });
+        case 'FLOW_FETCH_MEDIA': {
+          // Ambil file media SAME-ORIGIN (cookie Flow otomatis terkirim),
+          // redirect signed URL tetap diikuti. Kirim base64 utk di-crop vertikal.
+          try {
+            const resp = await fetch(msg.url, { credentials: 'same-origin', redirect: 'follow' });
+            if (!resp.ok) return sendResponse({ ok: false, error: 'HTTP ' + resp.status });
+            const buf = await resp.arrayBuffer();
+            const max = 100 * 1024 * 1024;
+            if (buf.byteLength > max) {
+              return sendResponse({ ok: false, error: 'media terlalu besar (' + Math.round(buf.byteLength / 1048576) + ' MB)' });
+            }
+            return sendResponse({
+              ok: true,
+              data: abToB64(buf),
+              size: buf.byteLength,
+              mime: resp.headers.get('content-type') || 'video/mp4'
+            });
+          } catch (e) {
+            return sendResponse({ ok: false, error: e.message });
+          }
+        }
         case 'FLOW_OPEN_SETTINGS':
           return sendResponse({ ok: openSettingsPanel() });
         case 'FLOW_SETTINGS_OPEN':

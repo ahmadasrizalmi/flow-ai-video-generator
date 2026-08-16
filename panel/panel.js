@@ -239,6 +239,96 @@ async function downloadDirect(tile, safeName) {
   return res.ok ? { ok: true, filename: res.filename } : res;
 }
 
+// ============ mode vertikal (crop 9:16) — garansi rasio ============
+// Omni Flash di Flow sering TETAP output 16:9 walau 9:16 di Setelan agen.
+// Solusi (pola extension lama): ambil video asli → crop tengah 9:16 → WebM.
+function b64ToBlob(b64, mime) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type: mime || 'video/mp4' });
+}
+
+/** Crop video asli ke tengah 9:16 via canvas + MediaRecorder (WebM). */
+async function cropToVerticalBlob(srcBlob) {
+  const W = 720, H = 1280, FPS = 30, BPS = 8000000;
+  const url = URL.createObjectURL(srcBlob);
+  let rec = null;
+  try {
+    const v = document.createElement('video');
+    v.src = url; v.muted = true; v.playsInline = true; v.preload = 'auto';
+    await new Promise((res, rej) => {
+      const to = setTimeout(() => rej(new Error('timeout memuat video')), 60000);
+      v.onloadeddata = () => { clearTimeout(to); res(); };
+      v.onerror = () => { clearTimeout(to); rej(new Error('video asli tidak bisa didecode')); };
+    });
+    if (!v.videoWidth || !v.videoHeight) throw new Error('video asli tanpa dimensi valid');
+    const canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    const stream = canvas.captureStream(FPS);
+    const mimes = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
+    const mime = mimes.find((m) => MediaRecorder.isTypeSupported(m));
+    if (!mime) throw new Error('MediaRecorder WebM tidak didukung browser');
+    rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: BPS });
+    const chunks = [];
+    rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+    const stopped = new Promise((res) => { rec.onstop = () => res(new Blob(chunks, { type: mime.split(';')[0] })); });
+    // center-crop cover: isi penuh tinggi, potong samping (16:9 → 9:16)
+    const draw = () => {
+      const sW = v.videoWidth, sH = v.videoHeight;
+      if (!sW || !sH) return;
+      const scale = Math.max(W / sW, H / sH);
+      const sw = W / scale, sh = H / scale;
+      ctx.drawImage(v, (sW - sw) / 2, (sH - sh) / 2, sw, sh, 0, 0, W, H);
+    };
+    draw();
+    rec.start(500);
+    await v.play();
+    await new Promise((res) => {
+      let raf = 0;
+      const loop = () => { draw(); if (!v.ended) raf = requestAnimationFrame(loop); else res(); };
+      v.onended = () => { cancelAnimationFrame(raf); res(); };
+      loop();
+    });
+    await sleep(400);
+    rec.stop();
+    return await stopped;
+  } catch (e) {
+    if (rec && rec.state === 'recording') { try { rec.stop(); } catch (_) {} }
+    throw e;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+/** Mode vertikal: fetch video asli → crop tengah 9:16 → download WebM. */
+async function tryDownloadVertical(tile, safeName) {
+  const url = `https://labs.google/fx/api/trpc/media.getMediaUrlRedirect?name=${tile.uuid}`;
+  log('  ↻ Ambil video asli (uuid ' + tile.uuid.slice(0, 8) + ') utk crop 9:16…', 's');
+  const r = await sendToContent({ type: 'FLOW_FETCH_MEDIA', url });
+  if (!r.ok) return { ok: false, error: r.error || 'fetch media gagal' };
+  log('  ↻ Video asli ' + Math.round((r.size || 0) / 1048576) + ' MB — crop tengah 9:16…', 's');
+  const srcBlob = b64ToBlob(r.data, r.mime || 'video/mp4');
+  let vblob;
+  try {
+    vblob = await cropToVerticalBlob(srcBlob);
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+  const filename = safeName + '_vertikal.webm';
+  log('  ↻ Download vertikal: ' + filename + ' (' + Math.round(vblob.size / 1048576) + ' MB)…', 's');
+  const dlUrl = URL.createObjectURL(vblob);
+  try {
+    const dl = await sendToBg({ type: 'BG_DOWNLOAD', url: dlUrl, filename });
+    if (!dl.ok) return { ok: false, error: dl.error || 'download gagal' };
+    const res = await waitDownloadDone(dl.downloadId, 180000);
+    return res.ok ? { ok: true, filename: res.filename } : res;
+  } finally {
+    setTimeout(() => URL.revokeObjectURL(dlUrl), 60000);
+  }
+}
+
 // ============ init ============
 async function init() {
   const sel = $('presetSelect');
@@ -507,11 +597,34 @@ async function runOneShot(shot) {
   S.knownVideoUuids.add(tile.uuid);
   log('  ✓ Video jadi (uuid ' + tile.uuid.slice(0, 8) + ')', 'ok');
 
-  // 6. download
+  // 6. download sesuai mode output (crop / both / flow)
   const safeName = 'shot_' + String(shot.n || '').padStart(2, '0') + '_' + makeSafeName(shot.narasi || '');
-  const dl = await downloadDirect(tile, safeName);
-  if (!dl.ok) { log('  ✗ Download gagal: ' + (dl.error || '?'), 'err'); return false; }
-  log('  ✓ Downloaded: ' + (dl.filename || '').split('/').pop(), 'ok');
+  const output = $('optOutput').value;
+  if (output === 'crop' || output === 'both') {
+    const v = await tryDownloadVertical(tile, safeName);
+    if (v.ok) {
+      log('  ✓ Downloaded (vertikal): ' + (v.filename || '').split('/').pop(), 'ok');
+      if (output === 'crop') return true;
+    } else {
+      log('  ! Crop vertikal gagal (' + (v.error || '?') + ').', 'warn');
+      if (output === 'crop') {
+        // fallback: simpan original agar tidak kehilangan hasil
+        const dl = await downloadDirect(tile, safeName);
+        if (dl.ok) {
+          log('  ! Fallback: original tersimpan (' + (dl.filename || '').split('/').pop() + ').', 'warn');
+          return true;
+        }
+        log('  ✗ Download gagal: ' + (dl.error || '?'), 'err');
+        return false;
+      }
+    }
+  }
+  if (output === 'flow' || output === 'both') {
+    const dl = await downloadDirect(tile, safeName);
+    if (!dl.ok) { log('  ✗ Download gagal: ' + (dl.error || '?'), 'err'); return false; }
+    log('  ✓ Downloaded: ' + (dl.filename || '').split('/').pop(), 'ok');
+    return true;
+  }
   return true;
 }
 
