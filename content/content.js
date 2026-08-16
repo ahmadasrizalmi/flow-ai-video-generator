@@ -399,8 +399,16 @@
             return sendResponse({ ok: true });
           }
         case 'FLOW_COUNT_IMAGES':
-          // jumlah img blob:/data: (untuk verifikasi paste thumbnail)
-          return sendResponse({ ok: true, blobImgs: $$('img').filter((i) => /^(blob:|data:)/.test(i.src || '')).length });
+          // verifikasi paste image: hitung SEMUA img + img blob/data
+          // (thumbnail Flow tidak selalu pakai blob: — bisa img biasa)
+          {
+            const all = $$('img');
+            return sendResponse({
+              ok: true,
+              allImgs: all.length,
+              blobImgs: all.filter((i) => /^(blob:|data:)/.test(i.src || '')).length
+            });
+          }
         case 'FLOW_FETCH_MEDIA': {
           // Ambil file media SAME-ORIGIN (cookie Flow otomatis terkirim),
           // redirect signed URL tetap diikuti. Kirim base64 utk di-crop vertikal.

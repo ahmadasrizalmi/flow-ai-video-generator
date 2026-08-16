@@ -159,18 +159,20 @@ async function setPromptWithImage(text) {
     await clearPromptBox();
     await sleep(400);
   }
-  // 2. paste image + VERIFIKASI KERAS
+  // 2. paste image — VERIFIKASI TIDAK MEMBLOKIR: kalau event terkirim
+  //    tanpa error teknis, LANJUT ketik prompt (Flow menampilkan thumbnail
+  //    dengan cara yang tak selalu terdeteksi count img).
   const inj = await sendToBg({ type: 'INJ_IMAGE', img: S.image });
   if (!inj.ok) {
     log('  ✗ Image reference GAGAL di-attach ke prompt: ' + (inj.error || '?'), 'err');
+    log('  → Coba paste gambar manual di kolom prompt Flow, lalu ulangi batch.', 'err');
     return { ok: false, reason: 'image' };
   }
-  if (!inj.verified) {
-    log('  ✗ Image ter-paste tapi THUMBNAIL TIDAK TERDETEKSI (' + inj.path + ') — referensi tidak dijamin.', 'err');
-    log('  → Hentikan batch. Coba paste gambar manual di kolom prompt Flow utk verifikasi.', 'err');
-    return { ok: false, reason: 'image-verify' };
+  if (inj.verified) {
+    log('  ✓ Image reference terpasang di prompt (' + inj.path + ', thumbnail muncul)', 'ok');
+  } else {
+    log('  i Image terkirim (' + inj.path + ') tapi verifikasi otomatis tak mendeteksi thumbnail — LANJUT. Cek manual di Flow bila perlu.', 'warn');
   }
-  log('  ✓ Image reference terpasang di prompt (' + inj.path + ', thumbnail muncul)', 'ok');
   await sleep(800);
   // 3. kursor ke akhir (setelah gambar) → ketik prompt (tidak menghapus gambar)
   await sendToContent({ type: 'FLOW_POSITION_CURSOR_END' });

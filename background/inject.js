@@ -55,21 +55,27 @@ export async function injectImage(img) {
   return { ok: false, path: 'none', error: 'P:' + (errP || '?') + ' | B:' + (errB || '?') + ' | A:' + (errA || '?') + ' | C:' + (errC || '?') };
 }
 
-/** Hitung img blob/data di halaman (untuk verifikasi thumbnail muncul). */
-async function countBlobImages() {
+/** Hitung img di halaman (verifikasi thumbnail: total img ATAU blob/data naik). */
+async function countImages() {
   const r = await sendToContent('FLOW_COUNT_IMAGES');
-  return r.ok ? r.blobImgs : -1;
+  return r.ok ? r : { ok: false, allImgs: -1, blobImgs: -1 };
+}
+
+/** True jika jumlah img bertambah setelah paste (thumbnail muncul). */
+function imagesIncreased(before, after) {
+  if (!before.ok || !after.ok) return false;
+  return after.allImgs > before.allImgs || after.blobImgs > before.blobImgs;
 }
 
 // ============ Path P — paste-event sintetik (PRIMARY) ============
 async function tryPasteEvent(b64, mime, filename) {
   try {
-    const before = await countBlobImages();
+    const before = await countImages();
     const r = await sendToContent('FLOW_PASTE_IMAGE', { b64, mime, filename });
     if (!r.ok) return { ok: false, error: r.error };
-    await sleep(2500); // React memproses async
-    const after = await countBlobImages();
-    return { ok: true, verified: before >= 0 && after > before };
+    await sleep(3000); // React memproses async
+    const after = await countImages();
+    return { ok: true, verified: imagesIncreased(before, after) };
   } catch (e) {
     return { ok: false, error: e.message };
   }
@@ -78,12 +84,12 @@ async function tryPasteEvent(b64, mime, filename) {
 // ============ Path B — drop-event sintetik ============
 async function tryDropEvent(b64, mime, filename) {
   try {
-    const before = await countBlobImages();
+    const before = await countImages();
     const r = await sendToContent('FLOW_DROP_IMAGE', { b64, mime, filename });
     if (!r.ok) return { ok: false, error: r.error };
-    await sleep(2500);
-    const after = await countBlobImages();
-    return { ok: true, verified: before >= 0 && after > before };
+    await sleep(3000);
+    const after = await countImages();
+    return { ok: true, verified: imagesIncreased(before, after) };
   } catch (e) {
     return { ok: false, error: e.message };
   }
@@ -107,17 +113,17 @@ async function tryClipboardPaste(b64, mime, filename) {
     if (!wr.ok) return { ok: false, error: 'clipboard write gagal: ' + wr.error };
     await sleep(400);
 
-    const before = await countBlobImages();
+    const before = await countImages();
     const focus = await sendToContent('FLOW_FOCUS_PROMPT');
     if (!focus.ok) return { ok: false, error: 'prompt box tidak ditemukan' };
     await sleep(300);
 
     const paste = await cdpPaste();
     if (!paste.ok) return { ok: false, error: paste.error };
-    await sleep(2000);
+    await sleep(2500);
 
-    const after = await countBlobImages();
-    return { ok: true, verified: before >= 0 && after > before };
+    const after = await countImages();
+    return { ok: true, verified: imagesIncreased(before, after) };
   } catch (e) {
     return { ok: false, error: e.message };
   }
