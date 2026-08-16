@@ -123,11 +123,13 @@ Alur per shot (diwarisi dari extension lama, diperbarui):
 ## 8. TODO implementasi (urutan)
 
 1. [x] Riset image reference — KASUS A konfirmasi
-2. [ ] Skeleton struktur (file ini + manifest + modul) ← sedang dibuat
-3. [ ] `config/presets.js` lengkap (isi rules tiap preset)
-4. [ ] `background/cdp.js` + `bg.js` router (pola lama, diverifikasi)
-5. [ ] `content/content.js` (clipboard image + drop sim + koordinat)
-6. [ ] `background/inject.js` Path A→B→C
-7. [ ] `background/deepseek.js` (client + builder)
-8. [ ] `panel/*` UI + Generate + preview shot + Mulai Batch
-9. [ ] Uji end-to-end di Flow (1 shot dulu → lalu batch)
+2. [x] Skeleton struktur (manifest + modul)
+3. [x] `config/presets.js` lengkap (isi rules tiap preset)
+4. [x] `background/cdp.js` + `bg.js` router (pola lama, diverifikasi)
+5. [x] `content/content.js` (clipboard image + drop sim + koordinat + tile video)
+6. [x] `background/inject.js` Path A→B→C
+7. [x] `background/deepseek.js` (client + builder)
+8. [x] `panel/*` UI + Generate + preview shot + **Mulai Batch (runOneShot lengkap)**
+9. [ ] **Uji end-to-end di Flow (1 shot dulu → lalu batch penuh)** ← di sini
+   - Load unpacked → isi API key → Generate → Mulai Batch
+   - Periksa: inject image (Path A clipboard paste), prompt terkirim, video jadi, download.

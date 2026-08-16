@@ -23,6 +23,17 @@ enableSidePanel();
 chrome.runtime.onInstalled.addListener(enableSidePanel);
 chrome.runtime.onStartup.addListener(enableSidePanel);
 
+// ---------- download ----------
+function triggerDownload(opts) {
+  return new Promise((resolve) => {
+    chrome.downloads.download(opts, (id) => {
+      const err = chrome.runtime.lastError;
+      if (err) return resolve({ ok: false, error: err.message });
+      resolve({ ok: true, downloadId: id });
+    });
+  });
+}
+
 // ---------- debugger lifecycle ----------
 chrome.debugger.onDetach.addListener((source) => {
   if (source.tabId === CDP_TARGET.tabId) CDP_TARGET.tabId = null;
@@ -46,6 +57,14 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         return sendResponse(await cdpPressEnter());
       case 'BG_CLICK':
         return sendResponse(await cdpClick(msg.x, msg.y));
+
+      // ---- download video ----
+      case 'BG_DOWNLOAD': {
+        // msg: { url, filename } — download via chrome.downloads
+        const opts = { url: msg.url, conflictAction: 'uniquify' };
+        if (msg.filename) opts.filename = msg.filename;
+        return sendResponse(await triggerDownload(opts));
+      }
 
       // ---- image reference ----
       case 'INJ_IMAGE':

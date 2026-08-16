@@ -40,6 +40,7 @@ button {
   color: #e8eaf0;
 }
 button.primary { background: #4f7cff; color: #fff; width: 100%; }
+button.ghost { background: #33405a; color: #e8eaf0; flex: 0 0 auto; }
 button:disabled { opacity: .5; cursor: default; }
 .row { display: flex; gap: 8px; align-items: flex-end; }
 .row .opt { flex: 1; }
