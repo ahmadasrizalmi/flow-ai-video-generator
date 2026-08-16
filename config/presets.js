@@ -109,10 +109,13 @@ Output HARUS berupa JSON array (tanpa teks lain, tanpa markdown fence). Setiap e
 
 ATURAN KESINAMBUNGAN (WAJIB dipatuhi):
 - Cerita mengalir seperti naskah video sungguhan: shot 1 membuka/establish, shot berikutnya MELANJUTKAN aksi, shot terakhir menutup dengan natural (CTA/ending).
+- PRODUK/SUBJEK UTAMA WAJIB TETAP TERLIHAT DI SEMUA SHOT — boleh di tangan, di latar, atau di atas nampan; JANGAN menghilangkan produk utama di shot mana pun. Elemen pendukung (nasi, sambal, lalapan, gelas) boleh muncul, TAPI tidak boleh menggantikan peran visual produk utama.
+- AKSI BERKELANJUTAN: kondisi produk di shot n berlanjut ke shot n+1 (mis. ayam utuh di shot 1 → digigit di shot 2 → setengah dimakan tetap di frame di shot 3).
+- DESKRIPSI SUBJEK YANG DIBERIKAN USER ADALAH CANON: ciri karakter/produk (mis. hijab dusty pink, ayam jumbo bersambal merah pekat, talenan kayu, lalapan) disebut ulang di field "visual" tiap shot saat relevan — KONSISTEN dari shot pertama sampai terakhir.
 - Karakter/produk/lingkungan/gaya pencahayaan KONSISTEN dari shot pertama sampai terakhir.
 - Narasi tersambung: potong narasi di tempat yang masuk akal, shot n+1 melanjutkan kalimat/adegan shot n (jangan mengulang atau melompat acak).
 - Transisi visual berkesinambungan: aksi yang berakhir di satu shot dilanjutkan di shot berikutnya (match cut / aksi berkelanjutan / angle berbeda pada momen yang sama).
-- Tiap shot punya sudut pandang/aksi BARU yang MAJU (bukan variasi foto yang sama).
+- Tiap shot punya sudut pandang/aksi BARU yang MAJU (bukan variasi foto yang sama), tapi elemen utama tetap hadir di frame.
 - Durasi tiap shot sesuai ts (default 10 detik).
 - Kalau narasi lengkap diberikan, pertahankan teksnya apa adanya (potong di tempat wajar untuk tiap segmen).
 - Kalau narasi TERLALU PENDEK utk jumlah shot (mis. 1 kalimat utk 8 shot): pakai teks asli sebagai PEMBUKA shot 1, lalu LANJUTKAN cerita secara natural (adegan mukbang berkembang: siapkan, gigitan pertama, reaksi pedas, minum, sambal tambahan, dll) tanpa mengulang kalimat pembuka.
@@ -127,7 +130,8 @@ function buildSystemPrompt(opts) {
   const lines = [
     'Kamu adalah penulis naskah video pendek profesional untuk Google Flow (model Gemini Omni Flash / Veo),',
     'meniru gaya dokumen "Video_Prompt_Final.txt" (format: NARASI utuh ber-timestamp, lalu per shot: SHOT n + NARASI, VISUAL, Kamera, Speed, EFFECT, FITUR).',
-    'Kamu memakai image reference: deskripsikan subjek HANYA bila perlu, fokus pada motion, kamera, dan audio.',
+    'Pola dari Video_Prompt_Final.txt: ELEMEN UTAMA SELALU DIULANG dengan sudut/aksi berbeda — mis. peta Indonesia muncul di shot 1, 4, 9, 13, 14; logo di shot 5, 17, 18; karakter utama di shot 2, 12, 16. Tiru pola ini: produk/subjek utama harus muncul di SEMUA shot.',
+    'Kamu memakai image reference: untuk prompt_flow, fokus pada motion, kamera, dan audio (jangan deskripsikan ulang subjek). Untuk field "visual", deskripsi subjek tetap ditulis lengkap dan konsisten.',
     'Gunakan format output berikut:',
     PROMPT_STRUCTURE
   ];
