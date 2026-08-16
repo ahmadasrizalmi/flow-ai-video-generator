@@ -239,9 +239,10 @@ async function downloadDirect(tile, safeName) {
   return res.ok ? { ok: true, filename: res.filename } : res;
 }
 
-// ============ mode vertikal (crop 9:16) — garansi rasio ============
-// Omni Flash di Flow sering TETAP output 16:9 walau 9:16 di Setelan agen.
-// Solusi (pola extension lama): ambil video asli → crop tengah 9:16 → WebM.
+// ============ mode vertikal (crop 9:16) — opsi cadangan ============
+// Catatan: rasio utama di-set lewat Setelan agen Flow (applyVideoRatio) dan
+// BERLAKU (9:16 → vertikal). Crop di sini hanya opsi cadangan/garansi bila
+// user memilih mode output 'crop'/'both', atau bila verifikasi rasio gagal.
 function b64ToBlob(b64, mime) {
   const bin = atob(b64);
   const bytes = new Uint8Array(bin.length);
@@ -358,6 +359,7 @@ function attachEvents() {
   $('btnGenerate').addEventListener('click', onGenerate);
   $('btnBatch').addEventListener('click', onBatch);
   $('btnCopyScript').addEventListener('click', copyScript);
+  $('btnCheckSettings').addEventListener('click', onCheckSettings);
   $('btnStop').addEventListener('click', () => {
     S.stopRequested = true;
     log('⏹ Stop diminta… (menunggu langkah selesai)', 'warn');
@@ -438,22 +440,39 @@ function renderShots() {
 }
 
 // ============ Batch ============
-/** Terapkan rasio default video di Setelan agen Flow (via CDP trusted click). */
+/**
+ * Terapkan rasio video di Setelan agen Flow (via CDP trusted click).
+ * Rasio di Setelan agen MEMANG BERLAKU di Flow (9:16 → vertikal) —
+ * kunci keberhasilannya: buka Setelan → klik chip rasio → Simpan,
+ * semuanya terkonfirmasi, bukan best-effort diam-diam.
+ */
 async function applyVideoRatio(ratio) {
   if (!ratio) return true;
   log('Terapkan rasio video ' + ratio + ' di Setelan agen…', 's');
-  // buka Setelan via CDP trusted (klik sintetik sering ditolak Flow)
+
+  // 0. diagnosa dulu: apa yang terdeteksi di UI Flow
+  const diag = await sendToContent({ type: 'FLOW_SETTINGS_STATE' });
+  if (diag.ok) {
+    log('  i Diagnosa: tombol Setelan=' + (diag.settingsBtn ? 'ada' : 'TIDAK ADA') +
+        ', section video=' + (diag.hasVideoSection ? 'ada' : 'TIDAK ADA') +
+        ', rasio aktif=' + (diag.activeRatio || 'tidak terdeteksi') +
+        ', opsi rasio=' + (diag.ratioButtons || []).length + ' ditemukan', 's');
+  }
+
+  // 1. buka Setelan via CDP trusted (klik sintetik sering ditolak Flow)
   const sc = await sendToContent({ type: 'FLOW_GET_SETTINGS_COORDS' });
   if (sc.ok && sc.coords) {
     await cdpClick(sc.coords.x, sc.coords.y);
   } else {
     const open = await sendToContent({ type: 'FLOW_OPEN_SETTINGS' });
     if (!open.ok) {
-      log('  ! Tidak bisa membuka Setelan — lanjut dengan rasio default Flow.', 'warn');
+      log('  ! Tidak bisa membuka Setelan — set rasio MANUAL di Flow (ikon Setelan → Default pembuatan video).', 'warn');
       return true;
     }
   }
   await sleep(2500);
+
+  // 2. cek rasio aktif; kalau sudah sesuai, langsung ke Simpan
   const act = await sendToContent({ type: 'FLOW_GET_ACTIVE_RATIO' });
   let needClick = true;
   if (act.ok && act.ratio === ratio) {
@@ -466,20 +485,36 @@ async function applyVideoRatio(ratio) {
       await sleep(1500);
       const act2 = await sendToContent({ type: 'FLOW_GET_ACTIVE_RATIO' });
       if (act2.ok && act2.ratio === ratio) log('  ✓ Rasio diset ke ' + ratio, 'ok');
-      else log('  ! Klik rasio tidak terkonfirmasi — lanjut saja.', 'warn');
+      else {
+        log('  ! Klik rasio tidak terkonfirmasi (aktif=' + ((act2.ok && act2.ratio) || '?') + '). Set manual di Flow.', 'warn');
+        needClick = false;
+      }
     } else {
-      log('  ! Opsi rasio ' + ratio + ' tidak ditemukan (16:9 / 9:16).', 'warn');
+      log('  ! Opsi rasio ' + ratio + ' tidak ditemukan di Setelan. Set manual di Flow.', 'warn');
       needClick = false;
     }
   }
-  // simpan setelan
+
+  // 3. simpan setelan
   const sv = await sendToContent({ type: 'FLOW_GET_SAVE_COORDS' });
   if (sv.ok && sv.coords) {
     await cdpClick(sv.coords.x, sv.coords.y);
     await sleep(1500);
     log('  ✓ Setelan disimpan.', 'ok');
+  } else {
+    log('  ! Tombol Simpan tidak ditemukan — pastikan setelan tersimpan manual.', 'warn');
   }
-  return true;
+
+  // 4. VERIFIKASI KERAS: pastikan rasio benar-benar aktif setelah simpan
+  await sleep(1000);
+  const fin = await sendToContent({ type: 'FLOW_GET_ACTIVE_RATIO' });
+  if (fin.ok && fin.ratio === ratio) {
+    log('  ✓ VERIFIKASI: rasio aktif = ' + ratio, 'ok');
+    return true;
+  }
+  log('  ✗ VERIFIKASI GAGAL: rasio aktif = ' + ((fin.ok && fin.ratio) || 'tidak terdeteksi') + ' (diminta ' + ratio + ').', 'err');
+  log('  → Set rasio MANUAL di Flow: Setelan agen → Default pembuatan video → ' + ratio + '.', 'err');
+  return false;
 }
 
 async function onBatch() {
@@ -670,6 +705,28 @@ async function copyScript() {
   } catch (e) {
     log('Gagal salin: ' + e.message, 'err');
   }
+}
+
+/** Diagnosa cepat: apa yang bisa dideteksi di UI Setelan Flow saat ini. */
+async function onCheckSettings() {
+  const tabs = await chrome.tabs.query({ url: ['https://labs.google/fx/*'] });
+  const flowTab = tabs.find((t) => t.active) || tabs[0];
+  if (!flowTab) { log('Buka tab Flow dulu (labs.google/fx).', 'err'); return; }
+  S.tabId = flowTab.id;
+  if (!await injectContentIfNeeded()) return;
+  const d = await sendToContent({ type: 'FLOW_SETTINGS_STATE' });
+  if (!d.ok) { log('Gagal diagnosa: ' + (d.error || ''), 'err'); return; }
+  log('— DIAGNOSA SETELAN FLOW —', 's');
+  log('Tombol Setelan: ' + (d.settingsBtn ? 'ADA ✓' : 'TIDAK ADA ✗'), d.settingsBtn ? 'ok' : 'err');
+  log('Section "Default pembuatan video": ' + (d.hasVideoSection ? 'ADA ✓' : 'TIDAK ADA ✗'), d.hasVideoSection ? 'ok' : 'err');
+  log('Rasio aktif: ' + (d.activeRatio || 'tidak terdeteksi'), d.activeRatio ? 'ok' : 'warn');
+  (d.ratioButtons || []).forEach((b) => {
+    log('  Opsi: ' + b.text + ' [' + (b.active ? 'AKTIF' : 'nonaktif') + ']', b.active ? 'ok' : 's');
+  });
+  if (!(d.ratioButtons || []).length) {
+    log('  → Tidak ada tombol rasio terdeteksi. Buka Setelan secara manual & beri tahu saya label tombolnya.', 'err');
+  }
+  log('— selesai —', 's');
 }
 
 // ============ boot ============

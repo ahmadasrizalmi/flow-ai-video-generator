@@ -166,28 +166,53 @@
   }
 
   function findVideoSection() {
+    // cari header "Default pembuatan video" (atau variasi labelnya)
     let header = null;
     for (const el of $$('*')) {
-      if (el.children.length === 0 && (el.innerText || '').trim() === 'Default pembuatan video') header = el;
+      if (el.children.length !== 0) continue;
+      const t = (el.innerText || '').trim();
+      if (/default\s+(?:pembuatan\s+)?video/i.test(t)) { header = el; break; }
     }
     if (!header) return null;
     let root = header.parentElement;
     for (let i = 0; i < 8 && root; i++) {
-      if ((root.innerText || '').includes('Omni Flash')) break;
+      if (/omni flash|veo|video/i.test(root.innerText || '')) break;
       root = root.parentElement;
     }
     return root;
   }
 
+  function normalizeRatio(txt) {
+    const m = String(txt || '').match(/(\d+)\s*:\s*(\d+)/);
+    if (!m) return '';
+    const a = +m[1], b = +m[2];
+    return (a > b) ? '16:9' : '9:16'; // 9:16 & 16:9 normalisasi
+  }
+
   function getVideoRatioButtons() {
+    // 1) coba matcher ketat dalam section video (pola lama)
     const sec = findVideoSection();
-    if (!sec) return [];
-    return $$('button', sec).filter((b) => {
+    const inSec = sec ? $$('button', sec).filter(matchRatioBtn) : [];
+    if (inSec.length) return inSec;
+    // 2) fallback: matcher longgar di seluruh panel (label UI bisa berubah)
+    return $$('button').filter((b) => {
       const txt = (b.innerText || '').trim().replace(/\s+/g, ' ');
-      return /crop_(landscape|portrait|square)\b/i.test(txt) ||
-             /(?:^|\s)(16\s*:\s*9|9\s*:\s*16|1\s*:\s*1)(?:\s|$)/i.test(txt) ||
-             /(16\s*:\s*9|9\s*:\s*16).{0,20}(landscape|portrait)/i.test(txt);
+      const aria = (b.getAttribute('aria-label') || '').trim();
+      // harus mengandung angka rasio ATAU ikon crop + kata orientasi
+      const hasRatio = /(?:^|\s)(16\s*:\s*9|9\s*:\s*16|1\s*:\s*1)(?:\s|$)/i.test(txt) ||
+                       /crop_(landscape|portrait|square)\b/i.test(txt + ' ' + aria);
+      const hasOrient = /(vertikal|portrait|landscape|horizontal)/i.test(txt + ' ' + aria);
+      return hasRatio || (hasOrient && /\d\s*:\s*\d/.test(txt));
     });
+  }
+
+  function matchRatioBtn(b) {
+    const txt = (b.innerText || '').trim().replace(/\s+/g, ' ');
+    const aria = (b.getAttribute('aria-label') || '').trim();
+    return /crop_(landscape|portrait|square)\b/i.test(txt + ' ' + aria) ||
+           /(?:^|\s)(16\s*:\s*9|9\s*:\s*16|1\s*:\s*1)(?:\s|$)/i.test(txt) ||
+           /(16\s*:\s*9|9\s*:\s*16).{0,20}(landscape|portrait)/i.test(txt) ||
+           /(vertikal|portrait|landscape|horizontal)/i.test(txt + ' ' + aria);
   }
 
   function getActiveVideoRatio() {
@@ -195,9 +220,10 @@
     const active = btns.find((b) =>
       b.getAttribute('data-state') === 'active' ||
       b.getAttribute('aria-pressed') === 'true' ||
-      b.getAttribute('aria-selected') === 'true'
+      b.getAttribute('aria-selected') === 'true' ||
+      /active|selected/.test(String(b.className || ''))
     );
-    return active ? (active.innerText || '').trim().split('\n').join(' ').replace(/^crop_\S+\s*/, '') : null;
+    return active ? normalizeRatio(active.innerText || '') : null;
   }
 
   function openSettingsPanel() {
@@ -373,10 +399,33 @@
           }
         case 'FLOW_GET_ACTIVE_RATIO':
           return sendResponse({ ok: true, ratio: getActiveVideoRatio() });
+        case 'FLOW_SETTINGS_STATE':
+          {
+            // diagnostik: apa yang bisa dideteksi di UI Flow saat ini
+            const sec = findVideoSection();
+            const btns = getVideoRatioButtons();
+            return sendResponse({
+              ok: true,
+              settingsBtn: !!getSettingsButton(),
+              hasVideoSection: !!sec,
+              videoSectionText: sec ? (sec.innerText || '').slice(0, 200) : '',
+              ratioButtons: btns.map((b) => ({
+                text: (b.innerText || '').trim().split('\n').join(' ').slice(0, 60),
+                cls: String(b.className || '').slice(0, 40),
+                active: b.getAttribute('data-state') === 'active' ||
+                        b.getAttribute('aria-pressed') === 'true' ||
+                        b.getAttribute('aria-selected') === 'true' ||
+                        /active|selected/.test(String(b.className || ''))
+              })),
+              activeRatio: getActiveVideoRatio()
+            });
+          }
         case 'FLOW_GET_RATIO_COORDS': {
           const want = String(msg.ratio || '');
           const b = getVideoRatioButtons().find((x) =>
-            (x.innerText || '').includes(want) && x.getAttribute('data-state') !== 'active'
+            normalizeRatio(x.innerText || '') === want &&
+            x.getAttribute('data-state') !== 'active' &&
+            x.getAttribute('aria-pressed') !== 'true'
           );
           if (!b || !isVisible(b)) return sendResponse({ ok: false, reason: 'rasio tidak ditemukan / sudah aktif' });
           try { b.scrollIntoView({ block: 'center', inline: 'center' }); } catch (e) {}
