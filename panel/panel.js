@@ -265,6 +265,7 @@ function attachEvents() {
   });
   $('btnGenerate').addEventListener('click', onGenerate);
   $('btnBatch').addEventListener('click', onBatch);
+  $('btnCopyScript').addEventListener('click', copyScript);
   $('btnStop').addEventListener('click', () => {
     S.stopRequested = true;
     log('⏹ Stop diminta… (menunggu langkah selesai)', 'warn');
@@ -294,15 +295,23 @@ async function onGenerate() {
   const presetId = $('presetSelect').value;
   const syari = $('syariToggle').checked;
   const subjectDesc = $('subjectDesc').value.trim();
+  const narration = $('narration').value.trim();
   const shots = parseInt($('shotCount').value, 10) || 8;
   const duration = parseInt($('shotDuration').value, 10) || 10;
 
-  if (!subjectDesc) return log('Isi deskripsi subjek/produk dulu.', 'err');
+  if (!subjectDesc && !narration) return log('Isi deskripsi subjek/produk (atau narasi) dulu.', 'err');
+  if (narration) {
+    const words = narration.split(/\s+/).length;
+    if (words < shots * 3) {
+      log('Hint: narasi pendek (' + words + ' kata) utk ' + shots + ' shot — DeepSeek akan pakai teks ini sebagai pembuka lalu melanjutkan ceritanya sendiri.', 'warn');
+    }
+  }
   setBadge('run'); log('Generate prompt via DeepSeek…');
   $('btnGenerate').disabled = true;
 
+  const preset = (window.PRESETS || []).find((p) => p.id === presetId);
   const system = window.buildSystemPrompt({ presetId, syari });
-  const user = window.buildUserPrompt({ subjectDesc, shots, duration });
+  const user = window.buildUserPrompt({ title: preset ? preset.label : '', subjectDesc, narration, shots, duration });
 
   const r = await sendToBg({ type: 'DS_GENERATE', system, user, maxTokens: 4000 });
   $('btnGenerate').disabled = false;
@@ -311,7 +320,7 @@ async function onGenerate() {
   S.shots = r.shots || [];
   renderShots();
   setBadge('ok');
-  log('Selesai: ' + S.shots.length + ' shot.');
+  log('Selesai: ' + S.shots.length + ' shot berkesinambungan.');
 }
 
 function renderShots() {
@@ -335,6 +344,50 @@ function renderShots() {
 }
 
 // ============ Batch ============
+/** Terapkan rasio default video di Setelan agen Flow (via CDP trusted click). */
+async function applyVideoRatio(ratio) {
+  if (!ratio) return true;
+  log('Terapkan rasio video ' + ratio + ' di Setelan agen…', 's');
+  // buka Setelan via CDP trusted (klik sintetik sering ditolak Flow)
+  const sc = await sendToContent({ type: 'FLOW_GET_SETTINGS_COORDS' });
+  if (sc.ok && sc.coords) {
+    await cdpClick(sc.coords.x, sc.coords.y);
+  } else {
+    const open = await sendToContent({ type: 'FLOW_OPEN_SETTINGS' });
+    if (!open.ok) {
+      log('  ! Tidak bisa membuka Setelan — lanjut dengan rasio default Flow.', 'warn');
+      return true;
+    }
+  }
+  await sleep(2500);
+  const act = await sendToContent({ type: 'FLOW_GET_ACTIVE_RATIO' });
+  let needClick = true;
+  if (act.ok && act.ratio === ratio) {
+    needClick = false;
+    log('  ✓ Rasio sudah ' + ratio, 'ok');
+  } else {
+    const c = await sendToContent({ type: 'FLOW_GET_RATIO_COORDS', ratio });
+    if (c.ok && c.coords) {
+      await cdpClick(c.coords.x, c.coords.y);
+      await sleep(1500);
+      const act2 = await sendToContent({ type: 'FLOW_GET_ACTIVE_RATIO' });
+      if (act2.ok && act2.ratio === ratio) log('  ✓ Rasio diset ke ' + ratio, 'ok');
+      else log('  ! Klik rasio tidak terkonfirmasi — lanjut saja.', 'warn');
+    } else {
+      log('  ! Opsi rasio ' + ratio + ' tidak ditemukan (16:9 / 9:16).', 'warn');
+      needClick = false;
+    }
+  }
+  // simpan setelan
+  const sv = await sendToContent({ type: 'FLOW_GET_SAVE_COORDS' });
+  if (sv.ok && sv.coords) {
+    await cdpClick(sv.coords.x, sv.coords.y);
+    await sleep(1500);
+    log('  ✓ Setelan disimpan.', 'ok');
+  }
+  return true;
+}
+
 async function onBatch() {
   if (S.running) return;
   if (!S.shots.length) return log('Generate dulu sebelum batch.', 'err');
@@ -456,6 +509,50 @@ async function runOneShot(shot) {
   if (!dl.ok) { log('  ✗ Download gagal: ' + (dl.error || '?'), 'err'); return false; }
   log('  ✓ Downloaded: ' + (dl.filename || '').split('/').pop(), 'ok');
   return true;
+}
+
+// ============ Salin script format Video_Prompt_Final ============
+function buildScriptText() {
+  const presetId = $('presetSelect').value;
+  const preset = (window.PRESETS || []).find((p) => p.id === presetId) ||
+                 S.customPresets.find((p) => p.id === presetId);
+  const subject = $('subjectDesc').value.trim();
+  const lines = [];
+  lines.push('VIDEO PROMPT — ' + (preset ? preset.label : 'Custom'));
+  lines.push('='.repeat(60));
+  lines.push('Subjek/Produk: ' + (subject || '-'));
+  lines.push('Total shot: ' + S.shots.length);
+  lines.push('');
+  lines.push('NARASI (untuk referensi timing):');
+  lines.push('');
+  S.shots.forEach((s) => {
+    lines.push('[' + (s.ts || '-') + '] "' + (s.narasi || '') + '"');
+  });
+  lines.push('');
+  S.shots.forEach((s) => {
+    lines.push('SHOT ' + (s.n || (S.shots.indexOf(s) + 1)) + ' (' + (s.ts || '-') + ')');
+    lines.push('NARASI: ' + (s.narasi || ''));
+    lines.push('VISUAL:');
+    String(s.visual || '').split(/\n|•/).forEach((ln) => {
+      const t = ln.trim();
+      if (t) lines.push('• ' + t);
+    });
+    lines.push('Kamera: ' + (s.kamera || ''));
+    lines.push('Speed: ' + (s.speed || ''));
+    lines.push('EFFECT: ' + (s.effect || ''));
+    if (s.fitur) lines.push('FITUR: ' + s.fitur);
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+
+async function copyScript() {
+  try {
+    await navigator.clipboard.writeText(buildScriptText());
+    log('Script format Video_Prompt_Final disalin ke clipboard.', 'ok');
+  } catch (e) {
+    log('Gagal salin: ' + e.message, 'err');
+  }
 }
 
 // ============ boot ============

@@ -114,7 +114,8 @@ ATURAN KESINAMBUNGAN (WAJIB dipatuhi):
 - Transisi visual berkesinambungan: aksi yang berakhir di satu shot dilanjutkan di shot berikutnya (match cut / aksi berkelanjutan / angle berbeda pada momen yang sama).
 - Tiap shot punya sudut pandang/aksi BARU yang MAJU (bukan variasi foto yang sama).
 - Durasi tiap shot sesuai ts (default 10 detik).
-- Kalau narasi lengkap diberikan, pertahankan teksnya apa adanya sebagai field "narasi" tiap shot.
+- Kalau narasi lengkap diberikan, pertahankan teksnya apa adanya (potong di tempat wajar untuk tiap segmen).
+- Kalau narasi TERLALU PENDEK utk jumlah shot (mis. 1 kalimat utk 8 shot): pakai teks asli sebagai PEMBUKA shot 1, lalu LANJUTKAN cerita secara natural (adegan mukbang berkembang: siapkan, gigitan pertama, reaksi pedas, minum, sambal tambahan, dll) tanpa mengulang kalimat pembuka.
 `;
 
 /**
