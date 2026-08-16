@@ -137,7 +137,9 @@ async function setPromptTrusted(text) {
   }
   await sleep(500);
   const st = await getFlowState();
-  return st ? st.promptText.includes(text.slice(0, 20)) : false;
+  const entered = st ? st.promptText : '';
+  if (entered) log('  i Teks di kolom Flow: ' + entered.slice(0, 110) + (entered.length > 110 ? '…' : ''), 's');
+  return entered.includes(text.slice(0, 20));
 }
 
 async function submitTrusted() {
@@ -317,7 +319,9 @@ async function onGenerate() {
   $('btnGenerate').disabled = false;
 
   if (!r.ok) { setBadge('err'); return log('Gagal generate: ' + (r.error || '?'), 'err'); }
-  S.shots = r.shots || [];
+  // urutkan berdasarkan n — DeepSeek bisa mengembalikan array tak berurutan,
+  // dan batch HARUS mengirim sesuai urutan cerita (scene 1, 2, 3, ...)
+  S.shots = (r.shots || []).sort((a, b) => (Number(a.n) || 0) - (Number(b.n) || 0));
   renderShots();
   setBadge('ok');
   log('Selesai: ' + S.shots.length + ' shot berkesinambungan.');
