@@ -598,8 +598,8 @@ async function onBatch() {
 
 /** Satu shot: set prompt → submit → tunggu selesai → download. */
 async function runOneShot(shot) {
-  const promptText = String(shot.prompt_flow || '').trim();
-  if (!promptText) { log('  ✗ Shot tanpa prompt_flow — lewati.', 'err'); return false; }
+  const promptText = buildFlowPrompt(shot);
+  if (!promptText) { log('  ✗ Shot tanpa prompt — lewati.', 'err'); return false; }
   log('▸ ' + promptText.slice(0, 90) + (promptText.length > 90 ? '…' : ''), 's');
 
   // 0. detail view tutup & canvas idle
@@ -661,6 +661,23 @@ async function runOneShot(shot) {
     return true;
   }
   return true;
+}
+
+// ============ Prompt yang dikirim ke Flow ============
+/**
+ * Motion-only (default): shot.prompt_flow — ringkas, cocok karena image
+ * reference seharusnya sudah ter-attach di prompt (best practice).
+ * Deskriptif lengkap: gabung visual + kamera + speed + effect + narasi,
+ * kompensasi bila image reference tidak tersedia (text-to-video).
+ */
+function buildFlowPrompt(shot) {
+  if ($('optPromptMode').value !== 'full') {
+    return String(shot.prompt_flow || '').trim();
+  }
+  return [shot.visual, shot.kamera, shot.speed, shot.effect, shot.narasi]
+    .filter(Boolean)
+    .map((s) => String(s).trim())
+    .join('. ');
 }
 
 // ============ Salin script format Video_Prompt_Final ============

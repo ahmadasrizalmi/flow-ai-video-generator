@@ -48,6 +48,12 @@
         <input type="number" id="shotDuration" min="4" max="15" value="10" />
       </label>
     </div>
+    <label class="opt">Prompt yang dikirim ke Flow
+      <select id="optPromptMode">
+        <option value="motion" selected>Motion-only (ringkas — butuh image reference)</option>
+        <option value="full">Deskriptif lengkap (visual+kamera+efek — tanpa gambar)</option>
+      </select>
+    </label>
     <button id="btnGenerate" class="primary">✨ Generate Prompt</button>
   </section>
 

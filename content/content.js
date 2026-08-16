@@ -302,7 +302,29 @@
       const file = new File([bytes], filename || 'reference.png', { type: mime || 'image/png' });
       const dt = new DataTransfer();
       dt.items.add(file);
+      box.focus();
       box.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, composed: true, dataTransfer: dt }));
+      return { ok: true };
+    } catch (e) { return { ok: false, error: e.message }; }
+  }
+
+  // ---------- paste simulation (Path P — PRIMARY) ----------
+  // Tidak butuh clipboard OS: buat ClipboardEvent dgn DataTransfer berisi
+  // File dari base64, dispatch ke prompt box (React onPaste aktif).
+  function pasteImage({ b64, mime, filename }) {
+    const box = getPromptBox();
+    if (!box) return { ok: false, error: 'prompt box tidak ditemukan' };
+    try {
+      const bin = atob(b64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      const file = new File([bytes], filename || 'reference.png', { type: mime || 'image/png' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      box.focus();
+      box.dispatchEvent(new ClipboardEvent('paste', {
+        bubbles: true, cancelable: true, composed: true, clipboardData: dt
+      }));
       return { ok: true };
     } catch (e) { return { ok: false, error: e.message }; }
   }
@@ -456,6 +478,8 @@
           return sendResponse(await copyImageToClipboard(msg));
         case 'FLOW_DROP_IMAGE':
           return sendResponse(dropImage(msg));
+        case 'FLOW_PASTE_IMAGE':
+          return sendResponse(pasteImage(msg));
         default:
           return sendResponse({ ok: false, reason: 'unknown: ' + msg.type });
       }

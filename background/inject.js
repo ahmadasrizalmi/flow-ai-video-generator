@@ -1,15 +1,20 @@
 /**
  * FLOW AI VIDEO GENERATOR - Image Reference Injection
  * ----------------------------------------------------------------
- * Strategi (hasil probe 2026-08-16, KASUS A terkonfirmasi):
- *   Path C (UTAMA) : tulis image ke file temp via chrome.downloads
- *                    (data URL → path disk) lalu DOM.setFileInputFiles
- *                    ke <input type=file accept*=image> hidden — CDP
- *                    memicu onChange React Flow, paling andal & TIDAK
- *                    butuh clipboard/fokus.
- *   Path A (cadang): clipboard via CDP Runtime.evaluate (main world) +
- *                    Ctrl+V trusted di prompt box.
- *   Path B (akhir) : drop sim DataTransfer+File(base64) di prompt box.
+ * Temuan penting dari probe & uji user:
+ *  - `input[accept*=image]` (Add Media) = upload MEDIA ke project,
+ *    BUKAN attach reference ke prompt → Path itu TIDAK membuat gambar
+ *    dipakai sebagai referensi.
+ *  - Image reference SEJATI = paste/drop gambar ke PROMPT BOX
+ *    (dibuktikan manual user: thumbnail muncul di atas kolom prompt).
+ *
+ * Urutan jalur (PRIMARY dulu):
+ *   Path P : paste-event sintetik (ClipboardEvent + DataTransfer File)
+ *            ke prompt box — TANPA clipboard OS, TANPA izin, TANPA fokus.
+ *   Path B : drop-event sintetik (DragEvent + DataTransfer File) ke box.
+ *   Path A : clipboard OS via CDP Runtime.evaluate + Ctrl+V trusted.
+ *   Path C : DOM.setFileInputFiles (media project — referensi TIDAK
+ *            dijamin; terakhir saja).
  */
 
 'use strict';
@@ -19,7 +24,7 @@ import { CDP_TARGET, cdp, cdpPaste } from './cdp.js';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * Inject image reference ke Flow.
+ * Inject image reference ke prompt box Flow.
  * @param {object} img { b64, mime, filename }
  * @returns {Promise<{ok:boolean, path:string, verified?:boolean, error?:string}>}
  */
@@ -27,85 +32,64 @@ export async function injectImage(img) {
   const { b64, mime, filename } = img || {};
   if (!b64) return { ok: false, path: 'none', error: 'tidak ada gambar' };
 
-  // Path C (PRIMARY): file temp + DOM.setFileInputFiles
-  const rC = await trySetFileInput(b64, mime, filename);
-  if (rC.ok) return { ok: true, path: 'C-setFileInputFiles', verified: rC.verified };
-  const errC = rC.error;
+  // Path P (PRIMARY): paste-event sim ke prompt box
+  const rP = await tryPasteEvent(b64, mime, filename);
+  if (rP.ok) return { ok: true, path: 'P-paste-event', verified: rP.verified };
+  const errP = rP.error;
 
-  // Path A: clipboard via CDP main world + Ctrl+V
+  // Path B: drop-event sim
+  const rB = await tryDropEvent(b64, mime, filename);
+  if (rB.ok) return { ok: true, path: 'B-drop-event', verified: rB.verified };
+  const errB = rB.error;
+
+  // Path A: clipboard OS + Ctrl+V
   const rA = await tryClipboardPaste(b64, mime, filename);
   if (rA.ok) return { ok: true, path: 'A-clipboard-paste', verified: rA.verified };
+  const errA = rA.error;
 
-  // Path B: drop sim
-  const rB = await tryDropSimulation(b64, mime, filename);
-  if (rB.ok) return { ok: true, path: 'B-drop-sim' };
+  // Path C: setFileInputFiles (media project — jalur terakhir)
+  const rC = await trySetFileInput(b64, mime, filename);
+  if (rC.ok) return { ok: true, path: 'C-setFileInputFiles (media project, referensi tidak dijamin)', verified: rC.verified };
+  const errC = rC.error;
 
-  return { ok: false, path: 'none', error: 'C: ' + (errC || '?') + ' | A: ' + (rA.error || '?') + ' | B: ' + (rB.error || '?') };
+  return { ok: false, path: 'none', error: 'P:' + (errP || '?') + ' | B:' + (errB || '?') + ' | A:' + (errA || '?') + ' | C:' + (errC || '?') };
 }
 
-// ============ Path C — setFileInputFiles (PRIMARY) ============
-async function trySetFileInput(b64, mime, filename) {
+/** Hitung img blob/data di halaman (untuk verifikasi thumbnail muncul). */
+async function countBlobImages() {
+  const r = await sendToContent('FLOW_COUNT_IMAGES');
+  return r.ok ? r.blobImgs : -1;
+}
+
+// ============ Path P — paste-event sintetik (PRIMARY) ============
+async function tryPasteEvent(b64, mime, filename) {
   try {
-    // 1. tulis file temp via chrome.downloads (data URL → path disk)
-    const ext = String(mime || '').includes('png') ? 'png' : 'jpg';
-    const path = await saveTempFile(`data:${mime || 'image/png'};base64,${b64}`, ext);
-    if (!path) return { ok: false, error: 'gagal menulis file temp ke Downloads' };
-
-    // 2. resolve nodeId input[type=file][accept*=image]
-    const doc = await cdp('DOM.getDocument', { depth: -1, pierce: true });
-    if (!doc.ok) return { ok: false, error: 'DOM.getDocument: ' + doc.error };
-    const q = await cdp('DOM.querySelector', {
-      nodeId: doc.result.root.nodeId,
-      selector: 'input[type=file][accept*=image]'
-    });
-    if (!q.ok || !q.result || !q.result.nodeId) {
-      return { ok: false, error: 'input[accept*=image] tidak ditemukan di DOM Flow' };
-    }
-
-    // 3. set files (memicu onChange React → Flow memproses media)
-    const sf = await cdp('DOM.setFileInputFiles', { files: [path], nodeId: q.result.nodeId });
-    if (!sf.ok) return { ok: false, error: 'DOM.setFileInputFiles: ' + sf.error };
-    await sleep(2500);
-
-    // 4. verifikasi: input punya 1 file
-    const chk = await cdp('Runtime.evaluate', {
-      expression: `document.querySelector('input[type=file][accept*=image]') && document.querySelector('input[type=file][accept*=image]').files.length`,
-      returnByValue: true
-    });
-    const n = chk.ok && chk.result && chk.result.result && chk.result.result.value;
-    return { ok: true, verified: n > 0 };
+    const before = await countBlobImages();
+    const r = await sendToContent('FLOW_PASTE_IMAGE', { b64, mime, filename });
+    if (!r.ok) return { ok: false, error: r.error };
+    await sleep(2500); // React memproses async
+    const after = await countBlobImages();
+    return { ok: true, verified: before >= 0 && after > before };
   } catch (e) {
     return { ok: false, error: e.message };
   }
 }
 
-/** Simpan base64 → file PNG/JPG di Downloads, return path disk absolut. */
-function saveTempFile(dataUrl, ext) {
-  return new Promise((resolve) => {
-    chrome.downloads.download({
-      url: dataUrl,
-      filename: 'flow-ai-video-generator/ref_image.' + ext,
-      saveAs: false,
-      conflictAction: 'overwrite'
-    }, (id) => {
-      const err = chrome.runtime.lastError;
-      if (err) return resolve(null);
-      const t0 = Date.now();
-      const iv = setInterval(() => {
-        chrome.downloads.search({ id }, (items) => {
-          if (!items.length) return;
-          const it = items[0];
-          if (it.state === 'complete') { clearInterval(iv); resolve(it.filename); }
-          else if (it.state === 'interrupted' || Date.now() - t0 > 30000) {
-            clearInterval(iv); resolve(null);
-          }
-        });
-      }, 500);
-    });
-  });
+// ============ Path B — drop-event sintetik ============
+async function tryDropEvent(b64, mime, filename) {
+  try {
+    const before = await countBlobImages();
+    const r = await sendToContent('FLOW_DROP_IMAGE', { b64, mime, filename });
+    if (!r.ok) return { ok: false, error: r.error };
+    await sleep(2500);
+    const after = await countBlobImages();
+    return { ok: true, verified: before >= 0 && after > before };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
 }
 
-// ============ Path A — clipboard via CDP ============
+// ============ Path A — clipboard OS via CDP ============
 async function tryClipboardPaste(b64, mime, filename) {
   try {
     if (CDP_TARGET.tabId != null) {
@@ -123,7 +107,7 @@ async function tryClipboardPaste(b64, mime, filename) {
     if (!wr.ok) return { ok: false, error: 'clipboard write gagal: ' + wr.error };
     await sleep(400);
 
-    const before = await sendToContent('FLOW_COUNT_IMAGES');
+    const before = await countBlobImages();
     const focus = await sendToContent('FLOW_FOCUS_PROMPT');
     if (!focus.ok) return { ok: false, error: 'prompt box tidak ditemukan' };
     await sleep(300);
@@ -132,9 +116,8 @@ async function tryClipboardPaste(b64, mime, filename) {
     if (!paste.ok) return { ok: false, error: paste.error };
     await sleep(2000);
 
-    const after = await sendToContent('FLOW_COUNT_IMAGES');
-    const verified = before.ok && after.ok && after.blobImgs > before.blobImgs;
-    return { ok: true, verified };
+    const after = await countBlobImages();
+    return { ok: true, verified: before >= 0 && after > before };
   } catch (e) {
     return { ok: false, error: e.message };
   }
@@ -167,12 +150,60 @@ async function cdpCopyImageToClipboard(b64, mime) {
   }
 }
 
-// ============ Path B — drop sim ============
-async function tryDropSimulation(b64, mime, filename) {
-  const r = await sendToContent('FLOW_DROP_IMAGE', { b64, mime, filename });
-  if (!r.ok) return { ok: false, error: r.error };
-  await sleep(1500);
-  return { ok: true };
+// ============ Path C — setFileInputFiles (media project, TERAKHIR) ============
+async function trySetFileInput(b64, mime, filename) {
+  try {
+    const ext = String(mime || '').includes('png') ? 'png' : 'jpg';
+    const path = await saveTempFile(`data:${mime || 'image/png'};base64,${b64}`, ext);
+    if (!path) return { ok: false, error: 'gagal menulis file temp ke Downloads' };
+
+    const doc = await cdp('DOM.getDocument', { depth: -1, pierce: true });
+    if (!doc.ok) return { ok: false, error: 'DOM.getDocument: ' + doc.error };
+    const q = await cdp('DOM.querySelector', {
+      nodeId: doc.result.root.nodeId,
+      selector: 'input[type=file][accept*=image]'
+    });
+    if (!q.ok || !q.result || !q.result.nodeId) {
+      return { ok: false, error: 'input[accept*=image] tidak ditemukan di DOM Flow' };
+    }
+    const sf = await cdp('DOM.setFileInputFiles', { files: [path], nodeId: q.result.nodeId });
+    if (!sf.ok) return { ok: false, error: 'DOM.setFileInputFiles: ' + sf.error };
+    await sleep(2500);
+
+    const chk = await cdp('Runtime.evaluate', {
+      expression: `document.querySelector('input[type=file][accept*=image]') && document.querySelector('input[type=file][accept*=image]').files.length`,
+      returnByValue: true
+    });
+    const n = chk.ok && chk.result && chk.result.result && chk.result.result.value;
+    return { ok: true, verified: n > 0 };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+function saveTempFile(dataUrl, ext) {
+  return new Promise((resolve) => {
+    chrome.downloads.download({
+      url: dataUrl,
+      filename: 'flow-ai-video-generator/ref_image.' + ext,
+      saveAs: false,
+      conflictAction: 'overwrite'
+    }, (id) => {
+      const err = chrome.runtime.lastError;
+      if (err) return resolve(null);
+      const t0 = Date.now();
+      const iv = setInterval(() => {
+        chrome.downloads.search({ id }, (items) => {
+          if (!items.length) return;
+          const it = items[0];
+          if (it.state === 'complete') { clearInterval(iv); resolve(it.filename); }
+          else if (it.state === 'interrupted' || Date.now() - t0 > 30000) {
+            clearInterval(iv); resolve(null);
+          }
+        });
+      }, 500);
+    });
+  });
 }
 
 function sendToContent(type, data = {}) {
