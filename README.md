@@ -4,9 +4,14 @@ Chrome extension untuk **membuat video batch di Google Flow** dengan bantuan
 LLM (DeepSeek) untuk **menyusun prompt otomatis**, plus **image reference**
 agar karakter/produk konsisten (UGC, product promo, dll).
 
-> ⚠️ **STATUS: FASE RISET (Pilihan 2)** — prioritas utama saat ini adalah
-> **meneliti & membuktikan mekanisme "image reference ke Flow"** sebelum
-> membangun fitur lain. Lihat `experiments/PROBE_JALUR_IMAGE.md`.
+> ✅ **STATUS: RISET SELESAI — STRUKTUR MULAI DIBANGUN.**
+> - Probe membuktikan **Kasus A**: Flow punya `input[type=file][accept*=image]`
+>   (hidden) + prompt box mendukung **drop & paste gambar** (thumbnail muncul ✓).
+> - Arsitektur & skeleton extension dibuat (lihat `docs/ARCHITECTURE.md`):
+>   manifest, preset engine, CDP helper, injeksi image (Path A clipboard-paste),
+>   DeepSeek client, panel UI.
+> - **TODO berikutnya**: implementasi batch runner per-shot di `panel.js`
+>   (`runOneShot`) + uji end-to-end 1 shot dulu.
 >
 > Ini adalah **repo baru** terpisah dari `flow-batch-video-generator` lama —
 > tidak menyentuh repo lama di GitHub sama sekali.
@@ -62,17 +67,22 @@ agar karakter/produk konsisten (UGC, product promo, dll).
 ```
 flow-ai-video-generator/
 ├── docs/
+│   ├── ARCHITECTURE.md     # desain arsitektur & alur data
 │   └── ref/                # salinan dokumentasi Google (riset)
-├── experiments/            # riset & bukti mekanisme image reference
-│   ├── PROBE_JALUR_IMAGE.md
-│   ├── PROBE_DOM.js        # jalankan di Flow console untuk mendeteksi upload
-│   └── CDP_FILE_INJECTION.md
-├── manifest.json           # (dibuat setelah riset mengonfirmasi mekanisme)
-├── background.js
-├── content.js
-├── config.js               # preset & syar'i rules
-├── panel.html / panel.js
-└── style.css
+├── experiments/            # riset image reference (KASUS A terkonfirmasi)
+├── manifest.json           # MV3: debugger, downloads, sidePanel, clipboardWrite
+├── config/
+│   └── presets.js          # preset bawaan + SYAR'I_RULES + PROMPT_STRUCTURE
+├── background/
+│   ├── bg.js               # service worker (module) + message router
+│   ├── cdp.js              # helper CDP trusted (attach/ketik/enter/paste)
+│   ├── inject.js           # injeksi image reference (Path A→B→C)
+│   └── deepseek.js         # client DeepSeek + parse shot JSON
+├── content/
+│   └── content.js          # baca DOM Flow, clipboard image, drop sim
+├── panel/
+│   ├── panel.html / panel.js / style.css
+└── icons/
 ```
 
 ---

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flow AI Video Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="../icons/icon32.png" alt="logo" />
+      <div>
+        <h1>Flow AI Video</h1>
+        <span id="connBadge" class="badge badge-idle">● idle</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. API Key -->
+  <section class="card">
+    <h2>1. API Key DeepSeek</h2>
+    <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" />
+    <div id="keyStatus" class="muted"></div>
+  </section>
+
+  <!-- 2. Konten -->
+  <section class="card">
+    <h2>2. Konten</h2>
+    <div class="row">
+      <label class="opt">Preset
+        <select id="presetSelect"></select>
+      </label>
+      <label class="opt check">
+        <input type="checkbox" id="syariToggle" /> Mode Syar'i
+      </label>
+    </div>
+    <label>Deskripsi subjek / produk (konsistensi — DeepSeek tak baca gambar)
+      <textarea id="subjectDesc" rows="3" placeholder="cth: botol skincare lokal, hijau, cap khas, tekstur gel..."></textarea>
+    </label>
+    <div class="row">
+      <label class="opt">Jumlah shot
+        <input type="number" id="shotCount" min="1" max="20" value="8" />
+      </label>
+      <label class="opt">Durasi (dtk)
+        <input type="number" id="shotDuration" min="4" max="15" value="10" />
+      </label>
+    </div>
+    <button id="btnGenerate" class="primary">✨ Generate Prompt</button>
+  </section>
+
+  <!-- 3. Image Reference -->
+  <section class="card">
+    <h2>3. Image Reference <span class="muted">(opsional, konsistensi karakter/produk)</span></h2>
+    <input type="file" id="imageFile" accept="image/*" />
+    <div id="imagePreview" class="preview hidden"></div>
+  </section>
+
+  <!-- 4. Shot list -->
+  <section class="card" id="shotsCard" hidden>
+    <h2>4. Daftar Shot</h2>
+    <div class="row between">
+      <button id="btnBatch" class="primary">▶ Mulai Batch di Flow</button>
+      <span id="shotCountInfo" class="muted"></span>
+    </div>
+    <div id="shotList" class="shot-list"></div>
+  </section>
+
+  <!-- 5. Log -->
+  <section class="card">
+    <h2>Log</h2>
+    <div id="log" class="log"></div>
+  </section>
+
+  <footer class="muted">
+    Buka tab Google Flow (labs.google/fx) lalu klik "Mulai Batch".
+    Panel boleh tetap terbuka selama batch berjalan.
+  </footer>
+
+  <script src="../config/presets.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

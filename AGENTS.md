@@ -15,31 +15,26 @@
 ---
 
 ## STATUS SAAT INI (Harus dibaca dulu sebelum lanjut)
-- **FASE RISET &amp; EKSPLORASI — belum fase build.**
-- Prioritas utama = **meneliti &amp; membuktikan mekanisme "image reference ke Flow" (Pilihan 2 user).**
-- Repo baru sudah di-`git init`, commit awal dibuat, di-push ke GitHub.
-- File sudah ada:
-  - `README.md` (visi, status, struktur)
-  - `docs/ref/*.txt` (salinan dokumentasi resmi Google: Omni Flash, image-to-video, prompt guide, best practices)
-  - `experiments/PROBE_JALUR_IMAGE.md` (rencana riset + tempat isi temuan)
-  - `experiments/PROBE_DOM.js` (probe detail)
-  - `experiments/PROBE_DOM_COMPACT.js` (probe compact)
-  - `experiments/PROBE_RINGKAS.js` (hasil 7 baris ringkas)
-  - `experiments/PROBE_SATU_JALUR.js` (hasil SATU baris JSON string siap salin)
-  - `experiments/CDP_FILE_INJECTION.md` (mekanisme injeksi gambar via CDP)
+- **FASE BUILD — STRUKTUR MULAI DIBANGUN (fase riset SELESAI).**
+- **Probe 2026-08-16 KONFIRMASI Kasus A**: Flow punya `input[type=file][accept*=image]`
+  hidden + prompt box punya React `onDrop`+`onPaste`. **User membuktikan paste gambar
+  manual berhasil (thumbnail muncul)** → injeksi image TIDAK butuh path file OS;
+  pakai clipboard+CDP trusted Ctrl+V (Path A) / drop sim (Path B) / file chooser (Path C).
+- Struktur extension sudah dibuat (lihat `docs/ARCHITECTURE.md`):
+  - `manifest.json` (MV3, module service worker)
+  - `config/presets.js` (5 preset bawaan + SYAR'I_RULES + PROMPT_STRUCTURE)
+  - `background/` bg.js (router) · cdp.js (CDP helper) · inject.js (Path A→B→C) · deepseek.js (API)
+  - `content/content.js` (DOM reads, clipboard image, drop sim)
+  - `panel/` (UI sesuai kesepakatan UX)
+- **TODO berikutnya**: implementasi `runOneShot` (batch runner per shot) di
+  `panel/panel.js` + uji end-to-end 1 shot dulu, lalu batch penuh.
 
 ---
 
-## KRITIKAL BLOKER (belum selesai)
-- **User belum berhasil mengirim hasil probe.** Kendala teknis: saat user copy output objek
-  `OUT_JSON` dari console Chrome lalu paste ke pi, output **terpotong/terpisah** karena objek di
-  console Chrome bersifat *collapsible*. Bukan masalah Chrome/pi; masalah format output.
-- **Solusi terakhir yang dibuat**: `PROBE_SATU_JALUR.js` menampilkan hasil sebagai
-  **SATU baris JSON string** (`HASIL_AWAL:: ... ::HASIL_AKHIR`) + **auto-copy** ke clipboard,
-  supaya saat user paste ke pi seluruhnya ikut utuh.
-- User menyebut sudah mencoba paste di Chrome **berhasil**; yang gagal adalah *menyalin hasilnya* ke pi.
-- **NEXT STEP**: user harus menjalankan `PROBE_SATU_JALUR.js` di Flow, kirim hasil
-  `HASIL_AWAL:: ... ::HASIL_AKHIR`, lalu kita tentukan mekanisme injeksi gambar.
+## KRITIKAL BLOKER — SELESAI
+- Probe berhasil dikirim &amp; dianalisis (2026-08-16): **Kasus A terkonfirmasi**.
+- Bloker "user tak bisa kirim hasil probe" sudah teratasi via `PROBE_SATU_JALUR.js`
+  (satu baris JSON + auto-copy).
 
 ---
 
@@ -78,15 +73,15 @@
 - **Format rujukan output**: file user `Video_Prompt_Final.txt` (per scene dengan timestamp,
   SHOT n, NARASI, VISUAL, Kamera, Speed, EFFECT, dst). Output DeepSeek harus meniru format ini
   agar siap di-batch.
-- **Mechanisme injeksi gambar di Flow (belum dibuktikan)**: kemungkinan via
-  - CDP `DOM.setFileInputFiles` (paling andal) jika ada `<input type=file accept=image/*>`
-  - CDP `Page.fileChooserOpened` + klik tombol upload
-  - Clipboard + Ctrl+V jika Flow menerima paste image
+- **Mechanisme injeksi gambar di Flow — TERBUKTI (probe 2026-08-16)**:
+  - ✅ Ada `<input type=file accept=image/*>` hidden → jalur `DOM.setFileInputFiles` valid.
+  - ✅ Prompt box punya React `onDrop`+`onPaste`; **paste gambar manual terbukti muncul thumbnail**
+    → mekanisme utama = clipboard image + CDP trusted Ctrl+V (tanpa path file OS).
+  - ⬜ Cadangan: drop sim DataTransfer / klik "Add Media" + `Page.fileChooserOpened`.
   - Semua memakai izin `chrome.debugger` (CDP) yang sudah ada di extension lama.
-- **Risiko**: Flow (labs.google/fx) = product lab, UI/DOM sering berubah, mungkin belum punya
-  slot image-reference. Jika probe menunjukkan TIDAK ada upload/paste, maka image-reference
-  sungguhan tidak bisa di-inject → pivot dibahas dgn user (B1 text-anchor / B2 panggil API
-  Gemini Omni image-to-video langsung).
+- **Risiko**: Flow (labs.google/fx) = product lab, UI/DOM sering berubah; selector/koordinat
+  harus di-resolve ulang tiap batch. Ini mitigasi biasa (pola lama sudah terbukti).
+  Tidak perlu pivot — image reference sungguhan BISA di-inject.
 
 ---
 

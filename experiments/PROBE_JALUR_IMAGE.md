@@ -1,6 +1,7 @@
 # Riset: Apakah Google Flow (labs.google/fx) Mendukung Image Reference?
 
-> Status: **EKSPLORASI** — belum dibangun.
+> Status: **PROBE SELESAI — Kasus A KONFIRMASI** (input file image ada + prompt box mendukung drop/paste).
+> Selanjutnya: buktikan injeksi via CDP `DOM.setFileInputFiles` (lihat CDP_FILE_INJECTION.md).
 > Tujuan: mengetahui secara empiris apakah UI Flow saat ini menyediakan
 > mekanisme upload gambar (image reference / first-frame) yang bisa
 > dimanipulasi oleh extension, dan bagaimana caranya.
@@ -62,18 +63,46 @@ bukan menebak.
 
 ---
 
-## TEMUAN (isi setelah menjalankan probe)
+## TEMUAN (hasil probe 2026-08-16, Flow project bcae3b9c...)
 
 ```
-[Jangan hapus — isi di sini hasil probe]:
+Ada input file?   : YA — 1x <input type="file" accept="image/*" multiple=false>
+                   :   (hidden, cls "sc-dcc7b7da-0 fhJvUC", di belakang tombol Add Media)
+accept nya        : image/* (hanya gambar, single file)
+Tombol upload?    : YA — "Add Media" (x:766 y:38) = pemicu input tsb
+                   :   "image View images" (x:40 y:153)
+                   :   "drive_folder_upload View uploaded media" (x:40 y:311)
+aria-label        : "add Add Media"
+onDrop/onPaste?   : prompt box (kls sc-1c9f7009-0 ... iIcaa*, x:494 y:673) punya
+                   :   React onDrop + onPaste (synthetic events) → paste/drop gambar
+                   :   ke prompt box DIDUKUNG. (pasteListeners:false hanya cek native
+                   :   addEventListener — false positive, React pakai delegation.)
+Rendering         : DOM/text (bukan canvas/webgl) → semua elemen bisa di-CDP
+Catatan flow ver  : labs.google/fx tools/flow, URL project bcae3b9c-c7e9-40da-b76f-e7c654bb29b4
 
-Ada input file?   : 
-accept nya        : 
-Tombol upload?    : 
-aria-label        : 
-onDrop/onPaste?   : 
-Rendering         : canvas/webgl/dom?
-Catatan flow ver  : 
-
-Kesimpulan riset  : Kasus A / Kasus B / campuran
+Kesimpulan riset  : KASUS A — mekanisme upload image ada, bisa di-inject CDP.
 ```
+
+### Buat apa ini
+- **Jalur I (pilihan utama):** `DOM.setFileInputFiles` langsung ke
+  `input[accept*=image]` — tidak perlu menampilkan input atau klik tombol;
+  CDP bisa set file ke node hidden. Cukup `DOM.getDocument` +
+  `DOM.querySelector('input[accept*=image]')` → dapat `nodeId` → set file.
+- **Jalur II (cadangan):** simulasikan paste/drop gambar ke prompt box
+  (React onDrop/onPaste) — perlu DataTransfer; lebih rapuh dari Jalur I.
+- **Jalur III (fallback UI):** klik tombol "Add Media" → intersep
+  `Page.fileChooserOpened` → set file via `backendNodeId`.
+
+### Verifikasi manual opsional (bonus)
+1. Fokus ke prompt box di Flow.
+2. Salin gambar (klik kanan gambar > Salin gambar).
+3. Ctrl+V di prompt box.
+4. Kalau muncul thumbnail di atas kolom prompt → paste didukung (Jalur II).
+   (Ini bukan prasyarat — Jalur I sudah terkonfirmasi dari input file.)
+
+### Risiko / catatan
+- Input file hidden → pastikan `nodeId` di-resolve ulang tiap batch
+  (DOM Flow re-render, node id bisa berganti).
+- `DOM.setFileInputFiles` butuh **path file lokal** browser user; panel harus
+  simpan image upload user ke file temp (lihat CDP_FILE_INJECTION.md).
+- Single file (`multiple=false`) → cukup 1 image reference per project.

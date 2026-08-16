@@ -70,14 +70,16 @@ chrome.debugger.onEvent.addListener((src, method, params) => {
 
 ---
 
-## Keputusan yang masih menunggu hasil probe
+## Keputusan — TERKONFIRMASI oleh probe (2026-08-16)
 
 | Temuan probe | Mekanisme yang dipakai |
 |---|---|
-| Ada `input[type=file][accept*=image]` | Jalur I (`DOM.setFileInputFiles`), paling andal |
-| Ada tombol upload, file chooser di-blok | Jalur I + `Page.handleFileChooser` |
-| Hanya paste gambar didukung | Jalur II (clipboard) |
-| Tidak ada sama sekali | Kasus B → pivot (B1/B2) di doc PROBE_JALUR_IMAGE.md |
+| ✅ Ada `input[type=file][accept*=image]` (hidden, single) | **Jalur I** — `DOM.setFileInputFiles` (paling andal) |
+| ✅ Prompt box punya React `onDrop`+`onPaste` | **Jalur II** — cadangan (paste/drop gambar) |
+| ✅ Tombol "Add Media" (x:766 y:38) | **Jalur III** — fallback (klik → `Page.fileChooserOpened`) |
+| Kasus B (tidak ada upload) | TIDAK berlaku — probe sudah membuktikan Kasus A |
+
+Detail lengkap: `PROBE_JALUR_IMAGE.md` → bagian TEMUAN.
 
 ---
 
