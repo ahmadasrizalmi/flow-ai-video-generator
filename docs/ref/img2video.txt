@@ -1,0 +1,1936 @@
+
+Generate videos from an image  |  Gemini Enterprise Agent Platform  |  Google Cloud Documentation
+Skip to main content
+Technology areas
+close
+AI and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Migration
+Networking
+Observability and monitoring
+Security
+Storage
+Cross-product tools
+close
+Access and resources management
+Costs and usage management
+Infrastructure as code
+SDK, languages, frameworks, and tools
+/
+Console
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+עברית
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
+Sign in
+Gemini Enterprise Agent Platform
+Start free
+Overview
+Studio
+Agents
+Models
+Notebooks
+Pricing
+Agent Platform
+Generative AI
+Engineering Blog
+Technology areas
+More
+Overview
+Studio
+Agents
+Models
+Notebooks
+Pricing
+More
+Engineering Blog
+Cross-product tools
+More
+Console
+Overview
+Beginner's guide
+Get started
+Get started with Agent Platform
+Develop Gemini API code with the Gen AI SDK
+Connect to the Knowledge MCP server
+Get an API key
+Configure application default credentials
+Migrate from Google AI Studio to Agent Platform
+Get started with Gemini 3
+Google GenAI libraries
+Generative AI cookbook
+Access Gemini models using OpenAI libraries
+Express mode
+Overview
+Console tutorial
+API tutorial
+Select models
+Model Garden
+Overview of Model Garden
+Use models in Model Garden
+Test model capabilities
+Google Models
+All Google models
+Gemini
+Migrate to the latest Gemini models
+Pro
+3.1 Pro
+3 Pro Image
+2.5 Pro
+Flash
+Gemini Omni Flash
+3.7 Flash
+3.6 Flash
+3.5 Flash
+3.1 Flash Image
+3 Flash
+2.5 Flash
+2.5 Flash Image
+2.5 Flash Live API
+Flash-Lite
+3.5 Flash-Lite
+3.1 Flash-Lite Image
+3.1 Flash-Lite
+2.5 Flash-Lite
+Embedding
+Gemini Embedding 2
+Robotics
+Gemini Robotics ER 2
+Overview
+Spatial reasoning
+Agentic capabilities
+Task orchestration
+Video understanding
+Veo
+Veo 2
+Veo 3
+Veo 3.1
+Lyria
+Lyria 2
+Lyria 3
+Virtual Try-On
+Model versions
+Partner Models
+Partner models overview
+Claude
+Overview
+Request predictions
+Quotas for Anthropic Claude models
+Batch predictions
+Structured outputs
+Prompt caching
+Count tokens
+Web search
+Safety classifiers
+Model details
+Claude Opus 5
+Claude Sonnet 5
+Claude Fable 5
+Claude Opus 4.8
+Claude Opus 4.7
+Claude Sonnet 4.6
+Claude Opus 4.6
+Claude Opus 4.5
+Claude Sonnet 4.5
+Claude Opus 4.1
+Claude Haiku 4.5
+Claude Opus 4
+Claude Sonnet 4
+Grok
+Overview
+Responses API
+Function calling
+Structured output
+Reasoning
+Model details
+Grok 4.1 Fast
+Grok 4.20
+Grok 4.3
+Mistral AI
+Overview
+Model details
+Mistral Medium 3
+Mistral OCR (25.05)
+Mistral Small 3.1 (25.03)
+Codestral 2
+Deploy partner models from Model Garden
+Partner model deprecations
+Open Models
+Overview
+AlphaGenome
+DeepSeek
+Overview
+DeepSeek-V3.2
+DeepSeek-V3.1
+DeepSeek-R1-0528
+DeepSeek-OCR
+Embedding (e5)
+Multilingual E5 Small
+Multilingual E5 Large
+Google Gemma
+Model-as-a-Service (MaaS)
+Gemma-4-26B-A4B-IT MaaS
+Use Gemma
+Tutorial: Deploy and inference Gemma (GPU)
+Tutorial: Deploy and inference Gemma (TPU)
+Kimi
+Overview
+Kimi K2 Thinking
+Llama
+Overview
+Request predictions
+Model details
+Llama 4 Maverick
+Llama 4 Scout
+Llama 3.3
+MiniMax
+Overview
+MiniMax M2
+OpenAI
+Overview
+OpenAI gpt-oss-120b
+OpenAI gpt-oss-20b
+Qwen
+Overview
+Qwen 3 Next Instruct 80B
+Qwen 3 Next Thinking 80B
+Qwen 3 Coder
+Qwen 3 235B
+ZAI.org
+Overview
+GLM 5
+GLM 4.7
+Managed open models (MaaS)
+Overview
+Use open models via Model as a Service (MaaS)
+Grant access to open models
+API
+Call MaaS APIs for open models
+Function calling
+Thinking
+Structured output
+Batch prediction
+Open model deprecations
+Self-deployed open models
+Overview
+Deploy open models
+Deploy open models from Model Garden
+Deploy open models with prebuilt containers
+Deploy open models with a custom vLLM container
+Deploy models with custom weights
+Use Hugging Face Models
+Tutorials
+Optimize model performance with advanced features in Model Garden
+Hex-LLM
+Comprehensive guide to vLLM for Text and Multimodal LLM Serving (GPU)
+vLLM TPU
+xDiT
+Deploy Llamma 3 models with SpotVM and Reservations
+Build
+Prompt design
+Introduction to prompting
+Prompting strategies
+Overview
+Give clear and specific instructions
+Use system instructions
+Include few-shot examples
+Add contextual information
+Structure prompts
+Compare prompts
+Instruct the model to explain its reasoning
+Break down complex tasks
+Experiment with parameter values
+Prompt iteration strategies
+Task-specific prompt guidance
+Design multimodal prompts
+Design chat prompts
+Capabilities
+Safety
+Overview
+Responsible AI
+System instructions for safety
+Configure content filters
+Gemini for safety filtering and content moderation
+Abuse monitoring
+Process blocked responses
+Content Credentials
+AI Content Detection API
+Text and code generation
+Text generation
+System instructions
+Structured output
+Content generation parameters
+Image generation
+Generate images with Gemini
+Generate images from video with Gemini
+Edit images with Gemini
+Gemini image generation best practices
+Generate Virtual Try-On images
+Gemini image generation limitations
+Responsible AI and usage for Gemini image generation
+Imagen documentation
+Video generation
+Overview
+Text to video
+First frame image to video
+First and last frames to video
+Ingredients to videos with image references
+Extend videos
+Insert objects
+Remove objects
+Prompt guide
+Veo best practices
+Turn off Veo's prompt rewriter
+Responsible AI for Veo
+Music generation
+Introduction to Lyria
+Generate music using Lyria
+Lyria prompt guide
+Media analysis
+Image understanding
+Video understanding
+Audio understanding
+Document understanding
+Bounding box detection
+URL context
+Thinking
+Overview
+Thought signatures
+Prompting guide
+Live API
+Overview
+Get started
+Get started using the Gen AI SDK
+Get started using WebSockets
+Get started using ADK
+Start and manage live sessions
+Send audio and video streams
+Configure language and voice
+Configure Gemini capabilities
+Asynchronous function calling
+Best practices with Live API
+Troubleshooting Live API
+Demo apps and resources
+Embeddings
+Overview
+Text embeddings
+Get text embeddings
+Choose an embeddings task type
+Get multimodal embeddings
+Get batch embeddings inferences
+Translation
+Generate speech from text
+Transcribe speech
+Model tools
+Code execution
+Computer use
+Function calling
+Grounding
+Overview
+Grounding with Google Search
+Grounding with Google Maps
+Grounding with Agent Search
+Grounding with your search API
+Grounding responses using RAG
+Grounding with Elasticsearch
+Grounding with Parallel web search
+Grounding with Exa web search
+Web Grounding for Enterprise
+Development tools
+Use AI-powered prompt writing tools
+Overview
+Optimize prompts
+Overview
+Zero-shot optimizer
+Few-shot optimizer
+Data-driven optimizer
+Use prompt templates
+Model tuning
+Introduction to tuning
+Tuning Gemini models
+Supervised fine-tuning
+About supervised fine-tuning
+Prepare your data
+Use supervised fine-tuning
+Supported modalities
+Text tuning
+Document tuning
+Image tuning
+Audio tuning
+Video tuning
+Tune function calling
+Reinforcement learning fine-tuning
+About reinforcement learning fine-tuning
+Quick start
+Reinforcement learning fine-tuning job
+Overview
+Tuning dataset
+Hyperparameters
+Reward functions
+Metrics and monitoring
+Continuous tuning
+Preference tuning
+About preference tuning
+Prepare your data
+Use preference tuning
+Use tuning checkpoints
+Use continuous tuning
+Tuning recommendations with LoRA and QLoRA
+Open models
+Supervised and distillation fine-tuning
+Embeddings models
+Tune text embeddings models
+Translation models
+About supervised fine-tuning
+Prepare your data
+Use supervised fine-tuning
+Migrate
+Call Agent Platform models using OpenAI libraries
+Overview
+Authenticate
+Examples
+Migrate from OpenAI SDK
+Evaluate
+Overview
+Tutorial: Perform evaluation using the console
+Perform evaluation using the GenAI Client in Agent Platform SDK
+Tutorial: Evaluate models using the GenAI Client in Agent Platform SDK
+Define your evaluation metrics
+Define your evaluation metrics
+Details for managed rubric-based metrics
+Prepare your evaluation dataset
+Run an evaluation
+View and interpret evaluation results
+Evaluate agents
+Alternative evaluation methods
+Evaluate using the evaluation module in Agent Platform SDK
+Tutorial: Perform evaluation using the evaluation module in Agent Platform SDK
+Define your evaluation metrics
+Prepare your evaluation dataset
+Run an evaluation
+Interpret evaluation results
+Templates for model-based metrics
+Evaluate agents
+Evaluate a judge model
+Configure a judge model
+Run AutoSxS pipeline
+Run a computation-based evaluation pipeline
+Deploy
+Consumption options overview
+Provisioned Throughput
+Provisioned Throughput overview
+Supported models
+Calculate Provisioned Throughput requirements
+Provisioned Throughput for Live API
+Provisioned Throughput for Gemini 3 (Nano Banana) models
+Provisioned Throughput for Veo 3 models
+Single Zone Provisioned Throughput
+Purchase Provisioned Throughput
+Use Provisioned Throughput
+PayGo
+Standard PayGo
+Priority PayGo
+Flex PayGo
+Batch inference
+Overview
+Create batch job from Cloud Storage
+Create batch job from BigQuery
+Resume an incomplete batch job
+Quotas and system limits
+Cache reused prompt context
+Overview
+Create a context cache
+Use a context cache
+Get context cache information
+Update a context cache
+Delete a context cache
+Context cache for fine-tuned Gemini models
+Deploy generative AI models
+Troubleshooting error code 429
+Retry strategy
+Administer
+Access control
+Networking
+Security controls
+Control access to Model Garden models
+Enable Data Access audit logs
+Save and share prompts
+Monitor models
+Monitor cost using custom metadata labels
+Request-response logging
+Secure a gen AI app by using IAP
+Overview
+Set up your project and source repository
+Create a Cloud Run service
+Create a load balancer
+Configure IAP
+Test your IAP-secured app
+Clean up your project
+Build your own model
+Overview
+MLOps on Agent Platform
+Interfaces for Agent Platform
+Agent Platform beginner's guides
+Train an AutoML model
+Train a custom model
+Get inferences from a custom model
+Train a model using Agent Platform and the Python SDK
+Introduction
+Prerequisites
+Create a notebook
+Create a dataset
+Create a training script
+Train a model
+Make an inference
+Integrated ML frameworks
+PyTorch
+TensorFlow
+Agent Platform for BigQuery users
+Glossary
+Get started
+Set up a project and a development environment
+Install the Agent Platform SDK for Python
+Authenticate to Agent Platform
+Choose a training method
+Try a tutorial
+Tutorials overview
+AutoML tutorials
+Hello image data
+Overview
+Set up your project and environment
+Create a dataset and import images
+Train an AutoML image classification model
+Evaluate and analyze model performance
+Deploy a model to an endpoint and make an inference
+Clean up your project
+Hello tabular data
+Overview
+Set up your project and environment
+Create a dataset and train an AutoML classification model
+Deploy a model and request an inference
+Clean up your project
+Custom training tutorials
+Train a custom tabular model
+Train a TensorFlow Keras image classification model
+Overview
+Set up your project and environment
+Train a custom image classification model
+Serve predictions from a custom image classification model
+Clean up your project
+Fine-tune an image classification model with custom data
+Use Agent Platform development tools
+Development tools overview
+Use the Agent Platform SDK
+Overview
+Introduction to the Agent Platform SDK for Python
+Agent Platform SDK for Python classes
+Agent Platform SDK classes overview
+Data classes
+Training classes
+Model classes
+Prediction classes
+Tracking classes
+Terraform support for Agent Platform
+Agent Platform Training
+Overview
+Agent Platform serverless training
+Overview of serverless training in Agent Platform
+Load and prepare data
+Data preparation overview
+Use Cloud Storage as a mounted file system
+Mount an NFS share for serverless training
+Use managed datasets
+Prepare training application
+Understand the serverless training service
+Prepare training code
+Use prebuilt containers
+Create a Python training application for a prebuilt container
+Prebuilt containers for serverless training
+Use custom containers
+Custom containers for serverless training
+Create a custom container
+Containerize and run training code locally
+Train on a persistent resource
+Overview
+Create persistent resource
+Run training jobs on a persistent resource
+Get persistent resource information
+Reboot a persistent resource
+Delete a persistent resource
+Configure training job
+Choose a custom training method
+Configure container settings for training
+Configure compute resources for training
+Use reservations with training
+Use Spot VMs with training
+Submit training job
+Create custom jobs
+Hyperparameter tuning
+Hyperparameter tuning overview
+Use hyperparameter tuning
+Create training pipelines
+Schedule jobs based on resource availability
+Use distributed training
+Training with Cloud TPU VMs
+Use private IP for custom training
+Use Private Service Connect interface for training (recommended)
+Monitor and debug
+Monitor and debug training using an interactive shell
+Profile model training performance
+Tutorial: Build a pipeline for continuous training
+Create custom organization policy constraints
+Vertex AI training clusters
+Overview
+Get started with training clusters
+Deployment considerations
+Compute resources
+Networking
+Storage
+Orchestration
+Create and manage clusters
+Create cluster
+Manage cluster
+Manage accounts and job scheduling on a cluster
+Cluster resiliency
+Feature guides
+Using Flex Start VMs with Slurm clusters
+Run workload on cluster
+Run prebuilt workloads
+Visualizing jobs with TensorBoard
+Manage training clusters using Slurm
+Ray on Agent Platform
+Ray on Agent Platform overview
+Set up for Ray on Agent Platform
+Create a Ray cluster on Agent Platform
+Monitor Ray clusters on Agent Platform
+Scale a Ray cluster on Agent Platform
+Develop a Ray application on Agent Platform
+Run Spark on Ray cluster on Agent Platform
+Use Ray on Agent Platform with BigQuery
+Deploy a model and get inferences
+Delete a Ray cluster
+Perform Neural Architecture Search
+Overview
+Set up environment
+Beginner tutorials
+Best practices and workflow
+Proxy task design
+Optimize training speed for PyTorch
+Use prebuilt training containers and search spaces
+Optimize using Agent Platform Vizier
+Overview of Agent Platform Vizier
+Create Agent Platform Vizier studies
+AutoML model development
+AutoML training overview
+Image data
+Classification
+Prepare data
+Create dataset
+Train model
+Evaluate model
+Get predictions
+Interpret results
+Object detection
+Prepare data
+Create dataset
+Train model
+Evaluate model
+Get predictions
+Interpret results
+Encode image data using Base64
+Export an AutoML Edge model
+Tabular data
+Overview
+Introduction to tabular data
+Tabular Workflows
+Overview
+End-to-End AutoML
+Overview
+Train a model
+Get online inferences
+Get batch inferences
+Forecasting
+Overview
+Train a model
+Get online inferences
+Get batch inferences
+Pricing
+Service accounts
+Manage quotas
+Perform classification and regression with AutoML
+Overview
+Quickstart: AutoML Classification (Cloud Console)
+Prepare training data
+Create a dataset
+Train a model
+Evaluate model
+View model architecture
+Get online inferences
+Get batch inferences
+Export model
+Perform forecasting with AutoML
+Overview
+Prepare training data
+Create a dataset
+Train a model
+Evaluate model
+Get inferences
+Hierarchical forecasting
+Perform forecasting with ARIMA+
+Perform forecasting with Prophet
+Perform entity reconciliation
+Feature attributions for classification and regression
+Feature attributions for forecasting
+Data types and transformations for tabular AutoML data
+Training parameters for forecasting
+Data splits for tabular data
+Best practices for creating tabular training data
+Train an AutoML Edge model
+Using the Console
+Using the API
+Generative AI model development
+Overview
+Create and manage datasets
+Overview
+Data splits for AutoML models
+Create an annotation set
+Delete an annotation set
+Add labels (console)
+Export metadata and annotations from a dataset
+Manage image dataset versions (API only)
+Get inferences
+Overview
+Configure models for inference
+Export model artifacts for inference
+Prebuilt containers for inference
+Custom container requirements for inference
+Use a custom container for inference
+Use arbitrary custom routes
+Use the optimized TensorFlow runtime
+Serve inferences with NVIDIA Triton
+Custom inference routines
+Get online inferences
+Create an endpoint
+Choose an endpoint type
+Create a public endpoint
+Use dedicated public endpoints (recommended)
+Use dedicated private endpoints based on Private Service Connect (recommended)
+Use private services access endpoints
+Deploy a model to an endpoint
+Overview of model deployment
+Compute resources for inference
+Deploy a model by using the Google Cloud console
+Deploy a model by using the gcloud CLI or Agent Platform API
+Use autoscaling for inference
+Use a rolling deployment to replace a deployed model
+Undeploy a model and delete the endpoint
+Use Cloud TPUs for online inference
+Use reservations with online inference
+Use Flex-start VMs with inference
+Use Spot VMs with inference
+Get an online inference
+View online inference metrics
+View endpoint metrics
+View DCGM metrics
+View AI AutoMetrics
+Share resources across deployments
+Use online inference logging
+Get batch inferences
+Get batch inferences from a custom model
+Use reservations with batch inference
+Get batch prediction from a self-deployed Model Garden model
+Serve generative AI models
+Deploy generative AI models
+Serve Gemma open models using Cloud TPUs with Saxml
+Serve Llama 3 open models using multi-host Cloud TPUs with Saxml
+Serve a DeepSeek-V3 model using multi-host GPU deployment
+Custom organization policies
+Machine learning operations (MLOps)
+Manage features
+Feature management in Agent Platform
+Agent Platform Feature Store
+About Agent Platform Feature Store
+Set up features
+Prepare data source
+Create a feature group
+Create a feature
+Set up online serving
+Online serving types
+Create an online store instance
+Create a feature view instance
+Control access
+Control access to resources
+Sync online store
+Start a data sync
+List sync operations
+Update features in a feature view
+Serve features
+Serve features from online store
+Serve historical feature values
+Monitor
+Monitor features
+Manage feature resources
+List feature groups
+List features
+Update a feature group
+Update a feature
+Delete a feature group
+Delete a feature
+Manage online store resources
+List online stores
+List feature views
+Update an online store
+Update a feature view
+Delete an online store
+Delete a feature view
+Feature metadata
+Update labels
+Search for resources
+Search for resources
+Search for resource metadata in Data Catalog
+Manage embeddings
+Search using embeddings
+Notebook tutorials
+Agent Platform Feature Store tutorial notebooks
+Manage models
+Introduction to Agent Platform Model Registry
+Versioning in Model Registry
+Import models to Model Registry
+Copy models in Model Registry
+Delete a model
+Integrate with BigQuery ML
+Use model aliases
+Use model labels
+Evaluate models
+Model evaluation in Agent Platform
+Perform model evaluation in Agent Platform
+Model evaluation for fairness
+Introduction to model evaluation for fairness
+Data bias metrics for Agent Platform
+Model bias metrics for Agent Platform
+Orchestrate ML workflows using pipelines
+Introduction
+Interfaces
+Configure your project
+Build a pipeline
+Run a pipeline
+Use pipeline templates
+Create, upload, and use a pipeline template
+Use a prebuilt template from the Template Gallery
+Configure your pipeline
+Configure execution caching
+Configure failure policy
+Configure retries for a pipeline task
+Specify machine types for a pipeline step
+Request Google Cloud machine resources with Agent Platform Pipelines
+Configure Private Service Connect interface (recommended)
+Configure secrets with Secret Manager
+Configure a pipeline run on a persistent resource
+Schedule and trigger pipeline runs
+Schedule a pipeline run with scheduler API
+Trigger a pipeline run with Pub/Sub
+Cancel or delete pipeline runs
+Cancel pipeline runs
+Delete pipeline runs
+Rerun a pipeline
+Monitor pipeline execution
+View pipeline metrics
+View pipeline job logs
+Route logs to a Cloud Pub/Sub sink
+Configure email notifications
+Visualize results
+Visualize and analyze pipeline results
+Track the lineage of pipeline artifacts
+Output HTML and Markdown
+Resource labeling by Agent Platform Pipelines
+Understand pipeline run costs
+Migrate from Kubeflow Pipelines to Agent Platform Pipelines
+Use custom constraints
+Google Cloud Pipeline Components
+Quickstart
+Introduction to Google Cloud Pipeline Components
+Google Cloud Pipeline Component list
+Use Google Cloud Pipeline Components
+Build your own pipeline components
+Agent Platform Pipelines tutorials
+Tutorial notebooks
+Track and analyze your ML metadata
+Introduction to Vertex ML Metadata
+Data model and resources
+Configure your project's metadata store
+Use Vertex ML Metadata
+Track Vertex ML Metadata
+Analyze Vertex ML Metadata
+Manage Vertex ML Metadata
+System schemas
+Create and use custom schemas
+Use custom constraints with metadata stores
+Monitor model quality
+Introduction to Model Monitoring
+Model Monitoring v2
+Set up model monitoring
+Run monitoring jobs
+Manage model monitors
+Model Monitoring v1
+Provide schemas to Model Monitoring
+Monitor feature skew and drift
+Model Monitoring for batch predictions
+Track Experiments
+Introduction to Agent Platform Experiments
+Set up for Agent Platform Experiments
+Create an experiment
+Create and manage experiment runs
+Log data
+Autolog data to an experiment run
+Manually log data to an experiment run
+Log models to an experiment run
+Track executions and artifacts
+Add pipeline run to experiment
+Run training job with experiment tracking
+Compare and analyze runs
+Use Agent Platform TensorBoard
+Introduction to Agent Platform TensorBoard
+Set up Agent Platform TensorBoard
+Configure training script
+Use Agent Platform TensorBoard with custom training
+Use Agent Platform TensorBoard with Agent Platform Pipelines
+Manually log TensorBoard data
+Upload existing logs
+View Agent Platform TensorBoard
+Notebook tutorials
+Get started with Agent Platform Experiments
+Compare pipeline runs
+Model training
+Compare models
+Autologging
+Custom training autologging
+Track parameters and metrics for custom training
+Delete outdated Agent Platform TensorBoard experiments
+Agent Platform TensorBoard custom training with custom container
+Agent Platform TensorBoard custom training with prebuilt container
+Agent Platform TensorBoard hyperparameter tuning with HParams dashboard
+Profile model training performance using Cloud Profiler
+Profile model training performance using Cloud Profiler in custom training with prebuilt container
+Agent Platform TensorBoard integration with Agent Platform Pipelines
+Administer
+Access control
+Access control with IAM
+IAM permissions
+Set up a project for a team
+Control access to Agent Platform endpoints
+Use a custom service account
+Use customer-managed encryption keys
+Access Transparency
+Monitor Agent Platform resources
+Cloud Monitoring metrics
+Audit logging information
+Networking
+Networking access overview
+Accessing the Agent Platform API
+Accessing Agent Platform services through private services access
+Accessing Agent Platform services through PSC endpoints
+Accessing Agent Platform services through PSC interfaces
+Set up VPC Network Peering
+Set up connectivity to other networks
+Set up a Private Service Connect interface
+Tutorial: Access training pipelines privately from on-premises
+Tutorial: Access a Vector Search index privately from on-premises
+Tutorial: Access the Generative AI API from on-premises
+Tutorial: Access batch predictions privately from on-premises
+Tutorial: Create a Agent Platform Workbench instance in a VPC network
+Security
+VPC Service Controls
+Allow public endpoint access to protected resources from outside a perimeter
+Allow multicloud access to protected resources from outside a perimeter
+Allow access to protected resources from inside a perimeter
+Name resources
+Samples and tutorials
+Notebook tutorials
+Code samples
+Code samples for all products
+AI and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Migration
+Networking
+Observability and monitoring
+Security
+Storage
+Access and resources management
+Costs and usage management
+Infrastructure as code
+SDK, languages, frameworks, and tools
+Agent Platform
+Generative AI
+Home
+Documentation
+AI and ML
+Gemini Enterprise Agent Platform
+Models
+Send feedback
+Generate videos from an image
+Stay organized with collections
+Save and categorize content based on your preferences.
+You can use Gemini Omni or Veo on Gemini Enterprise Agent Platform to generate new videos using an
+existing image as the first frame. Image first frame to video available through
+Gemini Enterprise Agent Platform Media
+Studio or
+using the Gemini Enterprise Agent Platform video generation
+API .
+The following models support generating videos from an image:
+Gemini Omni
+Click to expand supported models
+gemini-omni-flash-preview
+preview
+Veo
+Click to expand supported models
+Veo 2 Generate
+Veo 2 Generate
+preview
+Veo 2 Generate
+preview
+Veo 3 Generate
+preview
+Veo 3 Generate
+preview
+Veo 3 Generate
+Veo 3 Fast Generate
+Veo 3.1 Generate
+preview
+Veo 3.1 Fast Generate
+preview
+Veo 3.1 Generate
+Veo 3.1 Fast Generate
+Veo 3.1 Lite Generate
+preview
+For more information about writing effective text prompts for video generation,
+see the Video generation prompt
+guide .
+Try Gemini Omni Flash in a Colab
+Before you begin
+Sign in to your Google Cloud account. If you're new to
+Google Cloud,
+create an account to evaluate how our products perform in
+real-world scenarios. New customers also get $300 in free credits to
+run, test, and deploy workloads.
+In the Google Cloud console, on the project selector page,
+select or create a Google Cloud project.
+Roles required to select or create a project
+Select a project : Selecting a project doesn't require a specific
+IAM role—you can select any project that you've been
+granted a role on.
+Create a project : To create a project, you need the Project Creator role
+( roles/resourcemanager.projectCreator ), which contains the
+resourcemanager.projects.create permission. Learn how to grant
+roles .
+Note : If you don't plan to keep the
+resources that you create in this procedure, create a project instead of
+selecting an existing project. After you finish these steps, you can
+delete the project, removing all resources associated with the project.
+Go to project selector
+Enable the Agent Platform API.
+Roles required to enable APIs
+To enable APIs, you need the serviceusage.services.enable permission. If you
+created the project, then you likely already have this permission through the
+Owner role ( roles/owner ). Otherwise, you can get this permission through the
+Service Usage Admin role ( roles/serviceusage.serviceUsageAdmin ).
+Learn how to grant roles .
+Enable the API
+In the Google Cloud console, on the project selector page,
+select or create a Google Cloud project.
+Roles required to select or create a project
+Select a project : Selecting a project doesn't require a specific
+IAM role—you can select any project that you've been
+granted a role on.
+Create a project : To create a project, you need the Project Creator role
+( roles/resourcemanager.projectCreator ), which contains the
+resourcemanager.projects.create permission. Learn how to grant
+roles .
+Note : If you don't plan to keep the
+resources that you create in this procedure, create a project instead of
+selecting an existing project. After you finish these steps, you can
+delete the project, removing all resources associated with the project.
+Go to project selector
+Enable the Agent Platform API.
+Roles required to enable APIs
+To enable APIs, you need the serviceusage.services.enable permission. If you
+created the project, then you likely already have this permission through the
+Owner role ( roles/owner ). Otherwise, you can get this permission through the
+Service Usage Admin role ( roles/serviceusage.serviceUsageAdmin ).
+Learn how to grant roles .
+Enable the API
+Set up authentication for your environment.
+Select the tab for how you plan to use the samples on this page:
+Console
+When you use the Google Cloud console to access Google Cloud services and
+APIs, you don't need to set up authentication.
+REST
+To use the REST API samples on this page in a local development environment, you use the
+credentials you provide to the gcloud CLI.
+Install the Google Cloud CLI.
+If you're using an external identity provider (IdP), you must first
+sign in to the gcloud CLI with your federated identity .
+For more information, see
+Authenticate for using REST
+in the Google Cloud authentication documentation.
+Use Gemini Omni to generate videos from an image
+REST
+For more information about using the Gemini Omni API, see
+Interactions API .
+Video generation can take over a minute to complete. To generate a video to
+download immediately after completion, use a synchronous request. To generate a
+video that can be downloaded later, send an asynchronous request by setting the
+background parameter to true . Asynchronous interactions are retained for up
+to 14 days.
+Synchronous request
+Before using any of the request data,
+make the following replacements:
+PROJECT_ID : A string
+representing your Google Cloud project ID.
+MODEL_ID : A string
+respresenting the model ID to use. The following are accepted values:
+"gemini-omni-flash-preview"
+TEXT_PROMPT : The
+text prompt used to guide video generation.
+CLOUD_STORAGE_INPUT_URI :
+A string representing the Cloud Storage bucket that contains the input
+media. For example: "gs://video-bucket/input/" .
+CLOUD_STORAGE_OUTPUT_URI :
+Optional: A string representing the Cloud Storage bucket to store the
+output videos. If not provided, video bytes are returned in the response.
+For example: "gs://video-bucket/output/" .
+ASPECT_RATIO :
+Optional: A string representing the expected aspect ratio of the output
+video. If not provided, the aspect ratio is inferred from the prompt.
+The following are accepted values:
+"16:9"
+"9:16"
+DURATION : A string
+representing the length of the generated video files. Allowed strings are
+integers between 3 and 10 , followed by "s" for
+seconds. For example, "10s "
+HTTP method and URL:
+POST https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions
+Request JSON body:
+{
+"model": " MODEL_ID ",
+"input": [
+{
+"type": "text",
+"text": " TEXT_PROMPT "
+},
+{
+"type": "image",
+"uri": " CLOUD_STORAGE_INPUT_URI ",
+"mime_type": "image/png"
+}
+],
+"response_format": [
+{
+"type": "video",
+"delivery": "uri",
+"gcs_uri": " CLOUD_STORAGE_OUTPUT_URI ",
+"aspect_ratio": " ASPECT_RATIO ",
+"duration": " DURATION "
+}
+],
+"generation_config": {
+"video_config": {
+"task": "image_to_video"
+}
+}
+}
+To send your request, choose one of these options:
+curl
+Save the request body in a file named request.json ,
+and execute the following command:
+curl -X POST \
+-H "Authorization: Bearer TOKEN " \
+-H "Content-Type: application/json; charset=utf-8" \
+-d @request.json \
+"https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions"
+PowerShell
+Save the request body in a file named request.json ,
+and execute the following command:
+$headers = @{ "Authorization" = "Bearer TOKEN " }
+Invoke-WebRequest `
+-Method POST `
+-Headers $headers `
+-ContentType: "application/json; charset=utf-8" `
+-InFile request.json `
+-Uri "https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions" | Select-Object -Expand Content
+The response contains an interaction which includes the model thoughts and an
+output video.
+{
+"id":"INTERACTION_ID",
+"model":"gemini-omni-flash-preview",
+"status":"completed",
+"usage":{
+"total_tokens":479,
+"total_input_tokens":26,
+"input_tokens_by_modality":[
+{
+"modality":"text",
+"tokens":26
+},
+{
+"modality":"image",
+"tokens":124
+}
+],
+"output_tokens_by_modality": [
+{
+"modality": "video",
+"tokens": 28832
+}
+],
+"total_output_tokens":28832,
+"total_thought_tokens":453
+},
+"steps":[
+{
+"type":"thought",
+"summary":[
+{
+"type":"text",
+"text":"MODEL THOUGHTS"
+}
+],
+},
+{
+"type":"model_output",
+"content":[
+{
+"type":"video",
+"uri":"gs://some/output_path/123.mp4",
+"mime_type":"video/mp4"
+}
+]
+}
+],
+"object":"interaction"
+"role":"model",
+"created":"2026-05-29T02:17:56Z",
+"updated":"2026-05-29T02:17:56Z",
+}
+Asynchronous request
+Before using any of the request data,
+make the following replacements:
+PROJECT_ID : A string
+representing your Google Cloud project ID.
+MODEL_ID : A string
+respresenting the model ID to use. The following are accepted values:
+"gemini-omni-flash-preview"
+TEXT_PROMPT : The
+text prompt used to guide video generation.
+CLOUD_STORAGE_INPUT_URI :
+A string representing the Cloud Storage bucket that contains the input
+media. For example: "gs://video-bucket/input/" .
+CLOUD_STORAGE_OUTPUT_URI :
+Optional: A string representing the Cloud Storage bucket to store the
+output videos. If not provided, video bytes are returned in the response.
+For example: "gs://video-bucket/output/" .
+ASPECT_RATIO :
+Optional: A string representing the expected aspect ratio of the output
+video. If not provided, the aspect ratio is inferred from the prompt.
+The following are accepted values:
+"16:9"
+"9:16"
+DURATION : A string
+representing the length of the generated video files. Allowed strings are
+integers between 3 and 10 , followed by "s" for
+seconds. For example, "10s "
+HTTP method and URL:
+POST https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions
+Request JSON body:
+{
+"model": " MODEL_ID ",
+"input": [
+{
+"background": true,
+"type": "text",
+"text": " TEXT_PROMPT "
+},
+{
+"type": "image",
+"uri": " CLOUD_STORAGE_INPUT_URI ",
+"mime_type": "image/png"
+}
+],
+"response_format": [
+{
+"type": "video",
+"delivery": "uri",
+"gcs_uri": " CLOUD_STORAGE_OUTPUT_URI ",
+"aspect_ratio": " ASPECT_RATIO ",
+"duration": " DURATION "
+}
+],
+"generation_config": {
+"video_config": {
+"task": "image_to_video"
+}
+}
+}
+To send your request, choose one of these options:
+curl
+Save the request body in a file named request.json ,
+and execute the following command:
+curl -X POST \
+-H "Authorization: Bearer TOKEN " \
+-H "Content-Type: application/json; charset=utf-8" \
+-d @request.json \
+"https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions"
+PowerShell
+Save the request body in a file named request.json ,
+and execute the following command:
+$headers = @{ "Authorization" = "Bearer TOKEN " }
+Invoke-WebRequest `
+-Method POST `
+-Headers $headers `
+-ContentType: "application/json; charset=utf-8" `
+-InFile request.json `
+-Uri "https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions" | Select-Object -Expand Content
+The response contains an interaction ID, which you'll use to get the video you
+generated.
+{
+"id":" INTERACTION_ID ",
+"status":"in_progress",
+"object":"interaction"
+}
+Later, use the INTERACTION_ID to get the generated video:
+Before using any of the request data,
+make the following replacements:
+PROJECT_ID : A string
+representing your Google Cloud project ID.
+INTERACTION_ID :
+The interaction ID from the asynchronous request.
+HTTP method and URL:
+POST https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions/ INTERACTION_ID
+To send your request, choose one of these options:
+curl
+Execute the following command:
+curl -X POST \
+-H "Authorization: Bearer TOKEN " \
+-H "Content-Type: application/json; charset=utf-8" \
+-d "" \
+"https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions/ INTERACTION_ID "
+PowerShell
+Execute the following command:
+$headers = @{ "Authorization" = "Bearer TOKEN " }
+Invoke-WebRequest `
+-Method POST `
+-Headers $headers `
+-Uri "https://aiplatform.googleapis.com/v1beta1/projects/ PROJECT_ID /locations/global/interactions/ INTERACTION_ID " | Select-Object -Expand Content
+The response is in a format similar to the following:
+{
+"id":"INTERACTION_ID",
+"model":"gemini-omni-flash-preview",
+"status":"completed",
+"usage":{
+"total_tokens":479,
+"total_input_tokens":26,
+"input_tokens_by_modality":[
+{
+"modality":"text",
+"tokens":26
+},
+{
+"modality":"image",
+"tokens":124
+}
+],
+"output_tokens_by_modality": [
+{
+"modality": "video",
+"tokens": 28832
+}
+],
+"total_output_tokens":28832,
+"total_thought_tokens":453
+},
+"steps":[
+{
+"type": "user_input",
+"content": [
+{
+"type": "text",
+"text": "5 second, 9:16 video. Use the image as the first frame."
+},
+{
+"type": "image",
+"uri": "gs://some/path",
+"mime_type": "image/png"
+}
+]
+},
+{
+"type":"thought"
+"summary":[
+{
+"type":"text",
+"text":"MODEL THOUGHTS"
+}
+],
+},
+{
+"type":"model_output",
+"content":[
+{
+"type":"video",
+"data":"VIDEO DATA",
+"mime_type":"video/mp4"
+}
+]
+}
+],
+"object":"interaction"
+"role":"model",
+"created":"2026-05-29T02:17:56Z",
+"updated":"2026-05-29T02:17:56Z",
+}
+Use Veo to generate videos from an image
+Sample input
+Sample output
+Input image 1
+Text prompt: the elephant moves around naturally
+1 Image generated from the prompt: A Crochet
+elephant in intricate patterns walking on the savanna
+You can generate novel videos using only an image as an input, or and image and
+descriptive text as the inputs. The following samples show you basic
+instructions to generate videos from image and text.
+Console
+In the Google Cloud console, go to the Agent Platform > Media Studio
+page.
+Media Studio
+Click Video .
+In the Task menu, select Image-to-video .
+From the Model menu, select a model from the displayed options.
+In the Prompt box, enter a text prompt that describes the videos to
+generate.
+In the Input images section, click Start to upload an image for the
+first frame.
+Optional: click End to upload an image for the last frame.
+Optional: Adjust the following Parameters :
+Aspect ratio : choose either 16:9 or 9:16 .
+Number of results : adjust the slider or enter a value between 1
+and 4 .
+Video length : select a video length from the menu.
+Output directory : click Browse to create or select a
+Cloud Storage bucket to store the generated
+files.
+Click Run .
+Python
+Install
+pip install --upgrade google-genai
+To learn more, see the
+SDK reference documentation .
+Set environment variables to use the Google Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export GOOGLE_CLOUD_PROJECT = GOOGLE_CLOUD_PROJECT
+export GOOGLE_CLOUD_LOCATION = global
+export GOOGLE_GENAI_USE_ENTERPRISE = True
+import time
+from google import genai
+from google.genai.types import GenerateVideosConfig , Image
+client = genai . Client ()
+# TODO(developer): Update and un-comment below line
+# output_gcs_uri = "gs://your-bucket/your-prefix"
+operation = client . models . generate_videos (
+model = "veo-3.1-generate-001" ,
+prompt = "Extreme close-up of a cluster of vibrant wildflowers swaying gently in a sun-drenched meadow." ,
+image = Image (
+gcs_uri = "gs://cloud-samples-data/generative-ai/image/flowers.png" ,
+mime_type = "image/png" ,
+),
+config = GenerateVideosConfig (
+aspect_ratio = "16:9" ,
+output_gcs_uri = output_gcs_uri ,
+),
+)
+while not operation . done :
+time . sleep ( 15 )
+operation = client . operations . get ( operation )
+print ( operation )
+if operation . response :
+print ( operation . result . generated_videos [ 0 ] . video . uri )
+# Example response:
+# gs://your-bucket/your-prefix
+Go
+Learn how to install or update the Go .
+To learn more, see the
+SDK reference documentation .
+Set environment variables to use the Google Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export GOOGLE_CLOUD_PROJECT = GOOGLE_CLOUD_PROJECT
+export GOOGLE_CLOUD_LOCATION = global
+export GOOGLE_GENAI_USE_ENTERPRISE = True
+import (
+"context"
+"fmt"
+"io"
+"time"
+"google.golang.org/genai"
+)
+// generateVideoFromImage shows how to gen video from img.
+func generateVideoFromImage ( w io . Writer , outputGCSURI string ) error {
+// outputGCSURI = "gs://your-bucket/your-prefix"
+ctx := context . Background ()
+client , err := genai . NewClient ( ctx , & genai . ClientConfig {
+HTTPOptions : genai . HTTPOptions { APIVersion : "v1" },
+})
+if err != nil {
+return fmt . Errorf ( "failed to create genai client: %w" , err )
+}
+image := & genai . Image {
+GCSURI : "gs://cloud-samples-data/generative-ai/image/flowers.png" ,
+MIMEType : "image/png" ,
+}
+config := & genai . GenerateVideosConfig {
+AspectRatio : "16:9" ,
+OutputGCSURI : outputGCSURI ,
+}
+modelName := "veo-3.0-generate-preview"
+prompt := "Extreme close-up of a cluster of vibrant wildflowers swaying gently in a sun-drenched meadow."
+operation , err := client . Models . GenerateVideos ( ctx , modelName , prompt , image , config )
+if err != nil {
+return fmt . Errorf ( "failed to start video generation: %w" , err )
+}
+// Polling until the operation is done
+for ! operation . Done {
+time . Sleep ( 15 * time . Second )
+operation , err = client . Operations . GetVideosOperation ( ctx , operation , nil )
+if err != nil {
+return fmt . Errorf ( "failed to get operation status: %w" , err )
+}
+}
+if operation . Response != nil && len ( operation . Response . GeneratedVideos ) > 0 {
+videoURI := operation . Response . GeneratedVideos [ 0 ] . Video . URI
+fmt . Fprintln ( w , videoURI )
+return nil
+}
+// Example response :
+// gs : // your - bucket / your - prefix / videoURI
+return fmt . Errorf ( "video generation failed or returned no results" )
+}
+Node.js
+Install
+npm install @google/genai
+To learn more, see the
+SDK reference documentation .
+Set environment variables to use the Google Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export GOOGLE_CLOUD_PROJECT = GOOGLE_CLOUD_PROJECT
+export GOOGLE_CLOUD_LOCATION = global
+export GOOGLE_GENAI_USE_ENTERPRISE = True
+const { GoogleGenAI } = require ( '@google/genai' );
+const GOOGLE_CLOUD_PROJECT = process . env . GOOGLE_CLOUD_PROJECT ;
+const GOOGLE_CLOUD_LOCATION = process . env . GOOGLE_CLOUD_LOCATION || 'global' ;
+async function generateVideo (
+outputGcsUri ,
+projectId = GOOGLE_CLOUD_PROJECT ,
+location = GOOGLE_CLOUD_LOCATION
+) {
+const client = new GoogleGenAI ({
+vertexai : true ,
+project : projectId ,
+location : location ,
+});
+let operation = await client . models . generateVideos ({
+model : 'veo-3.1-fast-generate-001' ,
+prompt :
+'Extreme close-up of a cluster of vibrant wildflowers swaying gently in a sun-drenched meadow' ,
+image : {
+gcsUri : 'gs://cloud-samples-data/generative-ai/image/flowers.png' ,
+mimeType : 'image/png' ,
+},
+config : {
+aspectRatio : '16:9' ,
+outputGcsUri : outputGcsUri ,
+},
+});
+while ( ! operation . done ) {
+await new Promise ( resolve = > setTimeout ( resolve , 15000 ));
+operation = await client . operations . get ({ operation : operation });
+console . log ( operation );
+}
+if ( operation . response ) {
+console . log ( operation . response . generatedVideos [ 0 ] . video . uri );
+}
+return operation ;
+}
+Java
+Learn how to install or update the Java .
+To learn more, see the
+SDK reference documentation .
+Set environment variables to use the Google Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export GOOGLE_CLOUD_PROJECT = GOOGLE_CLOUD_PROJECT
+export GOOGLE_CLOUD_LOCATION = global
+export GOOGLE_GENAI_USE_ENTERPRISE = True
+import com.google.genai.Client ;
+import com.google.genai.types.GenerateVideosConfig ;
+import com.google.genai.types.GenerateVideosOperation ;
+import com.google.genai.types.GenerateVideosResponse ;
+import com.google.genai.types.GeneratedVideo ;
+import com.google.genai.types.GetOperationConfig ;
+import com.google.genai.types.Image ;
+import com.google.genai.types.Video ;
+import java.util.concurrent.TimeUnit ;
+public class VideoGenWithImg {
+public static void main ( String [] args ) throws InterruptedException {
+// TODO ( developer ): Replace these variables before running the sample .
+String modelId = "veo-3.1-generate-001" ;
+String outputGcsUri = "gs://your-bucket/your-prefix" ;
+generateContent ( modelId , outputGcsUri );
+}
+// Generates a video with an image and a text prompt .
+public static String generateContent ( String modelId , String outputGcsUri )
+throws InterruptedException {
+// Client Initialization . Once created , it can be reused for multiple requests .
+try ( Client client = Client . builder () . location ( "global" ) . vertexAI ( true ) . build ()) {
+GenerateVideosOperation operation =
+client . models . generateVideos (
+modelId ,
+"Extreme close-up of a cluster of vibrant wildflowers"
++ " swaying gently in a sun-drenched meadow." ,
+Image . builder ()
+. gcsUri ( "gs://cloud-samples-data/generative-ai/image/flowers.png" )
+. mimeType ( "image/png" )
+. build (),
+GenerateVideosConfig . builder ()
+. aspectRatio ( "16:9" )
+. outputGcsUri ( outputGcsUri )
+. build ());
+while ( ! operation . done () . orElse ( false )) {
+TimeUnit . SECONDS . sleep ( 15 );
+operation =
+client . operations . getVideosOperation ( operation , GetOperationConfig . builder () . build ());
+}
+String generatedVideoUri =
+operation
+. response ()
+. flatMap ( GenerateVideosResponse :: generatedVideos )
+. flatMap ( videos - > videos . stream () . findFirst ())
+. flatMap ( GeneratedVideo :: video )
+. flatMap ( Video :: uri )
+. orElseThrow (
+() - >
+new IllegalStateException (
+"Could not get the URI from the generated video" ));
+System . out . println ( "Generated video URI: " + generatedVideoUri );
+// Example response :
+// Generated video URI : gs : // your - bucket / your - prefix / generated - video - 123. mp4
+return generatedVideoUri ;
+}
+}
+}
+REST
+For more information about the Veo API, see the following:
+Method:
+endpoints.predict
+VideoGenerationModelInstance
+VideoGenerationModelParams
+VideoGenerationModelResult
+Use the following command to send a video generation request. This
+request begins a long-running operation and stores output to a
+Cloud Storage bucket you specify.
+Before using any of the request data,
+make the following replacements:
+PROJECT_ID : A string
+representing your Google Cloud project ID.
+MODEL_ID : A string
+respresenting the model ID to use. The following are accepted values:
+Veo 2: veo-2.0-generate-001
+Veo 3: veo-3.0-generate-001
+Veo 3.1: veo-3.1-generate-001
+Veo 3.1: veo-3.1-fast-generate-001
+TEXT_PROMPT : The
+text prompt used to guide video generation.
+INPUT_IMAGE : A
+base64-encoded string that represents the input image. For best quality, we
+recommend that the input image's resolution be 720p (1280 x 720 pixels) or
+higher, and have an aspect ratio of either 16:9 or 9:16. Images of other
+aspect ratios or sizes may be resized or centrally cropped when the image is
+uploaded.
+MIME_TYPE : A string
+representing the MIME type of the input image. Only the images of the
+following MIME types are supported:
+"image/jpeg"
+"image/png"
+OUTPUT_STORAGE_URI : Optional: A
+string representing the Cloud Storage bucket to store the output videos.
+If not provided, video bytes are returned in the response. For example:
+"gs://video-bucket/output/" .
+RESIZE_MODE : A
+string that represents the resize mode to use. The following are accepted
+values:
+"crop" : Crop the video to fit the new size.
+"pad" : Pad the video to fit the new size.
+RESPONSE_COUNT :
+The number of video files to generate. The accepted range of values is
+1 - 4 .
+DURATION : An integer
+representing the length of the generated video files. The following are the
+accepted values for each model:
+Veo 2 models: 5 - 8 . The default is
+8 .
+Veo 3 models: 4 , 6 , or 8 . The
+default is 8 .
+Additional optional parameters
+Use the following optional variables depending on your use
+case. Add some or all of the following parameters in the "parameters": {} object.
+"parameters": {
+"aspectRatio": " ASPECT_RATIO ",
+"negativePrompt": " NEGATIVE_PROMPT ",
+"personGeneration": " PERSON_SAFETY_SETTING ",
+// "resolution": RESOLUTION , // Veo 3 models only
+"sampleCount": RESPONSE_COUNT ,
+"seed": SEED_NUMBER
+}
+ASPECT_RATIO :
+Optional: A string value that describes the aspect ratio of the generated
+videos. You can use the following values:
+"16:9" for landscape
+"9:16" for portrait
+The default value is "16:9"
+NEGATIVE_PROMPT : Optional: A string
+value that describes content that you want to prevent the model from
+generating.
+PERSON_SAFETY_SETTING :
+Optional: A string value that controls the safety setting for generating
+people or face generation. You can use the following values:
+"allow_adult" : Only allow generation of adult people and
+faces.
+"disallow" : Doesn't generate people or faces.
+The default value is "allow_adult" .
+RESOLUTION :
+Optional: A string value that controls the resolution of the generated
+video. Supported by Veo 3 models only. You can use the following
+values:
+"720p"
+"1080p"
+"4k" (Veo 3.1 Preview models only)
+The default value is "720p" .
+RESPONSE_COUNT :
+Optional. An integer value that describes the number of videos to generate.
+The accepted range of values is 1 - 4 .
+SEED_NUMBER :
+Optional. An uint32 value that the model uses to generate deterministic
+videos. Specifying a seed number with your request without changing other
+parameters guides the model to produce the same videos. The accepted range
+of values is 0 - 4294967295 .
+HTTP method and URL:
+POST https://us-central1-aiplatform.googleapis.com/v1/projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID :predictLongRunning
+Request JSON body:
+{
+"instances": [
+{
+"prompt": " TEXT_PROMPT ",
+"image": {
+"bytesBase64Encoded": " INPUT_IMAGE ",
+"mimeType": " MIME_TYPE "
+}
+}
+],
+"parameters": {
+"storageUri": " OUTPUT_STORAGE_URI ",
+"sampleCount": RESPONSE_COUNT
+"resizeMode": " RESIZE_MODE "
+}
+}
+To send your request, choose one of these options:
+curl
+Note:
+The following command assumes that you have logged in to
+the gcloud CLI with your user account by running
+gcloud init
+or
+gcloud auth login
+, or by using Cloud Shell ,
+which automatically logs you into the gcloud CLI
+.
+You can check the currently active account by running
+gcloud auth list .
+Save the request body in a file named request.json ,
+and execute the following command:
+curl -X POST \
+-H "Authorization: Bearer $(gcloud auth print-access-token)" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d @request.json \
+"https://us-central1-aiplatform.googleapis.com/v1/projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID :predictLongRunning"
+PowerShell
+Note:
+The following command assumes that you have logged in to
+the gcloud CLI with your user account by running
+gcloud init
+or
+gcloud auth login
+.
+You can check the currently active account by running
+gcloud auth list .
+Save the request body in a file named request.json ,
+and execute the following command:
+$cred = gcloud auth print-access-token
+$headers = @{ "Authorization" = "Bearer $cred" }
+Invoke-WebRequest `
+-Method POST `
+-Headers $headers `
+-ContentType: "application/json; charset=utf-8" `
+-InFile request.json `
+-Uri "https://us-central1-aiplatform.googleapis.com/v1/projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID :predictLongRunning" | Select-Object -Expand Content
+This request returns a full operation name with a unique operation ID. Use this
+full operation name to poll that status of the video generation request.
+{
+"name": " projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID /operations/ a1b07c8e-7b5a-4aba-bb34-3e1ccb8afcc8 "
+}
+Optional: Check the status of the video generation long-running
+operation.
+Before using any of the request data,
+make the following replacements:
+PROJECT_ID : Your Google Cloud project ID .
+MODEL_ID : The model ID to use.
+OPERATION_ID : The unique operation ID returned in the original generate video
+request.
+HTTP method and URL:
+POST https://us-central1-aiplatform.googleapis.com/v1/projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID :fetchPredictOperation
+Request JSON body:
+{
+"operationName": "projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID /operations/ OPERATION_ID "
+}
+To send your request, choose one of these options:
+curl
+Note:
+The following command assumes that you have logged in to
+the gcloud CLI with your user account by running
+gcloud init
+or
+gcloud auth login
+, or by using Cloud Shell ,
+which automatically logs you into the gcloud CLI
+.
+You can check the currently active account by running
+gcloud auth list .
+Save the request body in a file named request.json ,
+and execute the following command:
+curl -X POST \
+-H "Authorization: Bearer $(gcloud auth print-access-token)" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d @request.json \
+"https://us-central1-aiplatform.googleapis.com/v1/projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID :fetchPredictOperation"
+PowerShell
+Note:
+The following command assumes that you have logged in to
+the gcloud CLI with your user account by running
+gcloud init
+or
+gcloud auth login
+.
+You can check the currently active account by running
+gcloud auth list .
+Save the request body in a file named request.json ,
+and execute the following command:
+$cred = gcloud auth print-access-token
+$headers = @{ "Authorization" = "Bearer $cred" }
+Invoke-WebRequest `
+-Method POST `
+-Headers $headers `
+-ContentType: "application/json; charset=utf-8" `
+-InFile request.json `
+-Uri "https://us-central1-aiplatform.googleapis.com/v1/projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID :fetchPredictOperation" | Select-Object -Expand Content
+This request returns information about the operation, including if the operation is still running
+or is done.
+Response
+{
+"name": "projects/ PROJECT_ID /locations/us-central1/publishers/google/models/ MODEL_ID /operations/ OPERATION_ID ",
+"done": true,
+"response": {
+"raiMediaFilteredCount": 0,
+"@type": "type.googleapis.com/cloud.ai.large_models.vision.GenerateVideoResponse",
+"videos": [
+{
+"gcsUri":"gs://BUCKET_NAME/TIMESTAMPED_FOLDER/sample_0.mp4",
+"mimeType": "video/mp4"
+}
+]
+}
+}
+What's next
+Video generation prompt guide
+Best practices for generating videos
+Generate videos with from text prompts
+Generate videos with first and last video
+frames
+Extend videos
+Understand responsible AI and usage guidelines for video
+generation
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-08-13 UTC.
+Need to tell us more?
+[[["Easy to understand","easyToUnderstand","thumb-up"],["Solved my problem","solvedMyProblem","thumb-up"],["Other","otherUp","thumb-up"]],[["Hard to understand","hardToUnderstand","thumb-down"],["Incorrect information or sample code","incorrectInformationOrSampleCode","thumb-down"],["Missing the information/samples I need","missingTheInformationSamplesINeed","thumb-down"],["Other","otherDown","thumb-down"]],["Last updated 2026-08-13 UTC."],[],[]]
+Products and pricing
+See all products
+Google Cloud pricing
+Google Cloud Marketplace
+Contact sales
+Support
+Community forums
+Support
+Release Notes
+System status
+Resources
+GitHub
+Getting Started with Google Cloud
+Code samples
+Cloud Architecture Center
+Training and Certification
+Engage
+Blog
+Events
+X (Twitter)
+Google Cloud on YouTube
+Google Cloud Tech on YouTube
+About Google
+Privacy
+Site terms
+Google Cloud terms
+Manage cookies
+Our third decade of climate action: join us
+Sign up for the Google Cloud newsletter
+Subscribe
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+עברית
+中文 – 简体
+中文 – 繁體
+日本語
+한국어

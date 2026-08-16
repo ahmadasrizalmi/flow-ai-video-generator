@@ -1,0 +1,1477 @@
+
+Video generation prompt guide  |  Gemini Enterprise Agent Platform  |  Google Cloud Documentation
+Skip to main content
+Technology areas
+close
+AI and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Migration
+Networking
+Observability and monitoring
+Security
+Storage
+Cross-product tools
+close
+Access and resources management
+Costs and usage management
+Infrastructure as code
+SDK, languages, frameworks, and tools
+/
+Console
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+עברית
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
+Sign in
+Gemini Enterprise Agent Platform
+Start free
+Overview
+Studio
+Agents
+Models
+Notebooks
+Pricing
+Agent Platform
+Generative AI
+Engineering Blog
+Technology areas
+More
+Overview
+Studio
+Agents
+Models
+Notebooks
+Pricing
+More
+Engineering Blog
+Cross-product tools
+More
+Console
+Overview
+Beginner's guide
+Get started
+Get started with Agent Platform
+Develop Gemini API code with the Gen AI SDK
+Connect to the Knowledge MCP server
+Get an API key
+Configure application default credentials
+Migrate from Google AI Studio to Agent Platform
+Get started with Gemini 3
+Google GenAI libraries
+Generative AI cookbook
+Access Gemini models using OpenAI libraries
+Express mode
+Overview
+Console tutorial
+API tutorial
+Select models
+Model Garden
+Overview of Model Garden
+Use models in Model Garden
+Test model capabilities
+Google Models
+All Google models
+Gemini
+Migrate to the latest Gemini models
+Pro
+3.1 Pro
+3 Pro Image
+2.5 Pro
+Flash
+Gemini Omni Flash
+3.7 Flash
+3.6 Flash
+3.5 Flash
+3.1 Flash Image
+3 Flash
+2.5 Flash
+2.5 Flash Image
+2.5 Flash Live API
+Flash-Lite
+3.5 Flash-Lite
+3.1 Flash-Lite Image
+3.1 Flash-Lite
+2.5 Flash-Lite
+Embedding
+Gemini Embedding 2
+Robotics
+Gemini Robotics ER 2
+Overview
+Spatial reasoning
+Agentic capabilities
+Task orchestration
+Video understanding
+Veo
+Veo 2
+Veo 3
+Veo 3.1
+Lyria
+Lyria 2
+Lyria 3
+Virtual Try-On
+Model versions
+Partner Models
+Partner models overview
+Claude
+Overview
+Request predictions
+Quotas for Anthropic Claude models
+Batch predictions
+Structured outputs
+Prompt caching
+Count tokens
+Web search
+Safety classifiers
+Model details
+Claude Opus 5
+Claude Sonnet 5
+Claude Fable 5
+Claude Opus 4.8
+Claude Opus 4.7
+Claude Sonnet 4.6
+Claude Opus 4.6
+Claude Opus 4.5
+Claude Sonnet 4.5
+Claude Opus 4.1
+Claude Haiku 4.5
+Claude Opus 4
+Claude Sonnet 4
+Grok
+Overview
+Responses API
+Function calling
+Structured output
+Reasoning
+Model details
+Grok 4.1 Fast
+Grok 4.20
+Grok 4.3
+Mistral AI
+Overview
+Model details
+Mistral Medium 3
+Mistral OCR (25.05)
+Mistral Small 3.1 (25.03)
+Codestral 2
+Deploy partner models from Model Garden
+Partner model deprecations
+Open Models
+Overview
+AlphaGenome
+DeepSeek
+Overview
+DeepSeek-V3.2
+DeepSeek-V3.1
+DeepSeek-R1-0528
+DeepSeek-OCR
+Embedding (e5)
+Multilingual E5 Small
+Multilingual E5 Large
+Google Gemma
+Model-as-a-Service (MaaS)
+Gemma-4-26B-A4B-IT MaaS
+Use Gemma
+Tutorial: Deploy and inference Gemma (GPU)
+Tutorial: Deploy and inference Gemma (TPU)
+Kimi
+Overview
+Kimi K2 Thinking
+Llama
+Overview
+Request predictions
+Model details
+Llama 4 Maverick
+Llama 4 Scout
+Llama 3.3
+MiniMax
+Overview
+MiniMax M2
+OpenAI
+Overview
+OpenAI gpt-oss-120b
+OpenAI gpt-oss-20b
+Qwen
+Overview
+Qwen 3 Next Instruct 80B
+Qwen 3 Next Thinking 80B
+Qwen 3 Coder
+Qwen 3 235B
+ZAI.org
+Overview
+GLM 5
+GLM 4.7
+Managed open models (MaaS)
+Overview
+Use open models via Model as a Service (MaaS)
+Grant access to open models
+API
+Call MaaS APIs for open models
+Function calling
+Thinking
+Structured output
+Batch prediction
+Open model deprecations
+Self-deployed open models
+Overview
+Deploy open models
+Deploy open models from Model Garden
+Deploy open models with prebuilt containers
+Deploy open models with a custom vLLM container
+Deploy models with custom weights
+Use Hugging Face Models
+Tutorials
+Optimize model performance with advanced features in Model Garden
+Hex-LLM
+Comprehensive guide to vLLM for Text and Multimodal LLM Serving (GPU)
+vLLM TPU
+xDiT
+Deploy Llamma 3 models with SpotVM and Reservations
+Build
+Prompt design
+Introduction to prompting
+Prompting strategies
+Overview
+Give clear and specific instructions
+Use system instructions
+Include few-shot examples
+Add contextual information
+Structure prompts
+Compare prompts
+Instruct the model to explain its reasoning
+Break down complex tasks
+Experiment with parameter values
+Prompt iteration strategies
+Task-specific prompt guidance
+Design multimodal prompts
+Design chat prompts
+Capabilities
+Safety
+Overview
+Responsible AI
+System instructions for safety
+Configure content filters
+Gemini for safety filtering and content moderation
+Abuse monitoring
+Process blocked responses
+Content Credentials
+AI Content Detection API
+Text and code generation
+Text generation
+System instructions
+Structured output
+Content generation parameters
+Image generation
+Generate images with Gemini
+Generate images from video with Gemini
+Edit images with Gemini
+Gemini image generation best practices
+Generate Virtual Try-On images
+Gemini image generation limitations
+Responsible AI and usage for Gemini image generation
+Imagen documentation
+Video generation
+Overview
+Text to video
+First frame image to video
+First and last frames to video
+Ingredients to videos with image references
+Extend videos
+Insert objects
+Remove objects
+Prompt guide
+Veo best practices
+Turn off Veo's prompt rewriter
+Responsible AI for Veo
+Music generation
+Introduction to Lyria
+Generate music using Lyria
+Lyria prompt guide
+Media analysis
+Image understanding
+Video understanding
+Audio understanding
+Document understanding
+Bounding box detection
+URL context
+Thinking
+Overview
+Thought signatures
+Prompting guide
+Live API
+Overview
+Get started
+Get started using the Gen AI SDK
+Get started using WebSockets
+Get started using ADK
+Start and manage live sessions
+Send audio and video streams
+Configure language and voice
+Configure Gemini capabilities
+Asynchronous function calling
+Best practices with Live API
+Troubleshooting Live API
+Demo apps and resources
+Embeddings
+Overview
+Text embeddings
+Get text embeddings
+Choose an embeddings task type
+Get multimodal embeddings
+Get batch embeddings inferences
+Translation
+Generate speech from text
+Transcribe speech
+Model tools
+Code execution
+Computer use
+Function calling
+Grounding
+Overview
+Grounding with Google Search
+Grounding with Google Maps
+Grounding with Agent Search
+Grounding with your search API
+Grounding responses using RAG
+Grounding with Elasticsearch
+Grounding with Parallel web search
+Grounding with Exa web search
+Web Grounding for Enterprise
+Development tools
+Use AI-powered prompt writing tools
+Overview
+Optimize prompts
+Overview
+Zero-shot optimizer
+Few-shot optimizer
+Data-driven optimizer
+Use prompt templates
+Model tuning
+Introduction to tuning
+Tuning Gemini models
+Supervised fine-tuning
+About supervised fine-tuning
+Prepare your data
+Use supervised fine-tuning
+Supported modalities
+Text tuning
+Document tuning
+Image tuning
+Audio tuning
+Video tuning
+Tune function calling
+Reinforcement learning fine-tuning
+About reinforcement learning fine-tuning
+Quick start
+Reinforcement learning fine-tuning job
+Overview
+Tuning dataset
+Hyperparameters
+Reward functions
+Metrics and monitoring
+Continuous tuning
+Preference tuning
+About preference tuning
+Prepare your data
+Use preference tuning
+Use tuning checkpoints
+Use continuous tuning
+Tuning recommendations with LoRA and QLoRA
+Open models
+Supervised and distillation fine-tuning
+Embeddings models
+Tune text embeddings models
+Translation models
+About supervised fine-tuning
+Prepare your data
+Use supervised fine-tuning
+Migrate
+Call Agent Platform models using OpenAI libraries
+Overview
+Authenticate
+Examples
+Migrate from OpenAI SDK
+Evaluate
+Overview
+Tutorial: Perform evaluation using the console
+Perform evaluation using the GenAI Client in Agent Platform SDK
+Tutorial: Evaluate models using the GenAI Client in Agent Platform SDK
+Define your evaluation metrics
+Define your evaluation metrics
+Details for managed rubric-based metrics
+Prepare your evaluation dataset
+Run an evaluation
+View and interpret evaluation results
+Evaluate agents
+Alternative evaluation methods
+Evaluate using the evaluation module in Agent Platform SDK
+Tutorial: Perform evaluation using the evaluation module in Agent Platform SDK
+Define your evaluation metrics
+Prepare your evaluation dataset
+Run an evaluation
+Interpret evaluation results
+Templates for model-based metrics
+Evaluate agents
+Evaluate a judge model
+Configure a judge model
+Run AutoSxS pipeline
+Run a computation-based evaluation pipeline
+Deploy
+Consumption options overview
+Provisioned Throughput
+Provisioned Throughput overview
+Supported models
+Calculate Provisioned Throughput requirements
+Provisioned Throughput for Live API
+Provisioned Throughput for Gemini 3 (Nano Banana) models
+Provisioned Throughput for Veo 3 models
+Single Zone Provisioned Throughput
+Purchase Provisioned Throughput
+Use Provisioned Throughput
+PayGo
+Standard PayGo
+Priority PayGo
+Flex PayGo
+Batch inference
+Overview
+Create batch job from Cloud Storage
+Create batch job from BigQuery
+Resume an incomplete batch job
+Quotas and system limits
+Cache reused prompt context
+Overview
+Create a context cache
+Use a context cache
+Get context cache information
+Update a context cache
+Delete a context cache
+Context cache for fine-tuned Gemini models
+Deploy generative AI models
+Troubleshooting error code 429
+Retry strategy
+Administer
+Access control
+Networking
+Security controls
+Control access to Model Garden models
+Enable Data Access audit logs
+Save and share prompts
+Monitor models
+Monitor cost using custom metadata labels
+Request-response logging
+Secure a gen AI app by using IAP
+Overview
+Set up your project and source repository
+Create a Cloud Run service
+Create a load balancer
+Configure IAP
+Test your IAP-secured app
+Clean up your project
+Build your own model
+Overview
+MLOps on Agent Platform
+Interfaces for Agent Platform
+Agent Platform beginner's guides
+Train an AutoML model
+Train a custom model
+Get inferences from a custom model
+Train a model using Agent Platform and the Python SDK
+Introduction
+Prerequisites
+Create a notebook
+Create a dataset
+Create a training script
+Train a model
+Make an inference
+Integrated ML frameworks
+PyTorch
+TensorFlow
+Agent Platform for BigQuery users
+Glossary
+Get started
+Set up a project and a development environment
+Install the Agent Platform SDK for Python
+Authenticate to Agent Platform
+Choose a training method
+Try a tutorial
+Tutorials overview
+AutoML tutorials
+Hello image data
+Overview
+Set up your project and environment
+Create a dataset and import images
+Train an AutoML image classification model
+Evaluate and analyze model performance
+Deploy a model to an endpoint and make an inference
+Clean up your project
+Hello tabular data
+Overview
+Set up your project and environment
+Create a dataset and train an AutoML classification model
+Deploy a model and request an inference
+Clean up your project
+Custom training tutorials
+Train a custom tabular model
+Train a TensorFlow Keras image classification model
+Overview
+Set up your project and environment
+Train a custom image classification model
+Serve predictions from a custom image classification model
+Clean up your project
+Fine-tune an image classification model with custom data
+Use Agent Platform development tools
+Development tools overview
+Use the Agent Platform SDK
+Overview
+Introduction to the Agent Platform SDK for Python
+Agent Platform SDK for Python classes
+Agent Platform SDK classes overview
+Data classes
+Training classes
+Model classes
+Prediction classes
+Tracking classes
+Terraform support for Agent Platform
+Agent Platform Training
+Overview
+Agent Platform serverless training
+Overview of serverless training in Agent Platform
+Load and prepare data
+Data preparation overview
+Use Cloud Storage as a mounted file system
+Mount an NFS share for serverless training
+Use managed datasets
+Prepare training application
+Understand the serverless training service
+Prepare training code
+Use prebuilt containers
+Create a Python training application for a prebuilt container
+Prebuilt containers for serverless training
+Use custom containers
+Custom containers for serverless training
+Create a custom container
+Containerize and run training code locally
+Train on a persistent resource
+Overview
+Create persistent resource
+Run training jobs on a persistent resource
+Get persistent resource information
+Reboot a persistent resource
+Delete a persistent resource
+Configure training job
+Choose a custom training method
+Configure container settings for training
+Configure compute resources for training
+Use reservations with training
+Use Spot VMs with training
+Submit training job
+Create custom jobs
+Hyperparameter tuning
+Hyperparameter tuning overview
+Use hyperparameter tuning
+Create training pipelines
+Schedule jobs based on resource availability
+Use distributed training
+Training with Cloud TPU VMs
+Use private IP for custom training
+Use Private Service Connect interface for training (recommended)
+Monitor and debug
+Monitor and debug training using an interactive shell
+Profile model training performance
+Tutorial: Build a pipeline for continuous training
+Create custom organization policy constraints
+Vertex AI training clusters
+Overview
+Get started with training clusters
+Deployment considerations
+Compute resources
+Networking
+Storage
+Orchestration
+Create and manage clusters
+Create cluster
+Manage cluster
+Manage accounts and job scheduling on a cluster
+Cluster resiliency
+Feature guides
+Using Flex Start VMs with Slurm clusters
+Run workload on cluster
+Run prebuilt workloads
+Visualizing jobs with TensorBoard
+Manage training clusters using Slurm
+Ray on Agent Platform
+Ray on Agent Platform overview
+Set up for Ray on Agent Platform
+Create a Ray cluster on Agent Platform
+Monitor Ray clusters on Agent Platform
+Scale a Ray cluster on Agent Platform
+Develop a Ray application on Agent Platform
+Run Spark on Ray cluster on Agent Platform
+Use Ray on Agent Platform with BigQuery
+Deploy a model and get inferences
+Delete a Ray cluster
+Perform Neural Architecture Search
+Overview
+Set up environment
+Beginner tutorials
+Best practices and workflow
+Proxy task design
+Optimize training speed for PyTorch
+Use prebuilt training containers and search spaces
+Optimize using Agent Platform Vizier
+Overview of Agent Platform Vizier
+Create Agent Platform Vizier studies
+AutoML model development
+AutoML training overview
+Image data
+Classification
+Prepare data
+Create dataset
+Train model
+Evaluate model
+Get predictions
+Interpret results
+Object detection
+Prepare data
+Create dataset
+Train model
+Evaluate model
+Get predictions
+Interpret results
+Encode image data using Base64
+Export an AutoML Edge model
+Tabular data
+Overview
+Introduction to tabular data
+Tabular Workflows
+Overview
+End-to-End AutoML
+Overview
+Train a model
+Get online inferences
+Get batch inferences
+Forecasting
+Overview
+Train a model
+Get online inferences
+Get batch inferences
+Pricing
+Service accounts
+Manage quotas
+Perform classification and regression with AutoML
+Overview
+Quickstart: AutoML Classification (Cloud Console)
+Prepare training data
+Create a dataset
+Train a model
+Evaluate model
+View model architecture
+Get online inferences
+Get batch inferences
+Export model
+Perform forecasting with AutoML
+Overview
+Prepare training data
+Create a dataset
+Train a model
+Evaluate model
+Get inferences
+Hierarchical forecasting
+Perform forecasting with ARIMA+
+Perform forecasting with Prophet
+Perform entity reconciliation
+Feature attributions for classification and regression
+Feature attributions for forecasting
+Data types and transformations for tabular AutoML data
+Training parameters for forecasting
+Data splits for tabular data
+Best practices for creating tabular training data
+Train an AutoML Edge model
+Using the Console
+Using the API
+Generative AI model development
+Overview
+Create and manage datasets
+Overview
+Data splits for AutoML models
+Create an annotation set
+Delete an annotation set
+Add labels (console)
+Export metadata and annotations from a dataset
+Manage image dataset versions (API only)
+Get inferences
+Overview
+Configure models for inference
+Export model artifacts for inference
+Prebuilt containers for inference
+Custom container requirements for inference
+Use a custom container for inference
+Use arbitrary custom routes
+Use the optimized TensorFlow runtime
+Serve inferences with NVIDIA Triton
+Custom inference routines
+Get online inferences
+Create an endpoint
+Choose an endpoint type
+Create a public endpoint
+Use dedicated public endpoints (recommended)
+Use dedicated private endpoints based on Private Service Connect (recommended)
+Use private services access endpoints
+Deploy a model to an endpoint
+Overview of model deployment
+Compute resources for inference
+Deploy a model by using the Google Cloud console
+Deploy a model by using the gcloud CLI or Agent Platform API
+Use autoscaling for inference
+Use a rolling deployment to replace a deployed model
+Undeploy a model and delete the endpoint
+Use Cloud TPUs for online inference
+Use reservations with online inference
+Use Flex-start VMs with inference
+Use Spot VMs with inference
+Get an online inference
+View online inference metrics
+View endpoint metrics
+View DCGM metrics
+View AI AutoMetrics
+Share resources across deployments
+Use online inference logging
+Get batch inferences
+Get batch inferences from a custom model
+Use reservations with batch inference
+Get batch prediction from a self-deployed Model Garden model
+Serve generative AI models
+Deploy generative AI models
+Serve Gemma open models using Cloud TPUs with Saxml
+Serve Llama 3 open models using multi-host Cloud TPUs with Saxml
+Serve a DeepSeek-V3 model using multi-host GPU deployment
+Custom organization policies
+Machine learning operations (MLOps)
+Manage features
+Feature management in Agent Platform
+Agent Platform Feature Store
+About Agent Platform Feature Store
+Set up features
+Prepare data source
+Create a feature group
+Create a feature
+Set up online serving
+Online serving types
+Create an online store instance
+Create a feature view instance
+Control access
+Control access to resources
+Sync online store
+Start a data sync
+List sync operations
+Update features in a feature view
+Serve features
+Serve features from online store
+Serve historical feature values
+Monitor
+Monitor features
+Manage feature resources
+List feature groups
+List features
+Update a feature group
+Update a feature
+Delete a feature group
+Delete a feature
+Manage online store resources
+List online stores
+List feature views
+Update an online store
+Update a feature view
+Delete an online store
+Delete a feature view
+Feature metadata
+Update labels
+Search for resources
+Search for resources
+Search for resource metadata in Data Catalog
+Manage embeddings
+Search using embeddings
+Notebook tutorials
+Agent Platform Feature Store tutorial notebooks
+Manage models
+Introduction to Agent Platform Model Registry
+Versioning in Model Registry
+Import models to Model Registry
+Copy models in Model Registry
+Delete a model
+Integrate with BigQuery ML
+Use model aliases
+Use model labels
+Evaluate models
+Model evaluation in Agent Platform
+Perform model evaluation in Agent Platform
+Model evaluation for fairness
+Introduction to model evaluation for fairness
+Data bias metrics for Agent Platform
+Model bias metrics for Agent Platform
+Orchestrate ML workflows using pipelines
+Introduction
+Interfaces
+Configure your project
+Build a pipeline
+Run a pipeline
+Use pipeline templates
+Create, upload, and use a pipeline template
+Use a prebuilt template from the Template Gallery
+Configure your pipeline
+Configure execution caching
+Configure failure policy
+Configure retries for a pipeline task
+Specify machine types for a pipeline step
+Request Google Cloud machine resources with Agent Platform Pipelines
+Configure Private Service Connect interface (recommended)
+Configure secrets with Secret Manager
+Configure a pipeline run on a persistent resource
+Schedule and trigger pipeline runs
+Schedule a pipeline run with scheduler API
+Trigger a pipeline run with Pub/Sub
+Cancel or delete pipeline runs
+Cancel pipeline runs
+Delete pipeline runs
+Rerun a pipeline
+Monitor pipeline execution
+View pipeline metrics
+View pipeline job logs
+Route logs to a Cloud Pub/Sub sink
+Configure email notifications
+Visualize results
+Visualize and analyze pipeline results
+Track the lineage of pipeline artifacts
+Output HTML and Markdown
+Resource labeling by Agent Platform Pipelines
+Understand pipeline run costs
+Migrate from Kubeflow Pipelines to Agent Platform Pipelines
+Use custom constraints
+Google Cloud Pipeline Components
+Quickstart
+Introduction to Google Cloud Pipeline Components
+Google Cloud Pipeline Component list
+Use Google Cloud Pipeline Components
+Build your own pipeline components
+Agent Platform Pipelines tutorials
+Tutorial notebooks
+Track and analyze your ML metadata
+Introduction to Vertex ML Metadata
+Data model and resources
+Configure your project's metadata store
+Use Vertex ML Metadata
+Track Vertex ML Metadata
+Analyze Vertex ML Metadata
+Manage Vertex ML Metadata
+System schemas
+Create and use custom schemas
+Use custom constraints with metadata stores
+Monitor model quality
+Introduction to Model Monitoring
+Model Monitoring v2
+Set up model monitoring
+Run monitoring jobs
+Manage model monitors
+Model Monitoring v1
+Provide schemas to Model Monitoring
+Monitor feature skew and drift
+Model Monitoring for batch predictions
+Track Experiments
+Introduction to Agent Platform Experiments
+Set up for Agent Platform Experiments
+Create an experiment
+Create and manage experiment runs
+Log data
+Autolog data to an experiment run
+Manually log data to an experiment run
+Log models to an experiment run
+Track executions and artifacts
+Add pipeline run to experiment
+Run training job with experiment tracking
+Compare and analyze runs
+Use Agent Platform TensorBoard
+Introduction to Agent Platform TensorBoard
+Set up Agent Platform TensorBoard
+Configure training script
+Use Agent Platform TensorBoard with custom training
+Use Agent Platform TensorBoard with Agent Platform Pipelines
+Manually log TensorBoard data
+Upload existing logs
+View Agent Platform TensorBoard
+Notebook tutorials
+Get started with Agent Platform Experiments
+Compare pipeline runs
+Model training
+Compare models
+Autologging
+Custom training autologging
+Track parameters and metrics for custom training
+Delete outdated Agent Platform TensorBoard experiments
+Agent Platform TensorBoard custom training with custom container
+Agent Platform TensorBoard custom training with prebuilt container
+Agent Platform TensorBoard hyperparameter tuning with HParams dashboard
+Profile model training performance using Cloud Profiler
+Profile model training performance using Cloud Profiler in custom training with prebuilt container
+Agent Platform TensorBoard integration with Agent Platform Pipelines
+Administer
+Access control
+Access control with IAM
+IAM permissions
+Set up a project for a team
+Control access to Agent Platform endpoints
+Use a custom service account
+Use customer-managed encryption keys
+Access Transparency
+Monitor Agent Platform resources
+Cloud Monitoring metrics
+Audit logging information
+Networking
+Networking access overview
+Accessing the Agent Platform API
+Accessing Agent Platform services through private services access
+Accessing Agent Platform services through PSC endpoints
+Accessing Agent Platform services through PSC interfaces
+Set up VPC Network Peering
+Set up connectivity to other networks
+Set up a Private Service Connect interface
+Tutorial: Access training pipelines privately from on-premises
+Tutorial: Access a Vector Search index privately from on-premises
+Tutorial: Access the Generative AI API from on-premises
+Tutorial: Access batch predictions privately from on-premises
+Tutorial: Create a Agent Platform Workbench instance in a VPC network
+Security
+VPC Service Controls
+Allow public endpoint access to protected resources from outside a perimeter
+Allow multicloud access to protected resources from outside a perimeter
+Allow access to protected resources from inside a perimeter
+Name resources
+Samples and tutorials
+Notebook tutorials
+Code samples
+Code samples for all products
+AI and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Migration
+Networking
+Observability and monitoring
+Security
+Storage
+Access and resources management
+Costs and usage management
+Infrastructure as code
+SDK, languages, frameworks, and tools
+Agent Platform
+Generative AI
+Home
+Documentation
+AI and ML
+Gemini Enterprise Agent Platform
+Models
+Send feedback
+Video generation prompt guide
+Stay organized with collections
+Save and categorize content based on your preferences.
+Gemini Omni Flash and Veo offer endless customization
+through textual prompts. This guide explains how to modify your prompts
+to produce different results and effects.
+For more information about best practices, see Best practices for
+Veo on Gemini Enterprise Agent Platform .
+Safety filters
+Gemini Omni Flash and Veo apply safety filters across
+Agent Platform to help ensure that generated videos and uploaded photos
+don't contain offensive content. For example, prompts that violate responsible
+AI guidelines are blocked.
+If you suspect abuse of Gemini Omni Flash or Veo, or
+if any generated output contains inappropriate material or inaccurate
+information, use the Report suspected abuse on Google Cloud
+form .
+Anatomy of a prompt
+When you use Gemini Omni Flash or Veo to generate
+videos, using the correct keywords and prompt structure helps the model to
+generate the content that you want. Breaking your idea down into key
+components is the most effective way to guide Gemini Omni Flash or
+Veo toward the outcome that you want.
+The following sections explain how to use key elements and keywords in your
+prompts to guide Gemini Omni Flash or Veo when
+generating videos.
+You don't need to use all elements in every prompt, but understanding how each
+element works can help you apply them effectively in your
+Gemini Omni Flash or Veo prompts.
+Subject
+The subject is the "who" or "what" that the action of your generated video
+revolves around. Specificity helps avoid generic outputs.
+The following are examples of subjects that you can use:
+People :
+Generic descriptors : man, woman, elderly person
+Specific professions : "a seasoned detective", "a joyful baker", "a
+futuristic astronaut"
+Historical figures
+Mythical beings : a "mischievous fairy", "a stoic knight"
+Animals or creatures :
+Specific breeds of animals : "a playful Golden Retriever puppy", "a
+majestic bald eagle", "a sleek black panther"
+Fantastical creatures : "a miniature dragon with iridescent scales",
+"a wise, ancient talking tree"
+Objects :
+Everyday items : "a vintage typewriter", "a steaming cup of coffee",
+"a worn leather-bound book"
+Vehicles : "a classic 1960s muscle car", "a futuristic hovercraft",
+"a weathered pirate ship"
+Abstract shapes : "glowing orbs", "crystalline structures"
+You can combine people, animals, objects, or any mix of them in the same video
+(for example, "A group of diverse friends laughing around a campfire while a
+curious fox watches from the shadows", "a busy marketplace scene with vendors
+and shoppers").
+Example : The following video and prompt demonstrate complex details with
+multiple subjects:
+"A hyper-realistic, cinematic portrait of a wise, androgynous shaman of
+indeterminate age. Their weathered skin is etched with intricate, bioluminescent
+circuit-like tattoos that pulse with a soft, cyan light. They are draped in
+ceremonial robes woven from dark moss and shimmering, metallic fiber-optic
+threads. In one hand, they hold a gnarled wooden staff entwined with glowing
+energy conduits and topped with a floating, crystalline artifact. Perched on
+their shoulder is a small, mechanical owl with holographic wings and camera-lens
+eyes that blink with a soft, red light. Their expression is serene and ancient,
+eyes holding a deep, knowing look"
+Action
+Actions describe the "verb" of your video, or what is happening. Action brings
+the subject to life, describes movements, interactions, and subtle expressions.
+The following are examples of actions that you can use:
+Basic movements : walking, running, jumping, flying,
+swimming, dancing, spinning, falling, standing still, sitting
+Interactions : talking, laughing, arguing, hugging, fighting, playing a
+game, cooking, building, writing, reading, observing
+Emotional expressions : smiling, frowning, surprise, concentrating
+deeply, appearing thoughtful, showing excitement, crying
+Subtle actions : a gentle breeze ruffling hair, leaves rustling, a subtle
+nod, fingers tapping impatiently, eyes blinking slowly
+Transformations or processes : a flower blooming in fast-motion, ice
+melting, a city skyline developing over time (however, keep clip length in
+mind for events that occur over a longer period)
+Example The following video and prompt demonstrate directing a story by
+sequencing actions and emotional changes:
+"A gloved hand carefully slices open the spine of an ancient, leather-bound book
+with a scalpel. The hand then delicately extracts a tiny, metallic data chip
+hidden within the binding. The character's eyes, previously focused and calm,
+widen in a flash of alarm as a floorboard creaks off-screen. They quickly palm
+the chip, their head snapping up to scan the dimly lit room, their body tense
+and listening for any other sound"
+Scene or context
+The scene or context describes the "where" and the "when" of your video. That
+is, the environment that grounds the subject and establishes the video's mood
+and atmosphere.
+The following are examples of scene or context that you can use:
+Location (interior) : a cozy living room with a crackling fireplace, a
+sterile futuristic laboratory, a cluttered artist's studio, a grand
+ballroom, a dusty attic
+Location (exterior) : a sun-drenched tropical beach, a misty ancient
+forest, a bustling futuristic cityscape at night, a serene mountain peak at
+dawn, a desolate alien planet
+Time of day : golden hour, midday sun, twilight, deep night, pre-dawn
+Weather : clear blue sky, overcast and gloomy, light drizzle, heavy
+thunderstorm with visible lightning, gentle snowfall, swirling fog
+Historical or fantastical period : a medieval castle courtyard, a roaring
+1920s jazz club, a cyberpunk alleyway, an enchanted forest glade
+Atmospheric details : floating dust motes in a sunbeam, shimmering heat
+haze, reflections on wet pavement, leaves scattered by the wind
+Example The following video demonstrates building an immersive world:
+"The scene is a rain-slicked, crumbling street in a forgotten city, shrouded in
+perpetual twilight. Giant, bioluminescent mushrooms have sprouted from the
+cracked asphalt, casting an eerie, pulsating green and purple glow onto the
+decaying facades of skeletal skyscrapers. A gentle, constant rain creates
+shimmering reflections in the puddles below, and the only sounds are the soft
+patter of rain and a low, otherworldly hum from the glowing fungi"
+Camera angles
+Camera angles define the shot's viewpoint, directly influencing how the audience
+perceives the subject.
+Important: Some advanced camera angles are not officially supported. The
+results and reliability may vary depending on the overall prompt and your
+specific use case.
+The following are examples of camera angles that you can use:
+Eye-level shot : offers a neutral, common perspective, as if viewed from
+human height. For example, "eye-level shot of a woman sipping tea."
+Low-angle shot : positions the camera below the subject, looking up,
+making the subject appear powerful or imposing. For example, "low-angle
+tracking shot of a superhero landing."
+High-angle shot : places the camera above the subject, looking down,
+which can make the subject seem small, vulnerable, or part of a larger
+pattern. For example, "high-angle shot of a child lost in a crowd."
+Bird's-eye view or top-down shot : a shot taken directly from above,
+offering a map-like perspective of the scene. For example, "bird's-eye view
+of a bustling city intersection."
+Worm's-eye view : a very low-angle shot looking straight up from the
+ground, emphasizing height and grandeur. For example, "worm's-eye view of
+towering skyscrapers."
+Dutch angle or canted angle : the camera is tilted to one side, creating
+a skewed horizon line, often used to convey unease, disorientation, or
+dynamism. For example, "dutch angle shot of a character running down a
+hallway."
+Close-up : frames the subject tightly, typically focusing on the face to
+emphasize emotions or a specific detail. For example, "close-up of a
+character's determined eyes."
+Extreme close-up : isolates a very small detail of the subject, such as
+an eye or a drop of water. For example, "extreme close-up of a drop of water
+landing on a leaf."
+Medium shot : shows the subject from approximately the waist up,
+balancing detail with some environmental context. Commonly used for
+dialogue. For example, "medium shot of two people conversing."
+Full shot or long shot : shows the entire subject from head to toe, with
+some of the surrounding environment visible. For example, "full shot of a
+dancer performing."
+Wide shot or establishing shot : shows the subject within their broad
+environment, often used to establish location and context at the beginning
+of a sequence. For example, "wide shot of a lone cabin in a snowy
+landscape."
+Over-the-shoulder shot : frames the shot from behind one person, looking
+over their shoulder at another person or object, common in conversations.
+For example, "over-the-shoulder shot during a tense negotiation."
+Point-of-view shot : shows the scene from the direct visual perspective
+of a character, as if the audience is seeing through their eyes. For
+example, "POV shot as someone rides a rollercoaster."
+Example : The following video and prompt demonstrate a bird's-eye view camera
+angle:
+"A bird's-eye view of a vast, intricate maze made of high green hedges. A lone
+figure in a red coat is visible, moving through the labyrinthine paths below"
+Example : The following video and prompt demonstrate an
+extreme close-up camera angle:
+"An extreme close-up of a single, glistening drop of rain as it lands on the
+petal of a vibrant red rose, causing the petal to tremble slightly"
+Camera movements
+The camera's movements help introduce dynamism into the shot, creating a more
+cinematic experience.
+The following are examples of camera movements that you can use:
+Static shot (or fixed) : the camera remains completely still, there is no
+movement. For example, "static shot of a serene landscape."
+Pan (left/right) : the camera rotates horizontally left or right from a
+fixed position. For example, "slow pan left across a city skyline at dusk."
+Tilt (up/down) : the camera rotates vertically up or down from a fixed
+position. For example, "tilt down from the character's shocked face to the
+revealing letter in their hands."
+Dolly (in/out) : the camera physically moves closer to the subject or
+further away. For example, "dolly out from the character to emphasize their
+isolation."
+Truck (left/right) : the camera physically moves horizontally (sideways)
+left or right, often parallel to the subject or scene. For example, "truck
+right, following a character as they walk along a busy sidewalk."
+Pedestal (up/down) : the camera physically moves vertically up or down
+while maintaining a level perspective. For example, "pedestal up to reveal
+the full height of an ancient, towering tree."
+Zoom (in/out) : the camera's lens changes its focal length to magnify or
+de-magnify the subject. This is different from a dolly, as the camera itself
+doesn't move. For example, "slow zoom in on a mysterious artifact on a
+table."
+Crane shot : the camera is mounted on a crane and moves vertically (up or
+down) or in sweeping arcs, often used for dramatic reveals or high-angle
+perspectives. For example, "crane shot revealing a vast medieval
+battlefield."
+Aerial shot or drone shot : a shot taken from a high altitude, typically
+using an aircraft or drone, often involving smooth, flying movements.
+"Sweeping aerial drone shot flying over a tropical island chain."
+Handheld or shaky cam : the camera is held by the operator, resulting in
+less stable, often jerky movements that can convey realism, immediacy, or
+unease. For example, "handheld camera shot during a chaotic marketplace
+chase."
+Whip pan : an extremely fast pan that blurs the image, often used as a
+transition or to convey rapid movement or disorientation. For example, "whip
+pan from one arguing character to another."
+Arc shot : the camera moves in a circular or semi-circular path around
+the subject. For example, "arc shot around a couple embracing in the rain."
+Example : The following video and prompt demonstrate a zoom-in
+camera movement:
+"A slow, dramatic zoom in on a mysterious, ancient compass lying on a dusty map.
+The camera starts wide, showing the map and a flickering candle, then smoothly
+zooms in until the intricate, glowing symbols on the compass face fill the
+entire frame"
+Example : The following video and prompt demonstrate an aerial drone camera
+shot:
+"Sweeping aerial drone shot flying over a tropical island chain"
+Lens and optical effects
+Lens and optical effects change how the camera "sees" the world. Using lens and
+optical effects helps add professional polish and stylistic flair.
+Important: Some advanced camera lenses are not officially supported. The
+results and reliability may vary depending on the overall prompt and your
+specific use case.
+The following are examples of lens and optical effects that you can use:
+Wide-angle lens : captures a broader field of view than a standard lens.
+It can exaggerate perspective, making foreground elements appear larger and
+creating a sense of grand scale or, at closer distances, distortion.
+For example, "wide-angle lens shot of a grand cathedral interior,
+emphasizing its soaring arches."
+Telephoto lens : narrows the field of view and compresses perspective,
+making distant subjects appear closer and often isolating the subject by
+creating a shallow depth of field. For example, "telephoto lens shot
+capturing a distant eagle in flight against a mountain range."
+Shallow depth of field : an optical effect where only a narrow
+plane of the image is in sharp focus, while the foreground or the background
+is blurred. The aesthetic quality of this blur is known as 'bokeh'. For
+example, "portrait of a man with a shallow depth of field, their face sharp
+against a softly blurred park background with beautiful bokeh."
+Deep depth of field : keeps most or all of the image, from foreground to
+background, in sharp focus. For example, "landscape scene with deep depth of
+field, showing sharp detail from the wildflowers in the immediate foreground
+to the distant mountains."
+Lens flare : an effect created when a bright light source directly
+strikes the camera lens, causing streaks, starbursts, or circles of light to
+appear in the image. Often used for dramatic or cinematic effect. For
+example, "cinematic lens flare as the sun dips below the horizon behind a
+silhouetted couple."
+Rack focus : the technique of shifting the focus of the lens from one
+subject or plane of depth to another within a single, continuous shot. For
+example, "rack focus from a character's thoughtful face in the foreground to
+a significant photograph on the wall behind them."
+Fisheye lens effect : an ultra-wide-angle lens that produces extreme
+barrel distortion, creating a circular or strongly convex, wide panoramic
+image. For example, "fisheye lens view from inside a car, capturing the
+driver and the entire curved dashboard and windscreen."
+Vertigo effect (dolly zoom) : a camera effect achieved by dollying the
+camera towards or away from a subject while simultaneously zooming the lens
+in the opposite direction. This keeps the subject roughly the same size in
+the frame, but the background perspective changes dramatically, often
+conveying disorientation or unease. For example, "vertigo effect (dolly
+zoom) on a character standing at the edge of a cliff, the background rushing
+away.
+Example : The following video and prompt demonstrate a shallow depth of field
+optical effect:
+A cinematic close-up portrait of a woman sitting in a café at night, with a very
+shallow depth of field. Her face is in sharp focus, while the city lights
+outside the window behind her are transformed into soft, beautiful bokeh circles
+Example : The following video and prompt demonstrates a rack focus shot
+effect:
+"A medium shot of a detective's hand in the foreground, holding a single, spent
+bullet casing. The camera then performs a slow rack focus, shifting from the
+casing to reveal the anxious face of a witness in the background, now in sharp
+focus"
+Visual style & aesthetics
+Visual style and aesthetics describe the overall artistic atmosphere for your
+video, and it's one of the most impactful elements for creating a unique style.
+This broad category can be broken down into four key components:
+Lighting
+Tone or mood
+Artistic style
+Ambiance
+Lighting
+Lighting effects change how the subject and surrounding areas are captured by
+the camera. Using lighting effects can help set a particular style.
+The following are examples of lighting effects that you can use:
+Natural light : "soft morning sunlight streaming through a window,"
+"overcast daylight", "moonlight"
+Artificial light : "warm glow of a fireplace", "flickering candlelight,"
+"harsh fluorescent office lighting", "pulsating neon signs"
+Cinematic lighting : "rembrandt lighting on a portrait", "film noir style
+with deep shadows and stark highlights", "high-key lighting for a bright,
+cheerful scene", "low-key lighting for a dark, mysterious mood"
+specific effects : "volumetric lighting creating visible light rays",
+"backlighting to create a silhouette", "golden hour glow", "dramatic side
+lighting"
+Tone or mood
+Tone and mood effects describe the atmospheric quality, or the overall feeling
+of the video.
+The following are examples of tone or mood effects that you can use:
+Happy/joyful : Bright, vibrant, cheerful, uplifting, whimsical.
+Sad/melancholy : Somber, muted colors, slow pace, poignant, wistful.
+Suspenseful/tense : Dark, shadowy, quick cuts (if implying edit), sense
+of unease, thrilling.
+Peaceful/serene : Calm, tranquil, soft, gentle, meditative.
+Epic/grandiose : Sweeping, majestic, dramatic, awe-inspiring.
+Futuristic/sci-fi : Sleek, metallic, neon, technological, dystopian,
+utopian.
+Vintage/retro : Sepia tone, grainy film, specific era aesthetics (For
+example, "1950s Americana", "1980s vaporwave").
+Romantic : Soft focus, warm colors, intimate.
+Horror : Dark, unsettling, eerie, gory (though be mindful of content
+filters).
+Artistic style
+You can describe an artistic style for the video to take inspiration from while
+generating your video.
+The following are examples of artistic style effects that you can use:
+Photorealistic : "ultra-realistic rendering", "shot on 8K camera"
+Cinematic : "cinematic film look", "shot on 35mm film", "anamorphic
+widescreen"
+Animation styles : "Japanese anime style", "classic Disney animation
+style," "Pixar-like 3D animation", "claymation style", "stop-motion
+animation", "cel-shaded animation"
+Art movements/artists : "in the style of Van Gogh", "surrealist
+painting," "Impressionistic", "Art Deco design", "Bauhaus aesthetic"
+Specific looks : "gritty graphic novel illustration", "watercolor
+painting coming to life", "charcoal sketch animation", "blueprint schematic
+style.
+Example : The following video and prompt demonstrates a Japanese anime
+animation style:
+"A dynamic scene in a vibrant Japanese anime style. A magical girl with silver
+hair and glowing blue eyes walks in a forest. The style features sharp lines,
+bright, saturated colors, and expressive"
+Example: The following video and prompt demonstrates a vintage artistic
+style:
+"A vintage 1920s street scene, sepia toned, film grain, with characters in
+period attire"
+Ambiance
+Ambiance describes the character of a place or environment that the video takes
+place in.
+The following are examples of ambiance effects that you can use:
+Color palettes : "monochromatic black and white", "vibrant and saturated
+tropical colors", "muted earthy tones", "cool blue and silver futuristic
+palette", "warm autumnal oranges and browns"
+Atmospheric effects : "thick fog rolling across a moor", "swirling desert
+sands", "gentle falling snow creating a soft blanket", "heat haze shimmering
+above asphalt", "magical glowing particles in the air", "subsurface
+scattering on a translucent object"
+Textural qualities : "rough-hewn stone walls", "smooth, polished chrome
+surfaces", "soft, velvety fabric", "dewdrops clinging to a spiderweb"
+Temporal elements
+Temporal elements affect the flow of time in a video, which you can use to
+highlight changes even in short clips.
+The following are examples of temporal elements that you can use:
+Pacing : "slow-motion", "fast-paced action", "time-lapse"
+Evolution (subtle for short clips) : "a flower bud slowly unfurling", "a
+candle burning down slightly", "dawn breaking, the sky gradually
+lightening"
+Rhythm : "pulsating light", "rhythmic movement"
+Example : The following video and prompt demonstrate an evolution temporal
+effect:
+"A close-up of a single red rose bud, its petals tightly closed. The camera
+remains static as the flower slowly and gracefully unfurls over the course of
+the shot, revealing its vibrant inner layers. The evolution is subtle, showing a
+clear but gradual change"
+Example : The following video and prompt demonstrate a time lapse
+temporal effect:
+"A time-lapse of a bustling city skyline as day transitions to night. The camera
+is static. Watch as the sun sets, casting long shadows, and the city lights
+begin to twinkle on, with streaks of car headlights moving along the streets
+below"
+Audio
+Audio prompts help guide the visuals of the video in relation to sound. Audio
+direction can powerfully shape the action, pacing, and mood of the video.
+Audio is supported by veo-3.0-generate-001 in
+Preview .
+Clearly specify if you want audio. We recommend that you use separate sentences
+in your prompt to describe the audio. The following are examples of common audio
+elements you can use:
+Sound effects : individual, distinct sounds that occur within the scene.
+For example, "the sound of a phone ringing", "water splashing in the
+background", "soft house sounds, the creak of a closet door, and a ticking
+clock."
+Ambient noise : the general background noise that makes a location feel
+real. For example, "the sounds of city traffic and distant sirens", "waves
+crashing on the shore", "the quiet hum of an office."
+Dialogue : spoken words from characters or a narrator. For example, "the
+man in the red hat says: Where is the rabbit?", "a voiceover with a polished
+British accent speaks in a serious, urgent tone", "two people discuss a
+movie."
+Example : The following video and prompt demonstrate using dialogue:
+"A medium shot in a dimly lit interrogation room. The seasoned detective says:
+Your story has holes. The nervous informant, sweating under a single bare bulb,
+replies: I'm telling you everything I know. The only other sounds are the slow,
+rhythmic ticking of a wall clock and the faint sound of rain against the window"
+Cinematic terms
+You can use cinematic terms for editing style and specific
+techniques. For example, "match cut", "jump cut", "establishing shot sequence",
+"montage", "split diopter effect."
+Example : The following video and prompt demonstrate using a jump cut
+technique:
+"A person sitting in the same position but wearing different outfits, with sharp
+jump cuts between each outfit change. The background should stay static and the
+person should reappear instantly in the new outfit, creating a fast-paced,
+rhythmic jump cut effect. The lighting and framing should remain consistent to
+emphasize the sudden changes"
+Negative prompts
+Negative prompts are a tool that helps specify the elements that you don't want
+generated in your video. When you use a negative prompt, you describe the
+elements that the model shouldn't include when generating the video.
+We recommend the following:
+Not recommended: using instructive
+language or words such as "no" or "don't". For example, avoid prompts such
+as "no walls" or "don't show walls".
+Recommended: Describe what you
+don't want to see. For example, "wall, frame", which means that you don't
+want a wall or a frame in the video.
+Prompt
+Generated output
+Generate a short, stylized animation of a large, solitary oak tree with
+leaves blowing vigorously in a strong wind. The tree should have a
+slightly exaggerated, whimsical form, with dynamic, flowing branches. The
+leaves should display a variety of autumn colors, swirling and dancing in
+the wind. The animation should feature a gentle, atmospheric soundtrack
+and use a warm, inviting color palette.
+Generate a short, stylized animation of a large, solitary oak tree with
+leaves blowing vigorously in a strong wind. The tree should have a
+slightly exaggerated, whimsical form, with dynamic, flowing branches.
+The leaves should display a variety of autumn colors, swirling and
+dancing in the wind. The animation should feature a gentle, atmospheric
+soundtrack and use a warm, inviting color palette.
+With negative prompt - urban background, man-made structures, dark,
+stormy, or threatening atmosphere.
+What's next
+Best practices for Veo on Gemini Enterprise Agent Platform
+Generate videos from text prompts
+Generate videos from an image
+Generate videos by using first and last video
+frames
+Extend Veo on Gemini Enterprise Agent Platform-generate videos
+Understand responsible AI and usage guidelines for
+Veo on Gemini Enterprise Agent Platform
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-08-13 UTC.
+Need to tell us more?
+[[["Easy to understand","easyToUnderstand","thumb-up"],["Solved my problem","solvedMyProblem","thumb-up"],["Other","otherUp","thumb-up"]],[["Hard to understand","hardToUnderstand","thumb-down"],["Incorrect information or sample code","incorrectInformationOrSampleCode","thumb-down"],["Missing the information/samples I need","missingTheInformationSamplesINeed","thumb-down"],["Other","otherDown","thumb-down"]],["Last updated 2026-08-13 UTC."],[],[]]
+Products and pricing
+See all products
+Google Cloud pricing
+Google Cloud Marketplace
+Contact sales
+Support
+Community forums
+Support
+Release Notes
+System status
+Resources
+GitHub
+Getting Started with Google Cloud
+Code samples
+Cloud Architecture Center
+Training and Certification
+Engage
+Blog
+Events
+X (Twitter)
+Google Cloud on YouTube
+Google Cloud Tech on YouTube
+About Google
+Privacy
+Site terms
+Google Cloud terms
+Manage cookies
+Our third decade of climate action: join us
+Sign up for the Google Cloud newsletter
+Subscribe
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+עברית
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
