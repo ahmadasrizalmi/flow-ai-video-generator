@@ -40,7 +40,14 @@
   });
   if (OUT.react.length > 40) OUT.react.length = 40;
 
-  console.log('%cOUT_JSON = %c' + JSON.stringify(OUT), 'font-weight:bold', 'color:#0a0');
-  console.log('FILE IMAGE?', OUT.fileInputs.some(f=>/image/.test(f.accept)), '| BTN?', OUT.uploadBtns.length||OUT.icons.length, '| REACT hook?', OUT.react.length);
+  // Output: cetak sebagai STRING (bukan objek), + juga copy ke clipboard
+  const jsonStr = JSON.stringify(OUT, null, 2);
+  console.log('%c===== COPY_JSON =====', 'font-weight:bold;font-size:14px');
+  console.log(jsonStr);
+  console.log('%c===== END JSON =====', 'font-weight:bold;font-size:14px');
+  try { copy(jsonStr); } catch (e) {}
+  console.log(OUT.fileInputs.some(f=>/image/.test(f.accept)) ? 'ADA input file image' : 'TIDAK ADA input file image');
+  console.log('Jumlah tombol upload (teks/icon):', OUT.uploadBtns.length + OUT.icons.length);
+  console.log('React drop/paste/change hook:', OUT.react.length);
   return OUT;
 })();
