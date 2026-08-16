@@ -372,6 +372,20 @@
             if (box) { box.focus(); return sendResponse({ ok: true, coords: getPromptCoords() }); }
             return sendResponse({ ok: false, error: 'prompt box tidak ditemukan' });
           }
+        case 'FLOW_POSITION_CURSOR_END':
+          {
+            // letakkan kursor di AKHIR konten (setelah gambar) tanpa menghapus apa pun
+            const box = getPromptBox();
+            if (!box) return sendResponse({ ok: false, error: 'prompt box tidak ditemukan' });
+            box.focus();
+            const sel = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(box);
+            range.collapse(false); // ujung akhir
+            sel.removeAllRanges();
+            sel.addRange(range);
+            return sendResponse({ ok: true });
+          }
         case 'FLOW_SET_PROMPT':
           return sendResponse(setPromptText(msg.text || ''));
         case 'FLOW_GET_PROMPT_COORDS':

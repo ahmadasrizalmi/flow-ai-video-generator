@@ -208,14 +208,18 @@ function saveTempFile(dataUrl, ext) {
 
 function sendToContent(type, data = {}) {
   return new Promise((resolve) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tabId = tabs[0] && tabs[0].id;
-      if (!tabId) return resolve({ ok: false, error: 'tidak ada tab aktif' });
+    const send = (tabId) => {
       chrome.tabs.sendMessage(tabId, { type, ...data }, (resp) => {
         const err = chrome.runtime.lastError;
         if (err) return resolve({ ok: false, error: err.message });
         resolve(resp || { ok: false, error: 'no response' });
       });
+    };
+    if (CDP_TARGET.tabId != null) return send(CDP_TARGET.tabId);
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabId = tabs[0] && tabs[0].id;
+      if (!tabId) return resolve({ ok: false, error: 'tidak ada tab aktif' });
+      send(tabId);
     });
   });
 }

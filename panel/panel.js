@@ -121,15 +121,20 @@ async function closeDetailIfOpen() {
   }
 }
 
-/** Set prompt via CDP trusted (Ctrl+A → Backspace → insertText). */
-async function setPromptTrusted(text) {
+/** Bersihkan isi prompt box (Ctrl+A + Backspace) — HANYA bila belum ada gambar. */
+async function clearPromptBox() {
   await sendToContent({ type: 'FLOW_SUBMIT_PREP' }); // fokus box
-  await sleep(400);
+  await sleep(300);
   await cdp('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'a', code: 'KeyA', modifiers: 2, windowsVirtualKeyCode: 65 });
   await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'a', code: 'KeyA', modifiers: 2, windowsVirtualKeyCode: 65 });
   await cdp('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Backspace', code: 'Backspace', windowsVirtualKeyCode: 8 });
   await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Backspace', code: 'Backspace', windowsVirtualKeyCode: 8 });
   await sleep(300);
+}
+
+/** Set prompt via CDP trusted (Ctrl+A → Backspace → insertText). */
+async function setPromptTrusted(text) {
+  await clearPromptBox();
   const r = await cdpType(text);
   if (!r.ok) {
     const fr = await sendToContent({ type: 'FLOW_SET_PROMPT', text });
@@ -140,6 +145,46 @@ async function setPromptTrusted(text) {
   const entered = st ? st.promptText : '';
   if (entered) log('  i Teks di kolom Flow: ' + entered.slice(0, 110) + (entered.length > 110 ? '…' : ''), 's');
   return entered.includes(text.slice(0, 20));
+}
+
+/**
+ * Set prompt BERSAMA image reference: paste gambar ke prompt box →
+ * verifikasi thumbnail muncul → kursor ke akhir (setelah gambar) → ketik
+ * prompt. Gambar TIDAK dihapus (tidak pakai Ctrl+A/Backspace setelah paste).
+ */
+async function setPromptWithImage(text) {
+  // 1. box harus kosong dulu (gambar belum ada di box → aman dihapus)
+  const st0 = await getFlowState();
+  if (st0 && st0.promptText) {
+    await clearPromptBox();
+    await sleep(400);
+  }
+  // 2. paste image + VERIFIKASI KERAS
+  const inj = await sendToBg({ type: 'INJ_IMAGE', img: S.image });
+  if (!inj.ok) {
+    log('  ✗ Image reference GAGAL di-attach ke prompt: ' + (inj.error || '?'), 'err');
+    return { ok: false, reason: 'image' };
+  }
+  if (!inj.verified) {
+    log('  ✗ Image ter-paste tapi THUMBNAIL TIDAK TERDETEKSI (' + inj.path + ') — referensi tidak dijamin.', 'err');
+    log('  → Hentikan batch. Coba paste gambar manual di kolom prompt Flow utk verifikasi.', 'err');
+    return { ok: false, reason: 'image-verify' };
+  }
+  log('  ✓ Image reference terpasang di prompt (' + inj.path + ', thumbnail muncul)', 'ok');
+  await sleep(800);
+  // 3. kursor ke akhir (setelah gambar) → ketik prompt (tidak menghapus gambar)
+  await sendToContent({ type: 'FLOW_POSITION_CURSOR_END' });
+  await sleep(200);
+  const r = await cdpType(text);
+  if (!r.ok) {
+    const fr = await sendToContent({ type: 'FLOW_SET_PROMPT', text });
+    if (!fr.ok) return { ok: false, reason: 'type' };
+  }
+  await sleep(500);
+  const st = await getFlowState();
+  const entered = st ? st.promptText : '';
+  if (entered) log('  i Teks di kolom Flow: ' + entered.slice(0, 110) + (entered.length > 110 ? '…' : ''), 's');
+  return { ok: entered.includes(text.slice(0, 20)) };
 }
 
 async function submitTrusted() {
@@ -547,15 +592,9 @@ async function onBatch() {
     await applyVideoRatio($('optRatio').value);
   }
 
-  // 4. inject image reference (sekali di awal batch)
-  if (S.image) {
-    log('Inject image reference…');
-    const inj = await sendToBg({ type: 'INJ_IMAGE', img: S.image });
-    log(inj.ok
-      ? '  ✓ Image terpasang (' + inj.path + (inj.verified ? ', thumbnail muncul' : ', verifikasi manual disarankan') + ')'
-      : '  ! Image gagal: ' + inj.error, inj.ok ? 'ok' : 'err');
-    await sleep(1500);
-  }
+  // 4. inject image TIDAK di sini — di-paste PER SHOT di runOneShot,
+  //    supaya gambar selalu ikut terkirim bersama tiap prompt (dan tidak
+  //    terhapus oleh Ctrl+A/Backspace).
 
   // 5. jalankan shot
   S.running = true; S.stopRequested = false; S.processed = 0; S.failed = 0;
@@ -612,9 +651,12 @@ async function runOneShot(shot) {
   const before = await getFlowState();
   ((before && before.videoTiles) || []).forEach((t) => S.knownVideoUuids.add(t.uuid));
 
-  // 2. set prompt trusted
-  const okSet = await setPromptTrusted(promptText);
-  if (!okSet) { log('  ✗ Gagal menulis prompt di kolom.', 'err'); return false; }
+  // 2. set prompt — dengan image reference (paste per shot, gambar ikut terkirim)
+  const okSet = S.image ? await setPromptWithImage(promptText) : await setPromptTrusted(promptText);
+  if (!okSet || !okSet.ok) {
+    log('  ✗ Gagal menulis prompt di kolom' + (okSet && okSet.reason === 'image' ? ' (image reference)' : '') + '.', 'err');
+    return false;
+  }
 
   // 3. submit
   const okSub = await submitTrusted();
