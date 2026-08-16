@@ -105,7 +105,7 @@ Output HARUS berupa JSON array (tanpa teks lain, tanpa markdown fence). Setiap e
   "speed": "normal / slow motion / timelapse / speed ramp",
   "effect": "efek / transisi / lens (mis. macro, shallow DOF, whip pan)",
   "fitur": "fitur produk yang ditonjolkan di shot ini (opsional)",
-  "prompt_flow": "SATU kalimat prompt final untuk Google Flow: fokus MOTION + KAMERA + AUDIO saja; JANGAN deskripsikan ulang subjek secara berlebihan (image reference sudah ada)"
+  "prompt_flow": "SATU-TIGA kalimat prompt final untuk Google Flow: MENCANTUMKAN deskripsi singkat subjek/aksi (berdiri sendiri walau tanpa image reference) + kamera + gerakan + audio"
 }
 
 ATURAN KESINAMBUNGAN (WAJIB dipatuhi):
@@ -132,7 +132,7 @@ function buildSystemPrompt(opts) {
     'Kamu adalah penulis naskah video pendek profesional untuk Google Flow (model Gemini Omni Flash / Veo),',
     'meniru gaya dokumen "Video_Prompt_Final.txt" (format: NARASI utuh ber-timestamp, lalu per shot: SHOT n + NARASI, VISUAL, Kamera, Speed, EFFECT, FITUR).',
     'Pola dari Video_Prompt_Final.txt: ELEMEN UTAMA SELALU DIULANG dengan sudut/aksi berbeda — mis. peta Indonesia muncul di shot 1, 4, 9, 13, 14; logo di shot 5, 17, 18; karakter utama di shot 2, 12, 16. Tiru pola ini: produk/subjek utama harus muncul di SEMUA shot.',
-    'Kamu memakai image reference: untuk prompt_flow, fokus pada motion, kamera, dan audio (jangan deskripsikan ulang subjek). Untuk field "visual", deskripsi subjek tetap ditulis lengkap dan konsisten.',
+    'Kamu memakai image reference: prompt_flow tetap MENCANTUMKAN deskripsi singkat subjek/aksi (jangan bergantung pada image reference — Flow mungkin tidak memakainya), plus kamera, gerakan, dan audio.',
     'Gunakan format output berikut:',
     PROMPT_STRUCTURE
   ];

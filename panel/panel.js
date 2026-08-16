@@ -562,7 +562,8 @@ async function onBatch() {
   setBadge('run');
   $('btnBatch').disabled = true;
   $('btnStop').disabled = false;
-  log('Memulai batch: ' + S.shots.length + ' video. Panel boleh tetap terbuka.', 'ok');
+  const modeLabel = $('optPromptMode').value === 'motion' ? 'ringkas motion-only' : 'deskriptif lengkap (visual+kamera+efek)';
+  log('Memulai batch: ' + S.shots.length + ' video. Mode prompt: ' + modeLabel + '. Panel boleh tetap terbuka.', 'ok');
 
   for (let i = 0; i < S.shots.length; i++) {
     if (S.stopRequested) break;
@@ -665,19 +666,22 @@ async function runOneShot(shot) {
 
 // ============ Prompt yang dikirim ke Flow ============
 /**
- * Motion-only (default): shot.prompt_flow — ringkas, cocok karena image
- * reference seharusnya sudah ter-attach di prompt (best practice).
- * Deskriptif lengkap: gabung visual + kamera + speed + effect + narasi,
- * kompensasi bila image reference tidak tersedia (text-to-video).
+ * Default = DESKRIPTIF LENGKAP (visual + kamera + speed + effect): semua
+ * detail DeepSeek dikirim ke Flow. Opsi motion-only hanya utk saat image
+ * reference benar-benar terpasang. Narasi tidak digabung — itu script VO.
  */
 function buildFlowPrompt(shot) {
-  if ($('optPromptMode').value !== 'full') {
+  if ($('optPromptMode').value === 'motion') {
     return String(shot.prompt_flow || '').trim();
   }
-  return [shot.visual, shot.kamera, shot.speed, shot.effect, shot.narasi]
-    .filter(Boolean)
-    .map((s) => String(s).trim())
-    .join('. ');
+  const parts = [
+    shot.visual, shot.kamera, shot.speed, shot.effect
+  ];
+  const pf = String(shot.prompt_flow || '').trim();
+  // kalau prompt_flow berisi info audio/aksi yang tidak ada di field lain,
+  // sertakan sebagai penutup (anti kehilangan info)
+  if (pf) parts.push(pf);
+  return parts.filter(Boolean).map((s) => String(s).trim()).join('. ');
 }
 
 // ============ Salin script format Video_Prompt_Final ============
